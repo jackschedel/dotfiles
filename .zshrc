@@ -113,7 +113,8 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias lg='lazygit'
 alias fuck='sudo "$BASH" -c "$(history -p !!)"'
-
+setopt noautomenu
+setopt nomenucomplete
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /home/jack/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
