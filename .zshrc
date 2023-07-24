@@ -46,6 +46,8 @@ zstyle ':omz:update' mode disabled  # disable automatic updates
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
+export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
+
 # Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
@@ -113,8 +115,6 @@ alias fuck='sudo "$BASH" -c "$(history -p !!)"'
 
 setopt noautomenu
 setopt nomenucomplete
-
-LS_COLORS+=':ow=01;33'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
