@@ -116,6 +116,8 @@ setopt nomenucomplete
 
 precmd() { print "" }
 
+LS_COLORS+=':ow=01;33'
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /home/jack/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
