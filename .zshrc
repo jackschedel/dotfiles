@@ -114,8 +114,6 @@ alias fuck='sudo "$BASH" -c "$(history -p !!)"'
 setopt noautomenu
 setopt nomenucomplete
 
-precmd() { print "" }
-
 LS_COLORS+=':ow=01;33'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
