@@ -4,6 +4,8 @@
 # Overrides:
 !.gitignore
 
+!.p10k.zsh
+
 !.config/
 .config/*
 
