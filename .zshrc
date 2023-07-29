@@ -25,6 +25,8 @@ typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN=~
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
+update-binfmts --disable cli
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 

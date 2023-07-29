@@ -19,6 +19,7 @@ M.disabled = {
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
+    ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },
     ["<leader>v"] = {
       function()
         vim.cmd "vnew"
