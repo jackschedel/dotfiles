@@ -25,8 +25,6 @@ typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN=~
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-update-binfmts --disable cli
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -114,6 +112,15 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias lg='lazygit'
 alias fuck='sudo "$BASH" -c "$(history -p !!)"'
+
+# To run on system restart to fix run-interpreter errors
+alias wsl='sudo update-binfmts --disable cli'
+
+alias l='colorls --sd'
+alias la='colorls -Al --sd'
+alias ls='colorls -A --gs --sd'
+alias ld='colorls -At --gs --sd'
+alias lf='colorls -t --tree --sd'
 
 setopt noautomenu
 setopt nomenucomplete
