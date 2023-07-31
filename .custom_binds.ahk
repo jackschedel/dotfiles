@@ -30,14 +30,12 @@ CapsLock::
    Send "{PgDn}"
 }
 
-
-; markdown code block paste
 !V::
 {
-    Send "``````"
-    Send "+{Enter}"
-    Send "^{v}"
-    Send "+{Enter}"
-    Send "``````"
+  Send "``````"
+  Send "+{Enter}"
+  Send "^{v}"
+  Send "+{Enter}"
+  Send "``````"
+  Send "+{Enter}"
 }
-
