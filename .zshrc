@@ -114,8 +114,11 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias lg='lazygit'
-alias fuck='sudo "$BASH" -c "$(history -p !!)"'
+alias fuck='sudo $(fc -ln -1)'
 alias v='nvim'
+alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
+alias vconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
+alias p='i=1; while [[ -e /tmp/notepad$i.py ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
 
 # To run on system restart to fix run-interpreter errors
 alias wsl='sudo update-binfmts --disable cli'
@@ -128,6 +131,7 @@ alias lf='colorls -t --tree --sd'
 
 setopt noautomenu
 setopt nomenucomplete
+setopt banghist
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
