@@ -1,4 +1,4 @@
----@type MappingsTable
+---@type ChadrcConfig
 local M = {}
 
 M.disabled = {
@@ -21,25 +21,41 @@ M.general = {
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
 	},
-  i = {
+	i = {
 		["<Up>"] = {
 			function()
-				require("cmp").select_prev_item()
+				if require("cmp").visible() then
+					require("cmp").select_prev_item()
+				else
+					local cur = vim.api.nvim_win_get_cursor(0)
+					vim.api.nvim_win_set_cursor(0, { cur[1] - 1, cur[2] })
+				end
 			end,
 			"Previous suggestion",
 		},
 		["<Down>"] = {
 			function()
-				require("cmp").select_next_item()
+				if require("cmp").visible() then
+					require("cmp").select_next_item()
+				else
+					local cur = vim.api.nvim_win_get_cursor(0)
+					vim.api.nvim_win_set_cursor(0, { cur[1] + 1, cur[2] })
+				end
 			end,
 			"Next suggestion",
 		},
-  },
+	},
 	n = {
 		[";"] = { ":", "enter command mode", opts = { nowait = true } },
 		["<Tab>"] = { "V>ll", "Indent line" },
 		["<S-Tab>"] = { "V<hh", "De-indent line" },
 		["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },
+		["<leader>le"] = {
+			function()
+				vim.diagnostic.open_float({ border = "rounded" })
+			end,
+			"Floating diagnostic",
+		},
 		["<leader>ta"] = {
 			function()
 				vim.opt.tabstop = 2
