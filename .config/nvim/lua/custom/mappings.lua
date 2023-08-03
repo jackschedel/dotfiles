@@ -17,8 +17,14 @@ M.disabled = {
 }
 
 M.general = {
+  v = {
+    ["<Tab>"] = { ">llgv", "Indent line" },
+    ["<S-Tab>"] = { "<hhgv", "De-indent line" },
+  },
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
+    ["<Tab>"] = { "V>ll", "Indent line" },
+    ["<S-Tab>"] = { "V<hh", "De-indent line" },
     ["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },
     ["<leader>v"] = {
       function()

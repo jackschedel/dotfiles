@@ -117,8 +117,10 @@ alias lg='lazygit'
 alias fuck='sudo $(fc -ln -1)'
 alias v='nvim'
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
-alias vconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
-alias p='i=1; while [[ -e /tmp/notepad$i.py ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
+alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
+alias pynp='i=1; while [[ -e /tmp/notepad$i.py ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
+alias p=pynp
+alias c=clear
 
 # To run on system restart to fix run-interpreter errors
 alias wsl='sudo update-binfmts --disable cli'
