@@ -6,3 +6,5 @@
 --   command = "tabdo wincmd =",
 -- })
 vim.opt.relativenumber = true
+vim.cmd("set mouse=")
+vim.cmd("autocmd InsertEnter * set nohlsearch")

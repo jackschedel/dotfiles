@@ -5,6 +5,7 @@
 !.gitignore
 
 !.p10k.zsh
+!.wezterm.lua
 
 !.config/
 .config/*

@@ -119,6 +119,7 @@ alias v='nvim'
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
 alias pynp='i=1; while [[ -e /tmp/notepad$i.py ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
+alias wezconf='cd ~/.config/wezterm/ && nvim wezterm.lua'
 alias p=pynp
 alias c=clear
 
@@ -127,7 +128,7 @@ alias wsl='sudo update-binfmts --disable cli'
 
 alias l='colorls --sd'
 alias la='colorls -Al --sd'
-alias ls='colorls -A --gs --sd'
+alias ls='colorls -A --sd'
 alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
 
