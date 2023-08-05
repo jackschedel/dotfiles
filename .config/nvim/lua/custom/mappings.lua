@@ -18,6 +18,7 @@ M.disabled = {
 
 M.general = {
 	v = {
+		[";"] = { ":", "enter command mode", opts = { nowait = true } },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
 	},
@@ -48,6 +49,24 @@ M.general = {
 	n = {
 		[";"] = { ":", "enter command mode", opts = { nowait = true } },
 		["<Tab>"] = { "V>ll", "Indent line" },
+		["<CR>"] = {
+			function()
+				local row = vim.api.nvim_win_get_cursor(0)[1]
+				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
+			end,
+			"Add spacing below",
+		},
+		["<leader><CR>"] = {
+			function()
+				local row = vim.api.nvim_win_get_cursor(0)[1]
+				if row == 1 then
+					vim.api.nvim_buf_set_lines(0, 0, 0, false, { "" })
+				elseif row > 1 then
+					vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
+				end
+			end,
+			"Add spacing above",
+		},
 		["<S-Tab>"] = { "V<hh", "De-indent line" },
 		["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },
 		["<leader>le"] = {
