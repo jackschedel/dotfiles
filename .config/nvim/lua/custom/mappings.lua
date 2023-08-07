@@ -184,6 +184,13 @@ M.harpoon = {
 			-- Harpoon #4
 			"which_key_ignore",
 		},
+		["<leader>5"] = {
+			function()
+				require("harpoon.ui").nav_file(5)
+			end,
+			-- Harpoon #5
+			"which_key_ignore",
+		},
 	},
 }
 
