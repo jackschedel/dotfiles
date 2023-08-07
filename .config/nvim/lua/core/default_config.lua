@@ -10,13 +10,13 @@ M.ui = {
   hl_add = {},
   hl_override = {},
   changed_themes = {},
-  theme_toggle = { "gruvchad", "gruvbox_light" },
-  theme = "gruvchad", -- default theme
+  theme_toggle = { "onedark", "one_light" },
+  theme = "onedark", -- default theme
   transparency = false,
-  lsp_semantic_tokens = true, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
+  lsp_semantic_tokens = false, -- needs nvim v0.9, just adds highlight groups for lsp semantic tokens
 
   -- https://github.com/NvChad/base46/tree/v2.0/lua/base46/extended_integrations
-  extended_integrations = {"dap", "bufferline"}, -- these aren't compiled by default, ex: "alpha", "notify"
+  extended_integrations = {}, -- these aren't compiled by default, ex: "alpha", "notify"
 
   -- cmp themeing
   cmp = {
@@ -27,21 +27,21 @@ M.ui = {
     selected_item_bg = "colored", -- colored / simple
   },
 
-  telescope = { style = "bordered" }, -- borderless / bordered
+  telescope = { style = "borderless" }, -- borderless / bordered
 
   ------------------------------- nvchad_ui modules -----------------------------
   statusline = {
-    theme = "vscode_colored", -- default/vscode/vscode_colored/minimal
+    theme = "default", -- default/vscode/vscode_colored/minimal
     -- default/round/block/arrow separators work only for default statusline theme
     -- round and block will work for minimal theme only
-    separator_style = "round",
+    separator_style = "default",
     overriden_modules = nil,
   },
 
   -- lazyload it when there are 1+ buffers
   tabufline = {
     show_numbers = false,
-    enabled = false,
+    enabled = true,
     lazyload = true,
     overriden_modules = nil,
   },
@@ -83,7 +83,7 @@ M.ui = {
   },
 }
 
-M.plugins = require "custom.plugins" -- path i.e "custom.plugins", so make custom/plugins.lua file
+M.plugins = "" -- path i.e "custom.plugins", so make custom/plugins.lua file
 
 M.lazy_nvim = require "plugins.configs.lazy_nvim" -- config for lazy.nvim startup options
 
