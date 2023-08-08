@@ -11,7 +11,6 @@ vim.cmd("autocmd InsertEnter * set nohlsearch")
 vim.cmd("autocmd FileType python setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab")
 vim.cmd("set scrolloff=5")
 
-
 -- nvim-tree auto_close
 local function tab_win_closed(winnr)
 	local api = require("nvim-tree.api")
