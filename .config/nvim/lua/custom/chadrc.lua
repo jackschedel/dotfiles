@@ -13,7 +13,7 @@ M.ui = {
 	hl_override = highlights.override,
 	hl_add = highlights.add,
 
-	telescope = { style = "bordered" },
+	telescope = { style = "borderless" },
 
 	statusline = {
 		theme = "vscode_colored",

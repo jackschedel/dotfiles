@@ -117,6 +117,17 @@ M.general = {
 			end,
 			"LSP formatting",
 		},
+		["<leader>lAl"] = {
+			function() local cmd = vim.api.nvim_command
+				local files = vim.fn.glob(vim.fn.getcwd() .. "/*.lua", false, true)
+				for _, file in ipairs(files) do
+					cmd("edit " .. file)
+					vim.lsp.buf.format()
+					cmd("wq")
+				end
+			end,
+			"Format all .lua files",
+		},
 		["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
 		["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle Explorer" },
 		["<leader>tm"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },

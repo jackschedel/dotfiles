@@ -122,6 +122,8 @@ alias pynp='i=1; while [[ -e /tmp/notepad$i.py ]]; do ((i++)); if [ $i -gt 99999
 alias wezconf='cd ~/.config/wezterm/ && nvim wezterm.lua'
 alias p=pynp
 alias c=clear
+alias j='if [ -f package.json ]; then nvim package.json; else echo "No package.json found"; fi'
+alias e='exit'
 
 # To run on system restart to fix run-interpreter errors
 alias wsl='sudo update-binfmts --disable cli'
