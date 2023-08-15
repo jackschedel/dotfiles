@@ -117,16 +117,29 @@ M.general = {
 			end,
 			"LSP formatting",
 		},
-		["<leader>lAl"] = {
-			function() local cmd = vim.api.nvim_command
-				local files = vim.fn.glob(vim.fn.getcwd() .. "/*.lua", false, true)
-				for _, file in ipairs(files) do
-					cmd("edit " .. file)
-					vim.lsp.buf.format()
-					cmd("wq")
+		["<leader>lAF"] = {
+			function()
+				local buffers = vim.fn.getbufinfo()
+				-- print(#buffers)
+				for i, buf in ipairs(buffers) do
+					vim.fn.bufload(buf.bufnr)
+					vim.api.nvim_set_current_buf(buf.bufnr)
+					vim.lsp.buf.format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
+					vim.api.nvim_command("write")
+					vim.api.nvim_command("bdelete")
 				end
 			end,
-			"Format all .lua files",
+			"LSP format all buffers",
+		},
+		["<leader>lAot"] = {
+			function()
+				vim.cmd("args **/*.ts **/*.tsx")
+			end,
+			"Open all Typescript files",
 		},
 		["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
 		["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle Explorer" },
