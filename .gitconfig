@@ -16,7 +16,7 @@
 [alias]
   co = checkout
   br = branch
-  C = commit
+  ci = commit
   st = status
   p = pull
   P = push
