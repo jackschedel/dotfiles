@@ -1,0 +1,20 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	email = jackschedel@gmail.com
+	name = Jack Schedel
+[core]
+	autocrlf = false
+	whitespace = trailing-space,space-before-tab
+	fileMode = false
+[diff]
+	ignoreWhitespace = change
+[alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status

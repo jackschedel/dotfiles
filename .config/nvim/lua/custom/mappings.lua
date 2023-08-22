@@ -120,8 +120,7 @@ M.general = {
 		["<leader>lAF"] = {
 			function()
 				local buffers = vim.fn.getbufinfo()
-				-- print(#buffers)
-				for i, buf in ipairs(buffers) do
+				for _, buf in ipairs(buffers) do
 					vim.fn.bufload(buf.bufnr)
 					vim.api.nvim_set_current_buf(buf.bufnr)
 					vim.lsp.buf.format({
@@ -135,7 +134,13 @@ M.general = {
 			end,
 			"LSP format all buffers",
 		},
-		["<leader>lAot"] = {
+		["<leader>lAj"] = {
+			function()
+				vim.cmd("args **/*.js")
+			end,
+			"Open all Javascript files",
+		},
+		["<leader>lAt"] = {
 			function()
 				vim.cmd("args **/*.ts **/*.tsx")
 			end,

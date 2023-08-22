@@ -3,6 +3,7 @@
 
 # Overrides:
 !.gitignore
+!.gitconfig
 
 !.p10k.zsh
 !.wezterm.lua
