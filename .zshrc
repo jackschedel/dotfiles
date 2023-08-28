@@ -118,9 +118,9 @@ alias fuck='sudo $(fc -ln -1)'
 alias v='nvim'
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
-alias pynp='i=1; while [[ -e /tmp/notepad$i.py ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
+alias pnp='i=1; while [[ -e /tmp/notepad$i.py ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
+alias cnp='i=1; while [[ -e /tmp/notepad$i.cpp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.cpp'
 alias wezconf='cd ~/.config/wezterm/ && nvim wezterm.lua'
-alias p=pynp
 alias c=clear
 alias j='if [ -f package.json ]; then nvim package.json; else echo "No package.json found"; fi'
 alias e='exit'
