@@ -19,11 +19,11 @@ lspconfig.omnisharp.setup {
   cmd = { "/opt/omnisharp/OmniSharp", "--languageserver", "--hostPID", tostring(pid) },
 }
 
-vim.diagnostic.config {
-  virtual_text = {
-    prefix = "",
-  },
-  signs = false,
-  underline = true,
-  update_in_insert = false,
-}
+-- vim.diagnostic.config {
+--   virtual_text = {
+--     prefix = "",
+--   },
+--   signs = false,
+--   underline = true,
+--   update_in_insert = false,
+-- }

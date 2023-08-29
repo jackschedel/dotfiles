@@ -134,17 +134,17 @@ M.general = {
 			end,
 			"LSP format all buffers",
 		},
-		["<leader>lAj"] = {
+		["<leader>lAo"] = {
 			function()
-				vim.cmd("args **/*.js")
+				local exts = { "ts", "tsx", "js", "jsx", "html", "css", "md", "yaml", "scss", "json", "yml" }
+				for _, ext in ipairs(exts) do
+					local files = vim.fn.glob("**/*." .. ext)
+					if #files > 0 then
+						vim.cmd("args **/*." .. ext)
+					end
+				end
 			end,
-			"Open all Javascript files",
-		},
-		["<leader>lAt"] = {
-			function()
-				vim.cmd("args **/*.ts **/*.tsx")
-			end,
-			"Open all Typescript files",
+			"Open all src files",
 		},
 		["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
 		["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle Explorer" },
