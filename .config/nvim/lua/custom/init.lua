@@ -6,7 +6,10 @@
 --   command = "tabdo wincmd =",
 -- })
 vim.opt.relativenumber = true
--- vim.cmd("set mouse=")
+vim.cmd("map <LeftMouse> <nop>")
+vim.cmd("map! <LeftMouse> <nop>")
+vim.cmd("map <RightMouse> <nop>")
+vim.cmd("map! <RightMouse> <nop>")
 vim.cmd("autocmd InsertEnter * set nohlsearch")
 vim.cmd("autocmd FileType python setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab")
 vim.cmd("set scrolloff=6")
