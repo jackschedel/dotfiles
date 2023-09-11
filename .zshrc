@@ -118,12 +118,18 @@ alias fuck='sudo $(fc -ln -1)'
 alias v='nvim'
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
-alias pnp='i=1; while [[ -e /tmp/notepad$i.py ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
-alias cnp='i=1; while [[ -e /tmp/notepad$i.cpp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory."; return 1; fi; done; nvim /tmp/notepad$i.cpp'
-alias wezconf='cd ~/.config/wezterm/ && nvim wezterm.lua'
+
+alias pynp='i=1; while [[ -e /tmp/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
+alias cppnp='i=1; while [[ -e /tmp/notepad$i.cpp || -e ~/.local/state/nvim/swap//%tmp%notepad$i.cpp.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.cpp'
+alias cnp='i=1; while [[ -e /tmp/notepad$i.c || -e ~/.local/state/nvim/swap//%tmp%notepad$i.c.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.c'
+alias np='i=1; while [[ -e /tmp/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.txt'
+
 alias c=clear
 alias j='if [ -f package.json ]; then nvim package.json; else echo "No package.json found"; fi'
 alias e='exit'
+
+alias tiva='cd /mnt/c/ti/ccs1230/ccs/utils/tivaware_c_series_2_1_4_178/examples/boards/ek-tm4c123gxl'
+alias microp='cd /mnt/c/Users/jacks/Documents/microp2-deps'
 
 # To run on system restart to fix run-interpreter errors
 alias wsl='sudo update-binfmts --disable cli'
@@ -134,6 +140,7 @@ alias ls='colorls -A --sd'
 alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
 
+setopt aliases
 setopt noautomenu
 setopt nomenucomplete
 setopt banghist
