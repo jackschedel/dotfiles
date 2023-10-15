@@ -21,3 +21,5 @@
   p = pull
   P = push
   a = add
+[init]
+	defaultBranch = main

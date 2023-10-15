@@ -8,6 +8,7 @@ fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$PATH:/snap/bin
+export PATH=$PATH:/usr/local/go/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -130,6 +131,8 @@ alias e='exit'
 
 alias tiva='cd /mnt/c/ti/ccs1230/ccs/utils/tivaware_c_series_2_1_4_178/examples/boards/ek-tm4c123gxl'
 alias microp='cd /mnt/c/Users/jacks/Documents/microp2-deps'
+alias plc='cd /mnt/c/reps/COP4020-Project/'
+alias mnt='cd /mnt/c/reps'
 
 # To run on system restart to fix run-interpreter errors
 alias wsl='sudo update-binfmts --disable cli'

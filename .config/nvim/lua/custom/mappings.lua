@@ -73,6 +73,30 @@ M.general = {
 			end,
 			"Reset tab behavior",
 		},
+		["<leader>lE"] = {
+			function()
+				vim.diagnostic.open_float({ border = "rounded" })
+				vim.diagnostic.open_float({ border = "rounded" })
+				vim.api.nvim_command("normal jyG")
+				vim.cmd("q")
+			end,
+			"Copy all diagnostics",
+		},
+		["<leader>ll"] = {
+			function()
+				vim.diagnostic.open_float({ border = "rounded" })
+				vim.diagnostic.open_float({ border = "rounded" })
+				vim.api.nvim_command("normal jllly$")
+				vim.cmd("q")
+			end,
+			"Copy diagnostic",
+		},
+		["<leader>P"] = {
+			function()
+				vim.api.nvim_command("normal ggVGP")
+			end,
+			"Paste replace current buffer",
+		},
 		["<leader>v"] = {
 			function()
 				vim.cmd("vnew")

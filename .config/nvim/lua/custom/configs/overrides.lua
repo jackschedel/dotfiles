@@ -43,6 +43,7 @@ M.mason = {
 		-- extra langs
 		"rust-analyzer",
 		"omnisharp",
+    "gopls",
 	},
 }
 

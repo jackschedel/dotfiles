@@ -5,7 +5,7 @@ local root_pattern = require("plugins.configs.lspconfig").root_pattern
 local lspconfig = require("lspconfig")
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd", "rust_analyzer", "pylyzer" }
+local servers = { "html", "cssls", "tsserver", "clangd", "rust_analyzer", "pylyzer", "gopls" }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
