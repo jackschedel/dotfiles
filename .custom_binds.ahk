@@ -11,6 +11,11 @@ CapsLock::
    Send "^{Delete}"
 }
 
+; Launch notepad
+!N::
+{
+   Run "C:\Users\jacks\AppData\Local\Microsoft\WindowsApps\wt.exe -p Notepad"
+}
 
 ; 60% keyboard WASD navigation
 !A::
@@ -37,6 +42,26 @@ CapsLock::
   Send "^{b}"
   Send "c"
 }
+!X::
+{
+  Send "^{b}"
+  Send "x"
+  Send "y"
+}
+!R::
+{
+  ; replace current tab with fresh tab
+  Send "^{b}"
+  Send "c"
+
+  Send "^{b}"
+  Send "b"
+
+  Send "^{b}"
+  Send "x"
+  Send "y"
+}
+
 !1::
 {
   Send "^{b}"
@@ -87,14 +112,9 @@ CapsLock::
   Send "^{b}"
   Send "0"
 }
-!+X::
-{
-  Send "^{b}"
-  Send "x"
-  Send "y"
-}
 
 
+; Markdown code-block paste
 !V::
 {
   Send "``````"
@@ -104,6 +124,7 @@ CapsLock::
   Send "``````"
   Send "+{Enter}"
 }
+
 
 ; Win w+d fancyzones remap
 #W::
