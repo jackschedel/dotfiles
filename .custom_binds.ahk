@@ -36,19 +36,42 @@ CapsLock::
 }
 
 
+!,::
+{
+  Send "^{b}"
+  Send "c"
+  Send "nvconf"
+  Send "+{Enter}"
+}
+!.::
+{
+  Send "^{b}"
+  Send "c"
+  Send "zshrc"
+  Send "+{Enter}"
+}
+!/::
+{
+  Send "^{b}"
+  Send "c"
+  Send "binds"
+  Send "+{Enter}"
+}
+
+
 ; tmux binds
 !C::
 {
   Send "^{b}"
   Send "c"
 }
-!X::
+!+X::
 {
   Send "^{b}"
   Send "x"
   Send "y"
 }
-!R::
+!+R::
 {
   ; replace current tab with fresh tab
   Send "^{b}"

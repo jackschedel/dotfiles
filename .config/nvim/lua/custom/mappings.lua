@@ -58,7 +58,18 @@ M.general = {
 		},
 		["<S-Tab>"] = { "V<hh", "De-indent line" },
 		["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },
-    ["<leader>fw"] = { "<cmd> Telescope git_grep live_grep <CR>", "Live grep" },
+		["<leader>fw"] = {
+			function()
+				local success, _ = pcall(function()
+					vim.cmd("Telescope git_grep live_grep")
+				end)
+
+				if not success then
+					vim.cmd("Telescope live_grep")
+				end
+			end,
+			"Live grep",
+		},
 		["<leader>le"] = {
 			function()
 				vim.diagnostic.open_float({ border = "rounded" })
