@@ -45,6 +45,14 @@ local function tab_win_closed(winnr)
 	end
 end
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+	callback = function()
+		pcall(function()
+			vim.lsp.buf.format({ async = false })
+		end)
+	end,
+})
+
 vim.api.nvim_create_autocmd("WinClosed", {
 	callback = function()
 		local winnr = tonumber(vim.fn.expand("<amatch>"))
