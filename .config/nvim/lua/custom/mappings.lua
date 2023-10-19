@@ -58,6 +58,15 @@ M.general = {
 		},
 		["<S-Tab>"] = { "V<hh", "De-indent line" },
 		["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },
+		["<C-s>"] = {
+			function()
+				pcall(function()
+					vim.lsp.buf.format({ async = false })
+				end)
+				vim.cmd("w")
+			end,
+			"Save file",
+		},
 		["<leader>fw"] = {
 			function()
 				local success, _ = pcall(function()
