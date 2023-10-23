@@ -172,7 +172,24 @@ M.general = {
 		},
 		["<leader>lAo"] = {
 			function()
-				local exts = { "ts", "tsx", "js", "jsx", "html", "css", "md", "yaml", "scss", "json", "yml" }
+				local exts = {
+					"ts",
+					"tsx",
+					"js",
+					"jsx",
+					"html",
+					"css",
+					"md",
+					"yaml",
+					"scss",
+					"json",
+					"yml",
+					"lua",
+					"c",
+					"py",
+					"cpp",
+					"asm",
+				}
 				for _, ext in ipairs(exts) do
 					local files = vim.fn.glob("**/*." .. ext)
 					if #files > 0 then
