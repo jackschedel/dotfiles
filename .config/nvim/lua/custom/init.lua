@@ -11,7 +11,7 @@ vim.cmd("map! <LeftMouse> <nop>")
 vim.cmd("map <RightMouse> <nop>")
 vim.cmd("map! <RightMouse> <nop>")
 vim.cmd("autocmd InsertEnter * set nohlsearch")
-vim.cmd("autocmd FileType python setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab")
+vim.cmd("autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab")
 vim.cmd("set scrolloff=6")
 
 -- nvim-tree auto_close
