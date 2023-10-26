@@ -120,7 +120,7 @@ alias v='nvim'
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias binds='nvim ~/.custom_binds.ahk; cp ~/.custom_binds.ahk /mnt/c/Users/jacks/Documents/.custom-binds.ahk'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
-
+alias t='tmux'
 alias pynp='i=1; while [[ -e /tmp/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
 alias cppnp='i=1; while [[ -e /tmp/notepad$i.cpp || -e ~/.local/state/nvim/swap//%tmp%notepad$i.cpp.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.cpp'
 alias cnp='i=1; while [[ -e /tmp/notepad$i.c || -e ~/.local/state/nvim/swap//%tmp%notepad$i.c.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.c'
@@ -134,6 +134,8 @@ alias tiva='cd /mnt/c/ti/ccs1230/ccs/utils/tivaware_c_series_2_1_4_178/examples/
 alias microp='cd /mnt/c/Users/jacks/Documents/microp2-deps'
 alias plc='cd /mnt/c/reps/COP4020-Project/'
 alias mnt='cd /mnt/c/reps'
+
+alias f='explorer.exe .'
 
 # To run on system restart to fix run-interpreter errors
 alias wsl='sudo update-binfmts --disable cli'

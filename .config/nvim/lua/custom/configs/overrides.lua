@@ -1,6 +1,21 @@
 local M = {}
 local cmp = require("cmp")
 
+require("telescope").setup({
+	defaults = {
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"-u",
+		},
+	},
+})
+
 M.treesitter = {
 	ensure_installed = {
 		"vim",
@@ -43,14 +58,14 @@ M.mason = {
 		-- extra langs
 		"rust-analyzer",
 		"omnisharp",
-    "gopls",
+		"gopls",
 	},
 }
 
 M.cmp = {
 	mapping = {
 		["<Tab>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
+			behavior = cmp.ConfirmBehavior.Insert,
 			select = true,
 		}),
 		["<CR>"] = cmp.config.disable,

@@ -7,6 +7,8 @@ local plugins = {
 
 	{ "ThePrimeagen/harpoon", lazy = false },
 
+	{ "mbbill/undotree", lazy = false },
+
 	{
 		"ggandor/leap.nvim",
 		lazy = false,

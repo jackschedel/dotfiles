@@ -60,6 +60,12 @@ M.general = {
 		["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },
 		["<leader>fw"] = {
 			function()
+				vim.cmd("Telescope live_grep")
+			end,
+			"Grep normal files",
+		},
+		["<leader>fl"] = {
+			function()
 				local success, _ = pcall(function()
 					vim.cmd("Telescope git_grep live_grep")
 				end)
@@ -68,7 +74,7 @@ M.general = {
 					vim.cmd("Telescope live_grep")
 				end
 			end,
-			"Live grep",
+			"Grep in Git repo",
 		},
 		["<leader>le"] = {
 			function()
@@ -210,6 +216,18 @@ M.general = {
 			"Build and Run",
 		},
 		["<leader>tn"] = { "<cmd> set nu! <CR>", "Toggle line number" },
+	},
+}
+
+M.undotree = {
+	n = {
+
+		["<leader>u"] = {
+			function()
+				vim.cmd("UndotreeToggle")
+			end,
+			"Harpoon Add",
+		},
 	},
 }
 
