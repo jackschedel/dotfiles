@@ -47,6 +47,66 @@ M.general = {
 		},
 	},
 	n = {
+
+		-- ["<leader>gc"] = {
+		-- 	function()
+		--
+		-- 	end,
+		-- 	"Worktree create",
+		-- },
+		["<leader>a"] = {
+			function()
+				require("harpoon.mark").add_file()
+			end,
+			"Harpoon Add",
+		},
+		["<leader>q"] = {
+			function()
+				require("harpoon.ui").toggle_quick_menu()
+			end,
+			"Harpoon Quickmenu",
+		},
+		["<leader>1"] = {
+			function()
+				require("harpoon.ui").nav_file(1)
+			end,
+			-- Harpoon #1
+			"which_key_ignore",
+		},
+		["<leader>2"] = {
+			function()
+				require("harpoon.ui").nav_file(2)
+			end,
+			-- Harpoon #2
+			"which_key_ignore",
+		},
+		["<leader>3"] = {
+			function()
+				require("harpoon.ui").nav_file(3)
+			end,
+			-- Harpoon #3
+			"which_key_ignore",
+		},
+		["<leader>4"] = {
+			function()
+				require("harpoon.ui").nav_file(4)
+			end,
+			-- Harpoon #4
+			"which_key_ignore",
+		},
+		["<leader>5"] = {
+			function()
+				require("harpoon.ui").nav_file(5)
+			end,
+			-- Harpoon #5
+			"which_key_ignore",
+		},
+		["<leader>u"] = {
+			function()
+				vim.cmd("UndotreeToggle")
+			end,
+			"Undotree",
+		},
 		[";"] = { ":", "enter command mode", opts = { nowait = true } },
 		["<Tab>"] = { "V>ll", "Indent line" },
 		["<leader><CR>"] = {
@@ -91,21 +151,25 @@ M.general = {
 			end,
 			"Reset tab behavior",
 		},
-		["<leader>lE"] = {
+		["<leader>lL"] = {
 			function()
-				vim.diagnostic.open_float({ border = "rounded" })
-				vim.diagnostic.open_float({ border = "rounded" })
-				vim.api.nvim_command("normal jyG")
-				vim.cmd("q")
+				local error_exists = vim.diagnostic.open_float({ border = "rounded" })
+				if error_exists then
+					vim.diagnostic.open_float({ border = "rounded" })
+					vim.api.nvim_command("normal jyG")
+					vim.cmd("q")
+				end
 			end,
 			"Copy all diagnostics",
 		},
 		["<leader>ll"] = {
 			function()
-				vim.diagnostic.open_float({ border = "rounded" })
-				vim.diagnostic.open_float({ border = "rounded" })
-				vim.api.nvim_command("normal jllly$")
-				vim.cmd("q")
+				local error_exists = vim.diagnostic.open_float({ border = "rounded" })
+				if error_exists then
+					vim.diagnostic.open_float({ border = "rounded" })
+					vim.api.nvim_command("normal jllly$")
+					vim.cmd("q")
+				end
 			end,
 			"Copy diagnostic",
 		},
@@ -152,6 +216,12 @@ M.general = {
 				require("nvterm.terminal").new("horizontal")
 			end,
 			"Horizontal Terminal Split",
+		},
+		["<leader>lS"] = {
+			function()
+				vim.api.nvim_command("LspStop")
+			end,
+			"Stop LSP",
 		},
 		["<leader>lf"] = {
 			function()
@@ -205,7 +275,6 @@ M.general = {
 			end,
 			"Open all src files",
 		},
-		["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
 		["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle Explorer" },
 		["<leader>tm"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
 		["<leader>tp"] = { "<cmd> Telescope themes <CR>", "Theme Picker" },
@@ -216,70 +285,6 @@ M.general = {
 			"Build and Run",
 		},
 		["<leader>tn"] = { "<cmd> set nu! <CR>", "Toggle line number" },
-	},
-}
-
-M.undotree = {
-	n = {
-
-		["<leader>u"] = {
-			function()
-				vim.cmd("UndotreeToggle")
-			end,
-			"Harpoon Add",
-		},
-	},
-}
-
-M.harpoon = {
-	n = {
-		["<leader>a"] = {
-			function()
-				require("harpoon.mark").add_file()
-			end,
-			"Harpoon Add",
-		},
-		["<leader>q"] = {
-			function()
-				require("harpoon.ui").toggle_quick_menu()
-			end,
-			"Harpoon Quickmenu",
-		},
-		["<leader>1"] = {
-			function()
-				require("harpoon.ui").nav_file(1)
-			end,
-			-- Harpoon #1
-			"which_key_ignore",
-		},
-		["<leader>2"] = {
-			function()
-				require("harpoon.ui").nav_file(2)
-			end,
-			-- Harpoon #2
-			"which_key_ignore",
-		},
-		["<leader>3"] = {
-			function()
-				require("harpoon.ui").nav_file(3)
-			end,
-			-- Harpoon #3
-			"which_key_ignore",
-		},
-		["<leader>4"] = {
-			function()
-				require("harpoon.ui").nav_file(4)
-			end,
-			-- Harpoon #4
-			"which_key_ignore",
-		},
-		["<leader>5"] = {
-			function()
-				require("harpoon.ui").nav_file(5)
-			end,
-			-- Harpoon #5
-			"which_key_ignore",
-		},
 	},
 }
 
