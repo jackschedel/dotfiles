@@ -23,6 +23,14 @@ M.general = {
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
 	},
 	i = {
+		["<A-f>"] = {
+			function()
+				local row = vim.api.nvim_win_get_cursor(0)[1]
+				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
+				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
+			end,
+			"Add spacing below",
+		},
 		["<Up>"] = {
 			function()
 				if require("cmp").visible() then
@@ -47,13 +55,17 @@ M.general = {
 		},
 	},
 	n = {
-
-		-- ["<leader>gc"] = {
-		-- 	function()
-		--
-		-- 	end,
-		-- 	"Worktree create",
-		-- },
+		-- x doesn't replace buffer
+		["x"] = { '"_x', "which_key_ignore" },
+		["<leader>d"] = { '"_d', "which_key_ignore" },
+		["<A-f>"] = {
+			function()
+				local row = vim.api.nvim_win_get_cursor(0)[1]
+				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
+				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
+			end,
+			"Add spacing below",
+		},
 		["<leader>a"] = {
 			function()
 				require("harpoon.mark").add_file()
@@ -109,13 +121,6 @@ M.general = {
 		},
 		[";"] = { ":", "enter command mode", opts = { nowait = true } },
 		["<Tab>"] = { "V>ll", "Indent line" },
-		["<leader><CR>"] = {
-			function()
-				local row = vim.api.nvim_win_get_cursor(0)[1]
-				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
-			end,
-			"Add spacing below",
-		},
 		["<S-Tab>"] = { "V<hh", "De-indent line" },
 		["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },
 		["<leader>fw"] = {
@@ -177,7 +182,7 @@ M.general = {
 			function()
 				vim.api.nvim_command("normal ggVGP")
 			end,
-			"Paste replace current buffer",
+			"Paste replace buffer",
 		},
 		["<leader>v"] = {
 			function()
@@ -193,14 +198,14 @@ M.general = {
 		},
 		["<leader>V"] = {
 			function()
-				vim.cmd("vsplit #")
+				vim.cmd("vsplit %")
 			end,
 			-- Vertical Split (Clone)
 			"which_key_ignore",
 		},
 		["<leader>H"] = {
 			function()
-				vim.cmd("split #")
+				vim.cmd("split %")
 			end,
 			-- Horizontal Split (Clone)
 			"which_key_ignore",

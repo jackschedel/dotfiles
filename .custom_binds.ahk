@@ -10,8 +10,12 @@ CapsLock::
 {
    Send "^{Delete}"
 }
+^+CapsLock::
+{
+   Send "^+{Delete}"
+}
 
-; Launch notepad
+; Global launch notepad
 !N::
 {
    Run "C:\Users\jacks\AppData\Local\Microsoft\WindowsApps\wt.exe -p Notepad"
@@ -38,114 +42,168 @@ CapsLock::
 
 !,::
 {
-  Send "^{b}"
-  Send "c"
-  Send "nvconf"
-  Send "+{Enter}"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "c"
+    Send "nvconf"
+    Send "+{Enter}"
+  }
 }
 !.::
 {
-  Send "^{b}"
-  Send "c"
-  Send "zshrc"
-  Send "+{Enter}"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "c"
+    Send "zshrc"
+    Send "+{Enter}"
+  }
 }
 !/::
 {
-  Send "^{b}"
-  Send "c"
-  Send "binds"
-  Send "+{Enter}"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "c"
+    Send "binds"
+    Send "+{Enter}"
+  }
 }
-
-
 ; tmux binds
 !C::
 {
-  Send "^{b}"
-  Send "c"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "c"
+  }
 }
 !+X::
 {
-  Send "^{b}"
-  Send "x"
-  Send "y"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "x"
+    Send "y"
+  }
 }
 !+R::
 {
-  ; replace current tab with fresh tab
-  Send "^{b}"
-  Send "c"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    ; replace current tab with fresh tab
+    Send "^{b}"
+    Send "c"
 
-  Send "^{b}"
-  Send "b"
+    Send "^{b}"
+    Send "b"
 
-  Send "^{b}"
-  Send "x"
-  Send "y"
+    Send "^{b}"
+    Send "x"
+    Send "y"
+  }
 }
 
 !1::
 {
-  Send "^{b}"
-  Send "1"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "1"
+  }
 }
 !2::
 {
-  Send "^{b}"
-  Send "2"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "2"
+  }
 }
 !3::
 {
-  Send "^{b}"
-  Send "3"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "3"
+  }
 }
 !4::
 {
-  Send "^{b}"
-  Send "4"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "4"
+  }
 }
 !5::
 {
-  Send "^{b}"
-  Send "5"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "5"
+  }
 }
 !6::
 {
-  Send "^{b}"
-  Send "6"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "6"
+  }
 }
 !7::
 {
-  Send "^{b}"
-  Send "7"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "7"
+  }
 }
 !8::
 {
-  Send "^{b}"
-  Send "8"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "8"
+  }
 }
 !9::
 {
-  Send "^{b}"
-  Send "9"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "9"
+  }
 }
 !0::
 {
-  Send "^{b}"
-  Send "0"
+  If (WinActive("ahk_exe WindowsTerminal.exe"))
+  {
+    Send "^{b}"
+    Send "0"
+  }
+
 }
 
-
-; Markdown code-block paste
 !V::
 {
-  Send "``````"
-  Send "+{Enter}"
-  Send "^{v}"
-  Send "+{Enter}"
-  Send "``````"
-  Send "+{Enter}"
+; Markdown code-block paste
+   If (WinActive("ahk_exe KoalaClient.exe") or WinActive("ahk_exe Discord.exe")or WinActive("ahk_exe Teams.exe"))
+   {
+    Send "``````"
+    Send "+{Enter}"
+
+    If( WinActive("ahk_exe Teams.exe"))
+    {
+      Sleep 3
+    }
+    Send "^{v}"
+    Send "+{Enter}"
+    Send "``````"
+    Send "+{Enter}"
+   }
 }
 
 
