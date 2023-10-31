@@ -26,13 +26,29 @@ CapsLock::
 {
    Send "{Home}"
 }
++!A::
+{
+   Send "+{Home}"
+}
 !D::
 {
    Send "{End}"
 }
++!D::
+{
+   Send "+{End}"
+}
 !W::
 {
    Send "{PgUp}"
+}
++!W::
+{
+   Send "+{PgUp}"
+}
++!S::
+{
+   Send "+{PgDn}"
 }
 !S::
 {

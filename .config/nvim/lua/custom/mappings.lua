@@ -13,6 +13,8 @@ M.disabled = {
 		["<leader>e"] = "",
 		["<C-n>"] = "",
 		["<leader>ma"] = "",
+		["<leader>ph"] = "",
+		["<leader>pt"] = "",
 	},
 }
 
@@ -65,6 +67,17 @@ M.general = {
 				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
 			end,
 			"Add spacing below",
+		},
+		["<leader>p"] = {
+			function()
+				vim.api.nvim_command("normal o")
+				local row = vim.api.nvim_win_get_cursor(0)[1]
+				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
+				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
+				vim.api.nvim_command("normal p")
+				vim.lsp.buf.format({ async = true })
+			end,
+			"Paste Pretty",
 		},
 		["<leader>a"] = {
 			function()
