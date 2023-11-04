@@ -21,6 +21,13 @@ CapsLock::
    Run "C:\Users\jacks\AppData\Local\Microsoft\WindowsApps\wt.exe -p Notepad"
 }
 
+#D::
+{
+  Run "explorer.exe /e, C:\Users\jacks\Downloads"
+  WinWait "Downloads"
+  WinActivate "Downloads"
+}
+
 ; 60% keyboard WASD navigation
 !A::
 {
