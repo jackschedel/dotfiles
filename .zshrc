@@ -117,6 +117,7 @@ fi
 alias lg='lazygit'
 alias fuck='sudo $(fc -ln -1)'
 alias v='nvim'
+alias python='python3'
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias binds='nvim /mnt/c/Users/jacks/Documents/.custom-binds.ahk; cp /mnt/c/Users/jacks/Documents/.custom-binds.ahk ~/.custom_binds.ahk'
 alias ahk='nvim /mnt/c/Users/jacks/Documents/.custom-binds.ahk; cp /mnt/c/Users/jacks/Documents/.custom-binds.ahk ~/.custom_binds.ahk'

@@ -57,8 +57,9 @@ M.general = {
 		},
 	},
 	n = {
-		-- x doesn't replace buffer
+		-- x and c don't replace buffer
 		["x"] = { '"_x', "which_key_ignore" },
+		["c"] = { '"_c', "which_key_ignore" },
 		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["<A-f>"] = {
 			function()
@@ -298,7 +299,8 @@ M.general = {
 		["<leader>tp"] = { "<cmd> Telescope themes <CR>", "Theme Picker" },
 		["<F5>"] = {
 			function()
-				vim.cmd("!./nvim-run.sh")
+				vim.cmd("w")
+				vim.cmd("!./.nvim-run.sh")
 			end,
 			"Build and Run",
 		},
