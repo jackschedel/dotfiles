@@ -139,6 +139,86 @@ alias mnt='cd /mnt/c/reps'
 
 alias f='explorer.exe .'
 
+types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
+
+unzip_most_recent_here() {
+  for type in "${types[@]}"; do
+    file=$(\ls -t /mnt/c/Users/jacks/Downloads/*.$type 2> /dev/null | head -n1)
+    if [[ -n "$file" ]]; then
+      echo "Unzipping $file"
+      case $type in
+        "zip")
+          unzip "$file" -d ./
+          ;;
+        "tar.gz")
+          tar -zxvf "$file" -C ./
+          ;;
+        "tar.bz2")
+          tar -jxvf "$file" -C ./
+          ;;
+        "tar.xz")
+          tar -Jxvf "$file" -C ./
+          ;;
+        "jar")
+          jar -xf "$file"
+          ;;
+      esac
+      return
+    fi
+  done
+  echo "No unzippable files found."
+}
+
+unzip_most_recent_new_folder() {
+  for type in "${types[@]}"; do
+    file=$(\ls -t /mnt/c/Users/jacks/Downloads/*.$type 2> /dev/null | head -n1)
+    if [[ -n "$file" ]]; then
+      # Get the filename without extension
+      filename=$(basename "$file" .$type)
+      # Create a directory with the filename
+      mkdir -p "$filename"
+      echo "Unzipping $file to $filename"
+      case $type in
+        "zip")
+          unzip "$file" -d "./$filename"
+          ;;
+        "tar.gz")
+          tar -zxvf "$file" -C "./$filename"
+          ;;
+        "tar.bz2")
+          tar -jxvf "$file" -C "./$filename"
+          ;;
+        "tar.xz")
+          tar -Jxvf "$file" -C "./$filename"
+          ;;
+        "jar")
+          # JAR files cannot be extracted to a specific directory
+          # We change to the target directory before extraction
+          cd "$filename"
+          jar -xf "../$file"
+          cd ..
+          ;;
+      esac
+      return
+    fi
+  done
+  echo "No unzippable files found."
+}
+
+move_most_recent() {
+  file=$(\ls -t /mnt/c/Users/jacks/Downloads/* 2> /dev/null | head -n1)
+  if [[ -n "$file" ]]; then
+    echo "Copying $file"
+    cp $file ./
+  else
+    echo "No files found."
+  fi
+}
+
+alias zh="unzip_most_recent_here"
+alias z="unzip_most_recent_new_folder"
+alias m="move_most_recent"
+
 # To run on system restart to fix run-interpreter errors
 alias wsl='sudo update-binfmts --disable cli'
 
