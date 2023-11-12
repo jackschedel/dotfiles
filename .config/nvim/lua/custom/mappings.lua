@@ -20,7 +20,8 @@ M.disabled = {
 
 M.general = {
 	v = {
-		[";"] = { ":", "enter command mode", opts = { nowait = true } },
+		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
+		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
 	},
@@ -133,7 +134,8 @@ M.general = {
 			end,
 			"Undotree",
 		},
-		[";"] = { ":", "enter command mode", opts = { nowait = true } },
+		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
+		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		["<Tab>"] = { "V>ll", "Indent line" },
 		["<S-Tab>"] = { "V<hh", "De-indent line" },
 		["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in Git repo" },

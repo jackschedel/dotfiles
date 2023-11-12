@@ -1,4 +1,5 @@
 local present, null_ls = pcall(require, "null-ls")
+local clang_format_config = vim.fn.stdpath("config") .. "/.clang-format"
 
 if not present then
 	return
@@ -12,7 +13,9 @@ local sources = {
 
 	b.formatting.stylua,
 
-	b.formatting.clang_format,
+	b.formatting.clang_format.with({
+		extra_args = { "-style=file:" .. clang_format_config },
+	}),
 
 	b.formatting.gofmt,
 

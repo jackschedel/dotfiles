@@ -7,8 +7,10 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:/home/jack/.local/bin
 export PATH=$PATH:/snap/bin
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/home/jack/.local/lib/python3.11/site-packages
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -123,10 +125,10 @@ alias binds='nvim /mnt/c/Users/jacks/Documents/.custom-binds.ahk; cp /mnt/c/User
 alias ahk='nvim /mnt/c/Users/jacks/Documents/.custom-binds.ahk; cp /mnt/c/Users/jacks/Documents/.custom-binds.ahk ~/.custom_binds.ahk'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
 alias t='tmux'
-alias pynp='i=1; while [[ -e /tmp/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.py'
-alias cppnp='i=1; while [[ -e /tmp/notepad$i.cpp || -e ~/.local/state/nvim/swap//%tmp%notepad$i.cpp.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.cpp'
-alias cnp='i=1; while [[ -e /tmp/notepad$i.c || -e ~/.local/state/nvim/swap//%tmp%notepad$i.c.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.c'
-alias np='i=1; while [[ -e /tmp/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup /tmp directory or nvim swap directory."; return 1; fi; done; nvim /tmp/notepad$i.txt'
+alias pynp='i=1; while [[ -e ~/.notepads/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.py'
+alias cppnp='i=1; while [[ -e ~/.notepads/notepad$i.cpp || -e ~/.local/state/nvim/swap//%tmp%notepad$i.cpp.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.cpp'
+alias cnp='i=1; while [[ -e ~/.notepads/notepad$i.c || -e ~/.local/state/nvim/swap//%tmp%notepad$i.c.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.c'
+alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
 
 alias c=clear
 alias j='if [ -f package.json ]; then nvim package.json; else echo "No package.json found"; fi'
