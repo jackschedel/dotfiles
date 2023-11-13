@@ -5,7 +5,13 @@ local plugins = {
 
 	-- Override plugin definition options
 
-	{ "ThePrimeagen/harpoon", lazy = false },
+	{
+		"ThePrimeagen/harpoon",
+		lazy = false,
+		init = function()
+			require("core.utils").load_mappings("Harpoon")
+		end,
+	},
 
 	{ "ThePrimeagen/git-worktree.nvim" },
 
@@ -23,7 +29,7 @@ local plugins = {
 	{
 		"rcarriga/nvim-dap-ui",
 		init = function()
-			require("core.utils").load_mappings("Dap")
+			require("core.utils").load_mappings("DAP")
 		end,
 		dependencies = {
 			{
