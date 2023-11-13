@@ -18,6 +18,16 @@ local plugins = {
 	{ "mbbill/undotree", lazy = false },
 
 	{
+		"kdheepak/lazygit.nvim",
+		-- lazygit is not lazy looool
+		lazy = false,
+
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+
+	{
 		"ggandor/leap.nvim",
 		lazy = false,
 		dependencies = { { "tpope/vim-repeat" } },

@@ -36,6 +36,7 @@ M.disabled = {
 		["<leader>wa"] = "",
 		["<leader>wl"] = "",
 		["<leader>wr"] = "",
+		["A-v"] = "",
 	},
 }
 
@@ -60,6 +61,7 @@ M.Git = {
 			end,
 			"View deleted",
 		},
+		["<leader>gg"] = { "<cmd> LazyGit <CR>", "Lazygit", opts = { silent = true } },
 	},
 }
 
@@ -209,14 +211,25 @@ M.general = {
 		["D"] = { '"_d', "which_key_ignore" },
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
-		["<leader>N"] = { "<cmd> enew <CR>", "New buffer" },
 		["gt"] = {
 			function()
 				vim.lsp.buf.type_definition()
 			end,
 			"LSP definition type",
 		},
-		["<leader>m"] = { "<cmd> Telescope marks <CR>", "Marks" },
+		["C"] = {
+			function()
+				local last_char = string.sub(vim.api.nvim_get_current_line(), -1)
+				if last_char == ";" or last_char == "," then
+					vim.api.nvim_command("normal v$hc")
+					vim.api.nvim_command("startinsert!")
+				else
+					vim.api.nvim_command("normal c$")
+					vim.api.nvim_command("startinsert!")
+				end
+			end,
+			"which_key_ignore",
+		},
 		["gC"] = {
 			function()
 				local ok, start = require("indent_blankline.utils").get_current_context(
@@ -240,6 +253,8 @@ M.general = {
 			end,
 			"Add spacing around",
 		},
+		["<leader>m"] = { "<cmd> Telescope marks <CR>", "Marks" },
+		["<leader>N"] = { "<cmd> enew <CR>", "New buffer" },
 		["<leader>p"] = {
 			function()
 				vim.api.nvim_command("normal o")
