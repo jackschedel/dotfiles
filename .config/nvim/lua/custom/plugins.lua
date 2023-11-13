@@ -21,6 +21,58 @@ local plugins = {
 	},
 
 	{
+		"rcarriga/nvim-dap-ui",
+		init = function()
+			require("core.utils").load_mappings("Dap")
+		end,
+		dependencies = {
+			{
+				"mfussenegger/nvim-dap",
+				config = function()
+					-- NOTE: Check out this for guide
+					-- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
+					local dap = require("dap")
+					vim.fn.sign_define(
+						"DapBreakpoint",
+						{ text = "🛑", texthl = "DiagnosticSignError", linehl = "", numhl = "" }
+					)
+
+					local dapui = require("dapui")
+					dap.listeners.after.event_initialized["dapui_config"] = function()
+						dapui.open()
+					end
+
+					-- dap.listeners.before.event_terminated["dapui_config"] = function()
+					--   dapui.close()
+					-- end
+
+					dap.listeners.before.event_exited["dapui_config"] = function()
+						dapui.close()
+					end
+
+					-- Enabled:
+					require("custom.configs.dap.settings.cpptools")
+					-- require("custom.configs.dap.settings.codelldb")
+
+					require("custom.configs.dap.settings.go-debug-adapter")
+
+					-- Disabled:
+					-- require("custom.configs.dap.settings.netcoredbg")
+					-- require("custom.configs.dap.settings.godot")
+					-- require("custom.configs.dap.settings.bash-debug-adapter")
+					-- require("custom.configs.dap.settings.chrome-debug-adapter")
+					-- require("custom.configs.dap.settings.firefox-debug-adapter")
+					-- require("custom.configs.dap.settings.java-debug")
+					-- require("custom.configs.dap.settings.node-debug2")
+					-- require("custom.configs.dap.settings.debugpy")
+					-- require("custom.configs.dap.settings.js-debug")
+				end,
+			},
+		},
+		opts = require("custom.configs.dap.ui"),
+	},
+
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- format & linting

@@ -2,10 +2,14 @@
 local M = {}
 
 M.disabled = {
+	v = {
+		["<leader>ca"] = "",
+	},
 	n = {
 		["<leader>h"] = "",
 		["<leader>v"] = "",
 		["<leader>n"] = "",
+		["<leader>ca"] = "",
 		["<leader>q"] = "",
 		["<leader>fm"] = "",
 		["<leader>cm"] = "",
@@ -24,6 +28,12 @@ M.general = {
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
+		["<leader>la"] = {
+			function()
+				vim.lsp.buf.code_action()
+			end,
+			"LSP code action",
+		},
 	},
 	i = {
 		["<A-f>"] = {
@@ -61,7 +71,13 @@ M.general = {
 		-- x and c don't replace buffer
 		["x"] = { '"_x', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore" },
-		["<leader>d"] = { '"_d', "which_key_ignore" },
+		["D"] = { '"_d', "which_key_ignore" },
+		["<leader>la"] = {
+			function()
+				vim.lsp.buf.code_action()
+			end,
+			"LSP code action",
+		},
 		["<A-f>"] = {
 			function()
 				local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -306,7 +322,34 @@ M.general = {
 			end,
 			"Build and Run",
 		},
+		["<F6>"] = {
+			function()
+				vim.cmd("w")
+				if os.execute("test -f ./.build") == 0 and os.execute("test -f ./.launch") == 0 then
+					require("dap").continue()
+				end
+			end,
+			"Debug",
+		},
 		["<leader>tn"] = { "<cmd> set nu! <CR>", "Toggle line number" },
+	},
+}
+
+M.Dap = {
+	plugin = true,
+	n = {
+		["<leader>dc"] = { "<cmd>lua require'dap'.continue()<cr>", "Continue", opts = { silent = true } },
+		["<leader>do"] = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over", opts = { silent = true } },
+		["<leader>di"] = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into", opts = { silent = true } },
+		["<leader>du"] = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out", opts = { silent = true } },
+		["<leader>db"] = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Breakpoint", opts = { silent = true } },
+		["<leader>dB"] = {
+			"<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
+			"Breakpoint Condition",
+			opts = { silent = true },
+		},
+		["<leader>dd"] = { "<cmd>lua require'dapui'.toggle()<cr>", "Dap UI", opts = { silent = true } },
+		["<leader>dl"] = { "<cmd>lua require'dap'.run_last()<cr>", "Run Last", opts = { silent = true } },
 	},
 }
 
