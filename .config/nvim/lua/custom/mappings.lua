@@ -151,6 +151,7 @@ M.LSP = {
 					"asm",
 					"h",
 					"hpp",
+					"lua",
 				}
 				for _, ext in ipairs(exts) do
 					local files = vim.fn.glob("**/*." .. ext)
