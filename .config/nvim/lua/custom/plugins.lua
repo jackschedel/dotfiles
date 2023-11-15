@@ -20,7 +20,7 @@ local plugins = {
 	{
 		"kdheepak/lazygit.nvim",
 		-- lazygit is not lazy looool
-		lazy = false,
+		-- lazy = false,
 
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -69,8 +69,7 @@ local plugins = {
 					-- Enabled:
 					require("custom.configs.dap.settings.cpptools")
 					-- require("custom.configs.dap.settings.codelldb")
-
-					require("custom.configs.dap.settings.go-debug-adapter")
+					-- require("custom.configs.dap.settings.go-debug-adapter")
 
 					-- Disabled:
 					-- require("custom.configs.dap.settings.netcoredbg")
@@ -82,6 +81,13 @@ local plugins = {
 					-- require("custom.configs.dap.settings.node-debug2")
 					-- require("custom.configs.dap.settings.debugpy")
 					-- require("custom.configs.dap.settings.js-debug")
+				end,
+			},
+			{
+				"leoluz/nvim-dap-go",
+
+				config = function()
+					require("dap-go").setup()
 				end,
 			},
 		},
