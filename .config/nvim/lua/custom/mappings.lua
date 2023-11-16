@@ -61,6 +61,11 @@ M.Git = {
 			end,
 			"View deleted",
 		},
+	},
+}
+
+M.Lazygit = {
+	n = {
 		["<leader>gg"] = { "<cmd> LazyGit <CR>", "Lazygit", opts = { silent = true } },
 	},
 }
@@ -170,6 +175,7 @@ M.general = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		["x"] = { "d", "which_key_ignore" },
+		["c"] = { '"_c', "which_key_ignore" },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
 	},
@@ -246,6 +252,11 @@ M.general = {
 
 			"Current context",
 		},
+		["H"] = { "<C-W>>", "which_key_ignore" },
+		["J"] = { "<C-W>-", "which_key_ignore" },
+		["K"] = { "<C-W>+", "which_key_ignore" },
+		["L"] = { "<C-W><", "which_key_ignore" },
+		["<leader>Cr"] = { "<cmd> source ~/.Session.vim <CR>", "Restore Session" },
 		["<A-f>"] = {
 			function()
 				local row = vim.api.nvim_win_get_cursor(0)[1]

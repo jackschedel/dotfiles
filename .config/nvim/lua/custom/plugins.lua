@@ -19,12 +19,19 @@ local plugins = {
 
 	{
 		"kdheepak/lazygit.nvim",
-		-- lazygit is not lazy looool
-		-- lazy = false,
+
+		lazy = false,
 
 		dependencies = {
+			"nvim-telescope/telescope.nvim",
 			"nvim-lua/plenary.nvim",
 		},
+		config = function()
+			require("telescope").load_extension("lazygit")
+		end,
+		init = function()
+			require("core.utils").load_mappings("Lazygit")
+		end,
 	},
 
 	{
