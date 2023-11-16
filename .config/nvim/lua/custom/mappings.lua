@@ -49,6 +49,12 @@ M.NvChad = {
 
 M.Git = {
 	n = {
+		["<leader>ga"] = {
+			function()
+				vim.cmd("silent ! git add .")
+			end,
+			"Stage all",
+		},
 		["<leader>gb"] = {
 			function()
 				package.loaded.gitsigns.blame_line()
@@ -343,7 +349,6 @@ M.general = {
 				vim.cmd("silent ! explorer.exe .")
 			end,
 			"Open Explorer Here",
-			opts = { silent = true },
 		},
 		["<F5>"] = {
 			function()
