@@ -338,6 +338,13 @@ M.general = {
 			"which_key_ignore",
 		},
 		["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle explorer" },
+		["<F4>"] = {
+			function()
+				vim.cmd("silent ! explorer.exe .")
+			end,
+			"Open Explorer Here",
+			opts = { silent = true },
+		},
 		["<F5>"] = {
 			function()
 				vim.cmd("w")
