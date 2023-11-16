@@ -343,14 +343,12 @@ M.general = {
 				vim.cmd("w")
 				vim.cmd("!./.nvim-run.sh")
 			end,
-			"Build and Run",
+			"Run Script",
 		},
 		["<F6>"] = {
 			function()
 				vim.cmd("w")
-				if os.execute("test -f ./.build") == 0 and os.execute("test -f ./.launch") == 0 then
-					require("dap").continue()
-				end
+				require("dap").continue()
 			end,
 			"Debug",
 		},
