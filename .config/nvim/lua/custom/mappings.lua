@@ -51,6 +51,7 @@ M.Git = {
 	n = {
 		["<leader>ga"] = {
 			function()
+				vim.cmd("w")
 				vim.cmd("silent ! git add -A")
 			end,
 			"Stage all",
@@ -67,12 +68,13 @@ M.Git = {
 			end,
 			"View deleted",
 		},
-	},
-}
-
-M.Lazygit = {
-	n = {
-		["<leader>gg"] = { "<cmd> LazyGit <CR>", "Lazygit", opts = { silent = true } },
+		["<leader>gg"] = {
+			function()
+				vim.cmd("w")
+				vim.cmd("LazyGit")
+			end,
+			"LazyGit",
+		},
 	},
 }
 
@@ -229,6 +231,26 @@ M.general = {
 				vim.lsp.buf.type_definition()
 			end,
 			"LSP definition type",
+		},
+		["I"] = {
+			function()
+				vim.api.nvim_command("normal _")
+				vim.api.nvim_command("startinsert")
+			end,
+			"which_key_ignore",
+		},
+		["A"] = {
+			function()
+				local last_char = string.sub(vim.api.nvim_get_current_line(), -1)
+				if last_char == ";" or last_char == "," then
+					vim.api.nvim_command("normal $")
+					vim.api.nvim_command("startinsert")
+				else
+					vim.api.nvim_command("normal $")
+					vim.api.nvim_command("startinsert!")
+				end
+			end,
+			"which_key_ignore",
 		},
 		["C"] = {
 			function()

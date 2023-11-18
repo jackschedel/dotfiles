@@ -29,9 +29,6 @@ local plugins = {
 		config = function()
 			require("telescope").load_extension("lazygit")
 		end,
-		init = function()
-			require("core.utils").load_mappings("Lazygit")
-		end,
 	},
 
 	{
