@@ -51,7 +51,9 @@ M.Git = {
 	n = {
 		["<leader>ga"] = {
 			function()
-				vim.cmd("w")
+				pcall(function()
+					vim.cmd("w")
+				end)
 				vim.cmd("silent ! git add -A")
 			end,
 			"Stage all",
@@ -70,7 +72,9 @@ M.Git = {
 		},
 		["<leader>gg"] = {
 			function()
-				vim.cmd("w")
+				pcall(function()
+					vim.cmd("w")
+				end)
 				vim.cmd("LazyGit")
 			end,
 			"LazyGit",
@@ -103,7 +107,7 @@ M.LSP = {
 				local error_exists = vim.diagnostic.open_float({ border = "rounded" })
 				if error_exists then
 					vim.diagnostic.open_float({ border = "rounded" })
-					vim.api.nvim_command("normal jllly$")
+					vim.cmd("normal jllly$")
 					vim.cmd("q")
 				end
 			end,
@@ -114,7 +118,7 @@ M.LSP = {
 				local error_exists = vim.diagnostic.open_float({ border = "rounded" })
 				if error_exists then
 					vim.diagnostic.open_float({ border = "rounded" })
-					vim.api.nvim_command("normal jyG")
+					vim.cmd("normal jyG")
 					vim.cmd("q")
 				end
 			end,
@@ -137,8 +141,8 @@ M.LSP = {
 							return client.name == "null-ls"
 						end,
 					})
-					vim.api.nvim_command("write")
-					vim.api.nvim_command("bdelete")
+					vim.cmd("w")
+					vim.cmd("bdelete")
 				end
 			end,
 			"Format all buffers",
@@ -223,7 +227,10 @@ M.general = {
 		-- x and c don't replace buffer
 		["x"] = { '"_x', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore" },
+		["ci"] = { '"_ci', "which_key_ignore" },
 		["D"] = { '"_d', "which_key_ignore" },
+		["{"] = { "?{<CR>", "which_key_ignore", opts = { nowait = true } },
+		["}"] = { "/}<CR>", "which_key_ignore", opts = { nowait = true } },
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		["gt"] = {
@@ -234,8 +241,8 @@ M.general = {
 		},
 		["I"] = {
 			function()
-				vim.api.nvim_command("normal _")
-				vim.api.nvim_command("startinsert")
+				vim.cmd("normal _")
+				vim.cmd("startinsert")
 			end,
 			"which_key_ignore",
 		},
@@ -243,11 +250,11 @@ M.general = {
 			function()
 				local last_char = string.sub(vim.api.nvim_get_current_line(), -1)
 				if last_char == ";" or last_char == "," then
-					vim.api.nvim_command("normal $")
-					vim.api.nvim_command("startinsert")
+					vim.cmd("normal $")
+					vim.cmd("startinsert")
 				else
-					vim.api.nvim_command("normal $")
-					vim.api.nvim_command("startinsert!")
+					vim.cmd("normal $")
+					vim.cmd("startinsert!")
 				end
 			end,
 			"which_key_ignore",
@@ -256,11 +263,11 @@ M.general = {
 			function()
 				local last_char = string.sub(vim.api.nvim_get_current_line(), -1)
 				if last_char == ";" or last_char == "," then
-					vim.api.nvim_command("normal v$hc")
-					vim.api.nvim_command("startinsert!")
+					vim.cmd("normal v$hc")
+					vim.cmd("startinsert!")
 				else
-					vim.api.nvim_command("normal c$")
-					vim.api.nvim_command("startinsert!")
+					vim.cmd("normal c$")
+					vim.cmd("startinsert!")
 				end
 			end,
 			"which_key_ignore",
@@ -297,11 +304,11 @@ M.general = {
 		["<leader>N"] = { "<cmd> enew <CR>", "New buffer" },
 		["<leader>p"] = {
 			function()
-				vim.api.nvim_command("normal o")
+				vim.cmd("normal o")
 				local row = vim.api.nvim_win_get_cursor(0)[1]
 				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
 				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
-				vim.api.nvim_command("normal p")
+				vim.cmd("normal p")
 				vim.lsp.buf.format({ async = true })
 			end,
 			"Paste pretty",
@@ -335,7 +342,7 @@ M.general = {
 		},
 		["<leader>P"] = {
 			function()
-				vim.api.nvim_command("normal ggVGP")
+				vim.cmd("normal ggVGP")
 			end,
 			"Paste buffer",
 		},
@@ -374,15 +381,32 @@ M.general = {
 		},
 		["<F5>"] = {
 			function()
-				vim.cmd("w")
+				pcall(function()
+					vim.cmd("w")
+				end)
 				vim.cmd("!./.nvim-run.sh")
 			end,
 			"Run Script",
 		},
 		["<F6>"] = {
 			function()
-				vim.cmd("w")
-				require("dap").continue()
+				local tabs = vim.api.nvim_list_tabpages()
+				for _, tab in ipairs(tabs) do
+					local windows = vim.api.nvim_tabpage_list_wins(tab)
+					for _, win in ipairs(windows) do
+						local buf = vim.api.nvim_win_get_buf(win)
+						vim.fn.bufload(buf)
+						vim.api.nvim_set_current_win(win)
+						local success = false
+						success, _ = pcall(function()
+							vim.cmd("w")
+							require("dap").continue()
+						end)
+						if success then
+							return
+						end
+					end
+				end
 			end,
 			"Debug",
 		},
