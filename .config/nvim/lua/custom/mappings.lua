@@ -51,7 +51,7 @@ M.Git = {
 	n = {
 		["<leader>ga"] = {
 			function()
-				vim.cmd("silent ! git add .")
+				vim.cmd("silent ! git add -A")
 			end,
 			"Stage all",
 		},
@@ -258,10 +258,10 @@ M.general = {
 
 			"Current context",
 		},
-		["H"] = { "<C-W>>", "which_key_ignore" },
-		["J"] = { "<C-W>-", "which_key_ignore" },
-		["K"] = { "<C-W>+", "which_key_ignore" },
-		["L"] = { "<C-W><", "which_key_ignore" },
+		["H"] = { "<C-W><", "which_key_ignore" },
+		["J"] = { "<C-W>+", "which_key_ignore" },
+		["K"] = { "<C-W>-", "which_key_ignore" },
+		["L"] = { "<C-W>>", "which_key_ignore" },
 		["<leader>Cr"] = { "<cmd> source ~/.Session.vim <CR>", "Restore Session" },
 		["<A-f>"] = {
 			function()
@@ -370,13 +370,45 @@ M.general = {
 M.DAP = {
 	plugin = true,
 	n = {
-		["<leader>dc"] = { "<cmd>lua require'dap'.continue()<cr>", "Continue", opts = { silent = true } },
-		["<leader>do"] = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over", opts = { silent = true } },
-		["<leader>di"] = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into", opts = { silent = true } },
-		["<leader>du"] = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out", opts = { silent = true } },
-		["<leader>db"] = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Breakpoint", opts = { silent = true } },
+		["<leader>dc"] = {
+			function()
+				require("dap").continue()
+			end,
+			"Continue",
+			opts = { silent = true },
+		},
+		["<leader>do"] = {
+			function()
+				require("dap").step_over()
+			end,
+			"Step Over",
+			opts = { silent = true },
+		},
+		["<leader>di"] = {
+			function()
+				require("dap").step_into()
+			end,
+			"Step Into",
+			opts = { silent = true },
+		},
+		["<leader>du"] = {
+			function()
+				require("dap").step_out()
+			end,
+			"Step Out",
+			opts = { silent = true },
+		},
+		["<leader>db"] = {
+			function()
+				require("dap").toggle_breakpoint()
+			end,
+			"Breakpoint",
+			opts = { silent = true },
+		},
 		["<leader>dB"] = {
-			"<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
+			function()
+				require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+			end,
 			"Breakpoint Condition",
 			opts = { silent = true },
 		},

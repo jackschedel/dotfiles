@@ -20,7 +20,7 @@ local plugins = {
 	{
 		"kdheepak/lazygit.nvim",
 
-		lazy = false,
+		cmd = "LazyGit",
 
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
