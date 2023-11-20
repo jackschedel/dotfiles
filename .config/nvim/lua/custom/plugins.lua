@@ -71,8 +71,8 @@ local plugins = {
 					end
 
 					-- Enabled:
-					require("custom.configs.dap.settings.cpptools")
-					-- require("custom.configs.dap.settings.codelldb")
+					-- require("custom.configs.dap.settings.cpptools")
+					require("custom.configs.dap.settings.codelldb")
 					require("custom.configs.dap.settings.go-debug-adapter")
 
 					-- Disabled:
