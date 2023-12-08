@@ -7,11 +7,11 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:/home/jack/.local/bin
+export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:/snap/bin
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/home/jack/.local/lib/python3.11/site-packages
-export PATH=$PATH:/home/jack/.local/share/nvim/mason/bin
+export PATH=$PATH:$HOME/.local/lib/python3.11/site-packages
+export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -238,4 +238,4 @@ setopt banghist
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /home/jack/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
