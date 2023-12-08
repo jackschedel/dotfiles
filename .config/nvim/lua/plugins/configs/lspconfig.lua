@@ -44,7 +44,16 @@ M.capabilities.textDocument.completion.completionItem = {
 require("lspconfig").lua_ls.setup({
 	on_attach = M.on_attach,
 	capabilities = M.capabilities,
+  root_dir = function(fname)
+    local home = vim.loop.os_homedir()
+    local cwd = vim.loop.cwd()
 
+    if cwd == home then
+      return nil
+    else
+      return utils.find_git_ancestor(fname) or utils.path.dirname(fname)
+    end
+  end,
 	settings = {
 		Lua = {
 			diagnostics = {
