@@ -246,32 +246,6 @@ M.general = {
 			end,
 			"which_key_ignore",
 		},
-		["A"] = {
-			function()
-				local last_char = string.sub(vim.api.nvim_get_current_line(), -1)
-				if last_char == ";" or last_char == "," then
-					vim.cmd("normal $")
-					vim.cmd("startinsert")
-				else
-					vim.cmd("normal $")
-					vim.cmd("startinsert!")
-				end
-			end,
-			"which_key_ignore",
-		},
-		["C"] = {
-			function()
-				local last_char = string.sub(vim.api.nvim_get_current_line(), -1)
-				if last_char == ";" or last_char == "," then
-					vim.cmd("normal v$hc")
-					vim.cmd("startinsert!")
-				else
-					vim.cmd("normal c$")
-					vim.cmd("startinsert!")
-				end
-			end,
-			"which_key_ignore",
-		},
 		["gC"] = {
 			function()
 				local ok, start = require("indent_blankline.utils").get_current_context(
