@@ -19,6 +19,8 @@ local sources = {
 
 	b.formatting.gofmt,
 
+	b.formatting.rustfmt,
+
 	b.formatting.black,
 
 	b.formatting.asmfmt,
