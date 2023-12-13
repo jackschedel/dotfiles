@@ -1,6 +1,24 @@
 ---@type ChadrcConfig
 local M = {}
 
+function VFit()
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+	local max_width = 0
+	for _, line in ipairs(lines) do
+		local width = vim.fn.strdisplaywidth(line)
+		if width > max_width then
+			max_width = width
+		end
+	end
+	vim.cmd("vertical resize " .. max_width + 6)
+end
+
+function HFit()
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+	local max_height = #lines
+	vim.cmd("resize " .. max_height + 1)
+end
+
 M.disabled = {
 	v = {
 		["<leader>ca"] = "",
@@ -261,10 +279,22 @@ M.general = {
 
 			"Current context",
 		},
-		["H"] = { "<C-W><", "which_key_ignore" },
-		["J"] = { "<C-W>+", "which_key_ignore" },
-		["K"] = { "<C-W>-", "which_key_ignore" },
-		["L"] = { "<C-W>>", "which_key_ignore" },
+		["<S-Left>"] = { "2<C-W><", "which_key_ignore" },
+		["<S-Up>"] = { "2<C-W>+", "which_key_ignore" },
+		["<S-Down>"] = { "2<C-W>-", "which_key_ignore" },
+		["<S-Right>"] = { "2<C-W>>", "which_key_ignore" },
+		["<C-W>v"] = {
+			function()
+				VFit()
+			end,
+			"Vertical scale to fit",
+		},
+		["<C-W>h"] = {
+			function()
+				HFit()
+			end,
+			"Horizontal scale to fit",
+		},
 		["<leader>Cr"] = { "<cmd> source ~/.Session.vim <CR>", "Restore Session" },
 		["<A-f>"] = {
 			function()
@@ -461,11 +491,27 @@ M.Harpoon = {
 			-- Harpoon #1
 			"which_key_ignore",
 		},
+		["<leader>!"] = {
+			function()
+				vim.cmd("vnew")
+				require("harpoon.ui").nav_file(1)
+				VFit()
+			end,
+			"which_key_ignore",
+		},
 		["<leader>2"] = {
 			function()
 				require("harpoon.ui").nav_file(2)
 			end,
 			-- Harpoon #2
+			"which_key_ignore",
+		},
+		["<leader>@"] = {
+			function()
+				vim.cmd("vnew")
+				require("harpoon.ui").nav_file(2)
+				VFit()
+			end,
 			"which_key_ignore",
 		},
 		["<leader>3"] = {
@@ -475,11 +521,27 @@ M.Harpoon = {
 			-- Harpoon #3
 			"which_key_ignore",
 		},
+		["<leader>#"] = {
+			function()
+				vim.cmd("vnew")
+				require("harpoon.ui").nav_file(3)
+				VFit()
+			end,
+			"which_key_ignore",
+		},
 		["<leader>4"] = {
 			function()
 				require("harpoon.ui").nav_file(4)
 			end,
 			-- Harpoon #4
+			"which_key_ignore",
+		},
+		["<leader>$"] = {
+			function()
+				vim.cmd("vnew")
+				require("harpoon.ui").nav_file(4)
+				VFit()
+			end,
 			"which_key_ignore",
 		},
 		["<leader>5"] = {
@@ -489,11 +551,27 @@ M.Harpoon = {
 			-- Harpoon #5
 			"which_key_ignore",
 		},
+		["<leader>%"] = {
+			function()
+				vim.cmd("vnew")
+				require("harpoon.ui").nav_file(5)
+				VFit()
+			end,
+			"which_key_ignore",
+		},
 		["<leader>6"] = {
 			function()
 				require("harpoon.ui").nav_file(6)
 			end,
 			-- Harpoon #6
+			"which_key_ignore",
+		},
+		["<leader>^"] = {
+			function()
+				vim.cmd("vnew")
+				require("harpoon.ui").nav_file(6)
+				VFit()
+			end,
 			"which_key_ignore",
 		},
 	},
