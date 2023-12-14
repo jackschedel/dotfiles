@@ -10,7 +10,6 @@ zen_on() {
              --set volume_icon drawing=off \
              --set spotify.anchor drawing=off \
              --set spotify.play updates=off \
-             --set brew drawing=off \
              --set volume drawing=off \
              --set github.bell drawing=off
 }
@@ -24,7 +23,6 @@ zen_off() {
              --set front_app drawing=on \
              --set volume_icon drawing=on \
              --set spotify.play updates=on \
-             --set brew drawing=on \
              --set volume drawing=on \
              --set github.bell drawing=on
 }
