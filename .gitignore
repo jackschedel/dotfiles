@@ -27,3 +27,7 @@
 !.config/alacritty/alacritty.yml
 
 !.config/nvim
+
+!.config/skhd
+!.config/yabai
+!.config/sketchybar
