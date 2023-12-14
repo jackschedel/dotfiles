@@ -20,7 +20,7 @@ update() {
   args+=(--remove '/github.notification\.*/')
 
   COUNTER=0
-  COLOR=$BLUE
+  COLOR=$WHITE
   args+=(--set github.bell icon.color=$COLOR)
 
   while read -r repo url type title 
