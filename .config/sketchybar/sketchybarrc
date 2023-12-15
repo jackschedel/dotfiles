@@ -28,7 +28,7 @@ bar=(
   sticky=on
   padding_right=10
   padding_left=10
-  y_offset=-2
+  y_offset=2
   margin=-2
   topmost=on
 )
@@ -66,7 +66,7 @@ sketchybar --default "${defaults[@]}"
 source "$ITEM_DIR/apple.sh"
 source "$ITEM_DIR/spaces.sh"
 source "$ITEM_DIR/yabai.sh"
-source "$ITEM_DIR/front_app.sh"
+# source "$ITEM_DIR/front_app.sh"
 
 # Center
 source "$ITEM_DIR/spotify.sh"
