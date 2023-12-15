@@ -18,7 +18,7 @@
                 },
                 "rules": [
                     {
-                        "description": "Option Capslock",
+                        "description": "Option CapsLock -> CapsLock",
                         "manipulators": [
                             {
                                 "from": {

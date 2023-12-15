@@ -54,10 +54,6 @@ shift + lalt - 4 : DISPLAY="$(yabai -m query --displays --display | jq '.index')
 shift + lalt - p : yabai -m window --space prev; yabai -m space --focus prev; sketchybar --trigger windows_on_spaces
 shift + lalt - n : yabai -m window --space next; yabai -m space --focus next; sketchybar --trigger windows_on_spaces
 
-# Mirror Space on X and Y Axis: shift + lalt - {x, y}
-shift + lalt - x : yabai -m space --mirror x-axis
-shift + lalt - y : yabai -m space --mirror y-axis
-
 ## Stacks (shift + ctrl - ...)
 # Add the active window to the window or stack to the {direction}: shift + ctrl - {j, k, l, ö}
 shift + ctrl - j    : yabai -m window  west --stack $(yabai -m query --windows --window | jq -r '.id'); sketchybar --trigger window_focus
