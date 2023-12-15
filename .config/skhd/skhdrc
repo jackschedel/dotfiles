@@ -1,9 +1,9 @@
 ## Navigation (lalt - ...)
 # Space Navigation (four spaces per display): lalt - {1, 2, 3, 4}
-lalt - 1 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((1+4*($DISPLAY - 1)))
-lalt - 2 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((2+4*($DISPLAY - 1)))
-lalt - 3 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((3+4*($DISPLAY - 1)))
-lalt - 4 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((4+4*($DISPLAY - 1)))
+shift + lalt - 1 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((1+4*($DISPLAY - 1)))
+shift + lalt - 2 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((2+4*($DISPLAY - 1)))
+shift + lalt - 3 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((3+4*($DISPLAY - 1)))
+shift + lalt - 4 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((4+4*($DISPLAY - 1)))
 
 # Window Navigation (through display borders): lalt - {j, k, l, ö}
 lalt - j    : yabai -m window --focus west  || yabai -m display --focus west
@@ -32,7 +32,7 @@ shift + lalt - l : yabai -m window --warp north || $(yabai -m window --display n
 shift + lalt - 0x29 : yabai -m window --warp east || $(yabai -m window --display east && sketchybar --trigger windows_on_spaces && yabai -m display --focus east && yabai -m window --warp first) || yabai -m window --move rel:10:0
 
 # Toggle split orientation of the selected windows node: shift + lalt - s
-shift + lalt - s : yabai -m window --toggle split
+# shift + lalt - s : yabai -m window --toggle split
 
 # Moving windows between spaces: shift + lalt - {1, 2, 3, 4, p, n } (Assumes 4 Spaces Max per Display)
 shift + lalt - 1 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
@@ -82,9 +82,9 @@ ctrl + lalt - e : yabai -m space --balance
 # Enable / Disable gaps in current workspace: ctrl + lalt - g
 ctrl + lalt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
-# Enable / Disable gaps in current workspace: ctrl + lalt - g
-ctrl + lalt - b : yabai -m config window_border off 
-shift + ctrl + lalt - b : yabai -m config window_border on
+# # Enable / Disable gaps in current workspace: ctrl + lalt - g
+# ctrl + lalt - b : yabai -m config window_border off 
+# shift + ctrl + lalt - b : yabai -m config window_border on
 
 ## Insertion (shift + ctrl + lalt - ...)
 # Set insertion point for focused container: shift + ctrl + lalt - {j, k, l, ö, s}
@@ -94,24 +94,14 @@ shift + ctrl + lalt - l : yabai -m window --insert north
 shift + ctrl + lalt - 0x29 : yabai -m window --insert east
 shift + ctrl + lalt - s : yabai -m window --insert stack
 
-## Misc
-# Open new Alacritty window
-lalt - t : alacritty msg create-window
 
 # New window in hor./ vert. splits for all applications with yabai
-lalt - s : yabai -m window --insert east;  skhd -k "cmd - n"
+# lalt - s : yabai -m window --insert east;  skhd -k "cmd - n"
 lalt - v : yabai -m window --insert south; skhd -k "cmd - n"
 
-# Toggle sketchybar
-shift + lalt - space : sketchybar --bar hidden=toggle
-shift + lalt - r : sketchybar --remove '/.*/' && sh -c '$HOME/.config/sketchybar/sketchybarrc'
 
-# Toggle margin of sketchybar
-shift + lalt - m : CURRENT="$(sketchybar --query bar | jq -r '.y_offset')"; \
-                  if [ "$CURRENT" -eq "0" ]; then \
-                    yabai -m config external_bar all:49:0; \
-                    sketchybar --animate sin 15 --bar margin=10 y_offset=10 corner_radius=9; \
-                  else \
-                    yabai -m config external_bar all:39:0; \
-                    sketchybar --animate sin 15 --bar margin=0 y_offset=0 corner_radius=0; \
-                  fi \
+# Custom binds
+
+# Command + D to open Downloads in Finder
+cmd - d : open $HOME/Downloads
+

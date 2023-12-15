@@ -31,3 +31,6 @@
 !.config/skhd
 !.config/yabai
 !.config/sketchybar
+!.config/karabiner
+.config/karabiner/*
+!.config/karabiner/karabiner.json
