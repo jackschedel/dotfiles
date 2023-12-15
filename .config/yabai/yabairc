@@ -9,6 +9,9 @@ yabai -m signal --add event=display_added action="sleep 2 && $HOME/.config/yabai
 yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yabai/create_spaces.sh"
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=space_created action="sleep 10 && sketchybar --trigger space_change --trigger windows_on_spaces"
+yabai -m signal --add event=space_destroyed action="sleep 30 && sketchybar --trigger space_change --trigger windows_on_spaces"
+yabai -m signal --add event=space_changed action="sleep 30 && sketchybar --trigger space_change --trigger windows_on_spaces"
 
 $HOME/.config/yabai/create_spaces.sh
 
@@ -42,7 +45,7 @@ yabai -m config external_bar               all:49:0     \
                 bottom_padding             10           \
                 left_padding               10           \
                 right_padding              10           \
-                window_gap                 15
+                window_gap                 10
 
 # Exclude problematic apps from being managed:
 yabai -m rule --add app="^(LuLu|Vimac|Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor)$" manage=off

@@ -16,9 +16,7 @@ set_space_label() {
 }
 
 mouse_clicked() {
-  if [ "$BUTTON" = "right" ]; then
-    yabai -m space --destroy $SID
-  else
+  if [ "$BUTTON" != "right" ]; then
     if [ "$MODIFIER" = "shift" ]; then
       SPACE_LABEL="$(osascript -e "return (text returned of (display dialog \"Give a name to space $NAME:\" default answer \"\" with icon note buttons {\"Cancel\", \"Continue\"} default button \"Continue\"))")"
       if [ $? -eq 0 ]; then

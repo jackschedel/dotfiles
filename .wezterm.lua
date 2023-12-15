@@ -11,7 +11,7 @@ end
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 
-config.font_size = 13
+config.font_size = 15
 
 config.window_padding = {
 	left = 0,
