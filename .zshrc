@@ -121,32 +121,12 @@ fi
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias lg='lazygit'
-alias fuck='sudo $(fc -ln -1)'
-alias v='nvim'
-alias f='open .'
-alias python='python3'
-alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
-alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
-alias t='tmux'
-alias pynp='i=1; while [[ -e ~/.notepads/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.py'
-alias cppnp='i=1; while [[ -e ~/.notepads/notepad$i.cpp || -e ~/.local/state/nvim/swap//%tmp%notepad$i.cpp.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.cpp'
-alias cnp='i=1; while [[ -e ~/.notepads/notepad$i.c || -e ~/.local/state/nvim/swap//%tmp%notepad$i.c.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.c'
-alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
 
-alias c=clear
-alias j='if [ -f package.json ]; then nvim package.json; else echo "No package.json found"; fi'
-alias e='exit'
-
-types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
+unzippable_types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
 
 unzip_most_recent_here() {
-  for type in "${types[@]}"; do
-    file=$(\ls -t /mnt/c/Users/jacks/Downloads/*.$type 2> /dev/null | head -n1)
+  for type in "${unzippable_types[@]}"; do
+    file=$(\ls -t /Users/jack/Downloads/*.$type 2> /dev/null | head -n1)
     if [[ -n "$file" ]]; then
       echo "Unzipping $file"
       case $type in
@@ -173,8 +153,8 @@ unzip_most_recent_here() {
 }
 
 unzip_most_recent_new_folder() {
-  for type in "${types[@]}"; do
-    file=$(\ls -t /mnt/c/Users/jacks/Downloads/*.$type 2> /dev/null | head -n1)
+  for type in "${unzippable_types[@]}"; do
+    file=$(\ls -t /Users/jack/Downloads/*.$type 2> /dev/null | head -n1)
     if [[ -n "$file" ]]; then
       # Get the filename without extension
       filename=$(basename "$file" .$type)
@@ -209,7 +189,7 @@ unzip_most_recent_new_folder() {
 }
 
 move_most_recent() {
-  file=$(\ls -t /mnt/c/Users/jacks/Downloads/* 2> /dev/null | head -n1)
+  file=$(\ls -t /Users/jack/Downloads/* 2> /dev/null | head -n1)
   if [[ -n "$file" ]]; then
     echo "Copying $file"
     cp $file ./
@@ -218,28 +198,43 @@ move_most_recent() {
   fi
 }
 
-alias zh="unzip_most_recent_here"
+alias l='colorls --sd'
+alias v='nvim'
+alias f='open .'
+alias t='tmux'
+alias c=clear
+alias e='exit'
+alias j='if [ -f package.json ]; then nvim package.json; else echo "No package.json found"; fi'
 alias z="unzip_most_recent_new_folder"
 alias m="move_most_recent"
 
-# To run on system restart to fix run-interpreter errors
-alias wsl='sudo update-binfmts --disable cli'
-
-alias l='colorls --sd'
+alias lg='lazygit'
+alias zh="unzip_most_recent_here"
 alias la='colorls -Al --sd'
 alias ls='colorls -A --sd'
 alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
 
+alias fuck='sudo $(fc -ln -1)'
+
+alias python='python3'
+
+alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
+alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
+alias sketch='cd ~/.config/sketchybar/ && nvim ./sketchybarrc'
+alias ahk='nvim ~/.config/skhd/skhdrc'
+alias skhdrc='nvim ~/.config/skhd/skhdrc'
+alias yabairc='nvim ~/.config/yabai/yabairc'
+
+alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
+alias pynp='i=1; while [[ -e ~/.notepads/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.py'
+alias cppnp='i=1; while [[ -e ~/.notepads/notepad$i.cpp || -e ~/.local/state/nvim/swap//%tmp%notepad$i.cpp.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.cpp'
+alias cnp='i=1; while [[ -e ~/.notepads/notepad$i.c || -e ~/.local/state/nvim/swap//%tmp%notepad$i.c.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.c'
+
 setopt aliases
 setopt noautomenu
 setopt nomenucomplete
 setopt banghist
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-#source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -260,3 +255,7 @@ if [ -f "/Users/jack/miniforge3/etc/profile.d/mamba.sh" ]; then
 fi
 # <<< conda initialize <<<
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
