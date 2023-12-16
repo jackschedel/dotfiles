@@ -9,9 +9,9 @@ export BLUE=0xff83a598
 export YELLOW=0xfffabd2f
 export ORANGE=0xfffe8019
 export MAGENTA=0xffd3869b
-export GREY=0xff282828 #bg
+export GREY=0xbb282828 #bg
 export TRANSPARENT=0x00000000
-export BACKGROUND_MAIN=0xff1d2021 #bg0_h
+export BACKGROUND_MAIN=0x771d2021 #bg0_h
 
 # General bar colors
 export BAR_COLOR=$BACKGROUND_MAIN

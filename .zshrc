@@ -14,11 +14,13 @@ export PATH=/opt/homebrew/bin:$PATH
 export PATH=/opt/homebrew/sbin:$PATH
 export PATH=$PATH:$HOME/.local/lib/python3.11/site-packages
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
-export PATH="$HOME/.local/share/gem/ruby/3.2.0/bin:$PATH"
+export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/.local/share/gem/ruby/3.2.0/bin
+export PATH=$PATH:$HOME/miniforge3/bin:/usr/local/anaconda3/bin
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 
 # Path to your oh-my-zsh installation.
@@ -126,10 +128,9 @@ fi
 alias lg='lazygit'
 alias fuck='sudo $(fc -ln -1)'
 alias v='nvim'
+alias f='open .'
 alias python='python3'
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
-alias binds='nvim /mnt/c/Users/jacks/Documents/.custom-binds.ahk; cp /mnt/c/Users/jacks/Documents/.custom-binds.ahk ~/.custom_binds.ahk'
-alias ahk='nvim /mnt/c/Users/jacks/Documents/.custom-binds.ahk; cp /mnt/c/Users/jacks/Documents/.custom-binds.ahk ~/.custom_binds.ahk'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
 alias t='tmux'
 alias pynp='i=1; while [[ -e ~/.notepads/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.py'
@@ -140,13 +141,6 @@ alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/s
 alias c=clear
 alias j='if [ -f package.json ]; then nvim package.json; else echo "No package.json found"; fi'
 alias e='exit'
-
-alias tiva='cd /mnt/c/ti/ccs1230/ccs/utils/tivaware_c_series_2_1_4_178/examples/boards/ek-tm4c123gxl'
-alias microp='cd /mnt/c/Users/jacks/Documents/microp2-deps'
-alias plc='cd /mnt/c/reps/COP4020-Project/'
-alias mnt='cd /mnt/c/reps'
-
-alias f='explorer.exe .'
 
 types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
 
@@ -246,3 +240,23 @@ setopt banghist
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jack/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jack/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jack/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jack/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+if [ -f "/Users/jack/miniforge3/etc/profile.d/mamba.sh" ]; then
+    . "/Users/jack/miniforge3/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
+

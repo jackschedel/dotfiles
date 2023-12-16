@@ -6,14 +6,14 @@ shift + lalt - 3 : DISPLAY="$(yabai -m query --displays --display | jq '.index')
 shift + lalt - 4 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((4+4*($DISPLAY - 1)))
 
 # Window Navigation (through display borders): lalt - {j, k, l, ö}
-lalt - j    : yabai -m window --focus west  || yabai -m display --focus west
-lalt - k    : yabai -m window --focus south || yabai -m display --focus south
-lalt - l    : yabai -m window --focus north || yabai -m display --focus north
-lalt - 0x29 : yabai -m window --focus east  || yabai -m display --focus east
+lalt-h:yabai -m window --focus west  || yabai -m display --focus west
+lalt-j:yabai -m window --focus south || yabai -m display --focus south
+lalt-k:yabai -m window --focus north || yabai -m display --focus north
+lalt-l:yabai -m window --focus east  || yabai -m display --focus east
 
 # Extended Window Navigation: lalt - {h, ä}
-lalt -    h : yabai -m window --focus first
-lalt - 0x27 : yabai -m window --focus  last
+# lalt -    h : yabai -m window --focus first
+# lalt - 0x27 : yabai -m window --focus  last
 
 # Float / Unfloat window: lalt - space
 lalt - space : yabai -m window --toggle float; sketchybar --trigger window_focus
