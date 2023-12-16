@@ -239,21 +239,21 @@ setopt banghist
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/jack/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/jack/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/Users/jack/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/jack/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-if [ -f "/Users/jack/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "/Users/jack/miniforge3/etc/profile.d/mamba.sh"
-fi
+# __conda_setup="$('/Users/jack/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/Users/jack/miniforge3/etc/profile.d/conda.sh" ]; then
+#         . "/Users/jack/miniforge3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/Users/jack/miniforge3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+#
+# if [ -f "/Users/jack/miniforge3/etc/profile.d/mamba.sh" ]; then
+#     . "/Users/jack/miniforge3/etc/profile.d/mamba.sh"
+# fi
 # <<< conda initialize <<<
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

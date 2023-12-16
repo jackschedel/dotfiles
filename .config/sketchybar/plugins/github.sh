@@ -10,7 +10,11 @@ update() {
   if [ "$NOTIFICATIONS" = "[]" ]; then
     args+=(--set $NAME icon=$BELL label="0")
   else
-    args+=(--set $NAME icon=$BELL_DOT label="$COUNT")
+    if [ "$NOTIFICATIONS" = "" ]; then
+      args+=(--set $NAME icon=$BELL label="0")
+    else
+      args+=(--set $NAME icon=$BELL_DOT label="$COUNT")
+    fi
   fi
 
   PREV_COUNT=$(sketchybar --query github.bell | jq -r .label.value)
