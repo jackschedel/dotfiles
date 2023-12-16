@@ -202,9 +202,9 @@ alias l='colorls --sd'
 alias v='nvim'
 alias f='open .'
 alias t='tmux'
-alias c=clear
+alias c='clear'
 alias e='exit'
-alias j='if [ -f package.json ]; then nvim package.json; else echo "No package.json found"; fi'
+alias j='if [ -f package.json ]; then nvim package.json; else if [ -f ../package.json ]; then nvim ../package.json; if [ -f ../../package.json ]; then nvim ../../package.json; else echo "No package.json found"; fi; fi; fi'
 alias z="unzip_most_recent_new_folder"
 alias m="move_most_recent"
 
@@ -222,9 +222,10 @@ alias python='python3'
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
 alias sketch='cd ~/.config/sketchybar/ && nvim ./sketchybarrc'
-alias ahk='nvim ~/.config/skhd/skhdrc'
-alias skhdrc='nvim ~/.config/skhd/skhdrc'
-alias yabairc='nvim ~/.config/yabai/yabairc'
+alias ahk='nvim ~/.config/skhd/skhdrc && skhd --restart-service'
+alias wez='nvim ~/.wezterm.lua'
+alias tmuxrc='cd ~/.config/tmux/ && nvim ./tmux.conf'
+alias yabairc='nvim ~/.config/yabai/yabairc && yabai --restart-service'
 
 alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
 alias pynp='i=1; while [[ -e ~/.notepads/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.py'
