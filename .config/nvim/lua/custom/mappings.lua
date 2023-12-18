@@ -264,6 +264,10 @@ M.general = {
 			end,
 			"which_key_ignore",
 		},
+		["<C-h>"] = { "<Cmd>NavigatorLeft<CR>", "which_key_ignore" },
+		["<C-j>"] = { "<Cmd>NavigatorDown<CR>", "which_key_ignore" },
+		["<C-k>"] = { "<Cmd>NavigatorUp<CR>", "which_key_ignore" },
+		["<C-l>"] = { "<Cmd>NavigatorRight<CR>", "which_key_ignore" },
 		["gC"] = {
 			function()
 				local ok, start = require("indent_blankline.utils").get_current_context(

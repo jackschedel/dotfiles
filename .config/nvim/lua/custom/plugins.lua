@@ -8,8 +8,16 @@ local plugins = {
 	{
 		"ThePrimeagen/harpoon",
 		lazy = false,
-		init = function()
+		config = function()
 			require("core.utils").load_mappings("Harpoon")
+		end,
+	},
+
+	{
+		"numToStr/Navigator.nvim",
+		lazy = false,
+		config = function()
+			require("Navigator").setup()
 		end,
 	},
 
