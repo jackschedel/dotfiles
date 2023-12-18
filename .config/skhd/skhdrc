@@ -29,7 +29,7 @@ shift + lalt - k : yabai -m window --warp north || $(yabai -m window --display n
 shift + lalt - l : yabai -m window --warp east || $(yabai -m window --display east && sketchybar --trigger windows_on_spaces && yabai -m display --focus east && yabai -m window --warp first) || yabai -m window --move rel:10:0
 
 # Toggle split orientation of the selected windows node: shift + option - r
-shift + lalt - r : yabai -m window --toggle split
+# shift + lalt - r : yabai -m window --toggle split
 
 # Moving windows between spaces: shift + option - {1, 2, 3, 4}
 shift + lalt - f1 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
@@ -57,8 +57,8 @@ shift + ctrl - k    : yabai -m window north --stack $(yabai -m query --windows -
 shift + ctrl - l    : yabai -m window  east --stack $(yabai -m query --windows --window | jq -r '.id'); sketchybar --trigger window_focus
 
 # Stack Navigation: shift + ctrl - {n, p}
-shift + ctrl - n : yabai -m window --focus stack.next
-shift + ctrl - p : yabai -m window --focus stack.prev
+shift + ctrl - n : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+shift + ctrl - p : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 
 
 ## Resize (ctrl + option - ...)

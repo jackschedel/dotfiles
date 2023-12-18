@@ -92,6 +92,12 @@ local plugins = {
 	},
 
 	{
+		"mrcjkb/rustaceanvim",
+		version = "^3",
+		ft = { "rust" },
+	},
+
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			-- format & linting
