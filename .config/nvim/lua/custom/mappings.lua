@@ -62,6 +62,7 @@ M.NvChad = {
 	n = {
 		["<leader>Ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
 		["<leader>Ct"] = { "<cmd> Telescope themes <CR>", "Theme picker" },
+		["<leader>Cr"] = { "<cmd> source ~/.Session.vim <CR>", "Restore Session" },
 	},
 }
 
@@ -204,19 +205,19 @@ M.general = {
 	v = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
-		["x"] = { "d", "which_key_ignore" },
+		["x"] = { '"_d', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore" },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
 	},
 	i = {
-		["<A-f>"] = {
+		["<leader>o"] = {
 			function()
 				local row = vim.api.nvim_win_get_cursor(0)[1]
 				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
 				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
 			end,
-			"Add spacing below",
+			"Add spacing around",
 		},
 		["<Up>"] = {
 			function()
@@ -242,11 +243,12 @@ M.general = {
 		},
 	},
 	n = {
-		-- x and c don't replace buffer
+		-- x and c don't replace register
 		["x"] = { '"_x', "which_key_ignore" },
-		["c"] = { '"_c', "which_key_ignore" },
-		["ci"] = { '"_ci', "which_key_ignore" },
-		["D"] = { '"_d', "which_key_ignore" },
+		["X"] = { '"_X', "which_key_ignore" },
+		["c"] = { '"_c', "which_key_ignore", opts = { nowait = true } },
+		["C"] = { '"_C', "which_key_ignore" },
+		["D"] = { '"_d', "which_key_ignore", opts = { nowait = true } },
 		["{"] = { "?{<CR>", "which_key_ignore", opts = { nowait = true } },
 		["}"] = { "/}<CR>", "which_key_ignore", opts = { nowait = true } },
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
@@ -255,7 +257,7 @@ M.general = {
 			function()
 				vim.lsp.buf.type_definition()
 			end,
-			"LSP definition type",
+			"LSP type definition",
 		},
 		["I"] = {
 			function()
@@ -299,8 +301,7 @@ M.general = {
 			end,
 			"Horizontal scale to fit",
 		},
-		["<leader>Cr"] = { "<cmd> source ~/.Session.vim <CR>", "Restore Session" },
-		["<A-f>"] = {
+		["<leader>o"] = {
 			function()
 				local row = vim.api.nvim_win_get_cursor(0)[1]
 				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
@@ -417,6 +418,13 @@ M.general = {
 				end
 			end,
 			"Debug",
+		},
+		["<F7>"] = {
+			function()
+				require("dap").step_over()
+			end,
+			"Step Over",
+			opts = { silent = true },
 		},
 	},
 }
