@@ -105,7 +105,12 @@ M.LSP = {
 	n = {
 		["<leader>la"] = {
 			function()
-				vim.lsp.buf.code_action()
+				local current_ft = vim.bo.filetype
+				if current_ft == "rust" then
+					vim.cmd.RustLsp("codeAction")
+				else
+					vim.lsp.buf.code_action()
+				end
 			end,
 			"Code action",
 		},
@@ -209,8 +214,6 @@ M.general = {
 		["c"] = { '"_c', "which_key_ignore" },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
-	},
-	i = {
 		["<leader>o"] = {
 			function()
 				local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -219,6 +222,8 @@ M.general = {
 			end,
 			"Add spacing around",
 		},
+	},
+	i = {
 		["<Up>"] = {
 			function()
 				if require("cmp").visible() then
@@ -393,7 +398,15 @@ M.general = {
 				pcall(function()
 					vim.cmd("w")
 				end)
-				vim.cmd("!./.nvim-run.sh")
+				local current_ft = vim.bo.filetype
+				if current_ft == "rust" then
+					vim.cmd.RustLsp({
+						"runnables",
+						"last" --[[ optional ]],
+					})
+				else
+					vim.cmd("!./.nvim-run.sh")
+				end
 			end,
 			"Run Script",
 		},
@@ -409,7 +422,15 @@ M.general = {
 						local success = false
 						success, _ = pcall(function()
 							vim.cmd("w")
-							require("dap").continue()
+							local current_ft = vim.bo.filetype
+							if current_ft == "rust" then
+								vim.cmd.RustLsp({
+									"debuggables",
+									"last" --[[ optional ]],
+								})
+							else
+								require("dap").continue()
+							end
 						end)
 						if success then
 							return
