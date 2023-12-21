@@ -20,7 +20,7 @@ do
     padding_right=2
     label.padding_right=20
     icon.highlight_color=$RED
-    label.color=$GREY
+    label.color=$WHITE
     label.highlight_color=$WHITE
     label.font="sketchybar-app-font:Regular:16.0"
     label.y_offset=-1
