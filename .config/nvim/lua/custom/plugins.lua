@@ -26,6 +26,26 @@ local plugins = {
 
 	{ "mbbill/undotree", lazy = false },
 
+	"NvChad/nvcommunity",
+	{ import = "nvcommunity.editor.hlargs" },
+	{ import = "nvcommunity.editor.illuminate" },
+	{ import = "nvcommunity.editor.treesittercontext" },
+
+	{
+		"kevinhwang91/nvim-fundo",
+		event = "VeryLazy",
+		opts = {},
+		dependencies = {
+			"kevinhwang91/promise-async",
+		},
+		init = function()
+			vim.o.undofile = true
+		end,
+		build = function()
+			require("fundo").install()
+		end,
+	},
+
 	{
 		"kdheepak/lazygit.nvim",
 
