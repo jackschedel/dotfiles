@@ -63,6 +63,7 @@ M.NvChad = {
 		["<leader>Ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
 		["<leader>Ct"] = { "<cmd> Telescope themes <CR>", "Theme picker" },
 		["<leader>Cr"] = { "<cmd> source ~/.Session.vim <CR>", "Restore Session" },
+		["<leader>Cf"] = { "<cmd> Telescope help_tags <CR>", "Search help" },
 	},
 }
 
@@ -150,58 +151,9 @@ M.LSP = {
 		},
 		["<leader>lf"] = {
 			function()
-				vim.lsp.buf.format({ async = true })
+				require("conform").format({ async = true, lsp_fallback = true })
 			end,
 			"Format",
-		},
-		["<leader>lAF"] = {
-			function()
-				local buffers = vim.fn.getbufinfo()
-				for _, buf in ipairs(buffers) do
-					vim.fn.bufload(buf.bufnr)
-					vim.api.nvim_set_current_buf(buf.bufnr)
-					vim.lsp.buf.format({
-						filter = function(client)
-							return client.name == "null-ls"
-						end,
-					})
-					vim.cmd("w")
-					vim.cmd("bdelete")
-				end
-			end,
-			"Format all buffers",
-		},
-		["<leader>lAo"] = {
-			function()
-				local exts = {
-					"ts",
-					"tsx",
-					"js",
-					"jsx",
-					"html",
-					"css",
-					"md",
-					"yaml",
-					"scss",
-					"json",
-					"yml",
-					"lua",
-					"c",
-					"py",
-					"cpp",
-					"asm",
-					"h",
-					"hpp",
-					"lua",
-				}
-				for _, ext in ipairs(exts) do
-					local files = vim.fn.glob("**/*." .. ext)
-					if #files > 0 then
-						vim.cmd("args **/*." .. ext)
-					end
-				end
-			end,
-			"Open all src files",
 		},
 	},
 }
@@ -211,6 +163,7 @@ M.general = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		["x"] = { '"_d', "which_key_ignore" },
+		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore" },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
@@ -252,12 +205,18 @@ M.general = {
 		["x"] = { '"_x', "which_key_ignore" },
 		["X"] = { '"_X', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore", opts = { nowait = true } },
+		["cc"] = { '"_cc', "which_key_ignore", opts = { nowait = true } },
+		["ci"] = { '"_ci', "which_key_ignore", opts = { nowait = true } },
+		["ct"] = { '"_ct', "which_key_ignore", opts = { nowait = true } },
+		["cf"] = { '"_cf', "which_key_ignore", opts = { nowait = true } },
+		["ca"] = { '"_ca', "which_key_ignore", opts = { nowait = true } },
 		["C"] = { '"_C', "which_key_ignore" },
-		["D"] = { '"_d', "which_key_ignore", opts = { nowait = true } },
+		["<leader d>"] = { '"_d', "which_key_ignore", opts = { nowait = true } },
 		["{"] = { "?{<CR>", "which_key_ignore", opts = { nowait = true } },
 		["}"] = { "/}<CR>", "which_key_ignore", opts = { nowait = true } },
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
+		["<leader>{"] = { "f{va{o0", "Select {} Block" },
 		["gt"] = {
 			function()
 				vim.lsp.buf.type_definition()
@@ -323,7 +282,7 @@ M.general = {
 				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
 				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
 				vim.cmd("normal p")
-				vim.lsp.buf.format({ async = true })
+				require("conform").format({ async = true, lsp_fallback = true })
 			end,
 			"Paste pretty",
 		},
@@ -453,50 +412,50 @@ M.general = {
 M.DAP = {
 	plugin = true,
 	n = {
-		["<leader>dc"] = {
+		["<leader>Dc"] = {
 			function()
 				require("dap").continue()
 			end,
 			"Continue",
 			opts = { silent = true },
 		},
-		["<leader>do"] = {
+		["<leader>Do"] = {
 			function()
 				require("dap").step_over()
 			end,
 			"Step Over",
 			opts = { silent = true },
 		},
-		["<leader>di"] = {
+		["<leader>Di"] = {
 			function()
 				require("dap").step_into()
 			end,
 			"Step Into",
 			opts = { silent = true },
 		},
-		["<leader>du"] = {
+		["<leader>Du"] = {
 			function()
 				require("dap").step_out()
 			end,
 			"Step Out",
 			opts = { silent = true },
 		},
-		["<leader>db"] = {
+		["<leader>Db"] = {
 			function()
 				require("dap").toggle_breakpoint()
 			end,
 			"Breakpoint",
 			opts = { silent = true },
 		},
-		["<leader>dB"] = {
+		["<leader>DB"] = {
 			function()
 				require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
 			end,
 			"Breakpoint Condition",
 			opts = { silent = true },
 		},
-		["<leader>dd"] = { "<cmd>lua require'dapui'.toggle()<cr>", "Dap UI", opts = { silent = true } },
-		["<leader>dl"] = { "<cmd>lua require'dap'.run_last()<cr>", "Run Last", opts = { silent = true } },
+		["<leader>DD"] = { "<cmd>lua require'dapui'.toggle()<cr>", "Dap UI", opts = { silent = true } },
+		["<leader>Dl"] = { "<cmd>lua require'dap'.run_last()<cr>", "Run Last", opts = { silent = true } },
 	},
 }
 

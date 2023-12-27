@@ -1,4 +1,5 @@
 local overrides = require("custom.configs.overrides")
+local clang_format_config = vim.fn.stdpath("config") .. "/.clang-format"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -36,6 +37,25 @@ local plugins = {
 		},
 		config = function()
 			require("telescope").load_extension("lazygit")
+		end,
+	},
+
+	{
+		"stevearc/conform.nvim",
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		opts = {
+			formatters_by_ft = {
+				lua = { "stylua" },
+				python = { "isort", "black" },
+				javascript = { "prettierd" },
+				rust = { "rustfmt" },
+				go = { "gofmt" },
+			},
+			format_on_save = { timeout_ms = 500, lsp_fallback = true },
+		},
+		init = function()
+			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 		end,
 	},
 
@@ -100,22 +120,7 @@ local plugins = {
 	},
 
 	{
-		"mrcjkb/rustaceanvim",
-		version = "^3",
-		ft = { "rust" },
-	},
-
-	{
 		"neovim/nvim-lspconfig",
-		dependencies = {
-			-- format & linting
-			{
-				"nvimtools/none-ls.nvim",
-				config = function()
-					require("custom.configs.null-ls")
-				end,
-			},
-		},
 		config = function()
 			require("plugins.configs.lspconfig")
 			require("custom.configs.lspconfig")
@@ -126,6 +131,20 @@ local plugins = {
 	{
 		"williamboman/mason.nvim",
 		opts = overrides.mason,
+	},
+
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		version = "2.20.7",
+		init = function()
+			require("core.utils").lazy_load("indent-blankline.nvim")
+		end,
+		opts = overrides.blankline,
+		config = function(_, opts)
+			require("core.utils").load_mappings("blankline")
+			dofile(vim.g.base46_cache .. "blankline")
+			require("indent_blankline").setup(opts)
+		end,
 	},
 
 	{
@@ -143,7 +162,6 @@ local plugins = {
 		opts = overrides.nvimtree,
 	},
 
-	-- Install a plugin
 	{
 		"max397574/better-escape.nvim",
 		event = "InsertEnter",
@@ -152,15 +170,15 @@ local plugins = {
 		end,
 	},
 
+	{
+		"davvid/telescope-git-grep.nvim",
+		branch = "main",
+	},
+
 	-- To make a plugin not be loaded
 	{
 		"windwp/nvim-autopairs",
 		enabled = false,
-	},
-
-	{
-		"davvid/telescope-git-grep.nvim",
-		branch = "main",
 	},
 
 	-- All NvChad plugins are lazy-loaded by default

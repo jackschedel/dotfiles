@@ -6,7 +6,7 @@ capabilities.offsetEncoding = "utf-8"
 local lspconfig = require("lspconfig")
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "gopls", "jedi_language_server", "tailwindcss" }
+local servers = { "html", "cssls", "tsserver", "gopls", "jedi_language_server", "tailwindcss", "rust_analyzer" }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
