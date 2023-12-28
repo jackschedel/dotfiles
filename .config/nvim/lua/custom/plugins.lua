@@ -17,6 +17,14 @@ local plugins = {
 		"mrcjkb/rustaceanvim",
 		version = "^3", -- Recommended
 		ft = { "rust" },
+		opts = {
+			server = {
+				on_attach = require("plugins.configs.lspconfig").on_attach,
+			},
+		},
+		config = function(_, opts)
+			vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
+		end,
 	},
 
 	{
@@ -155,7 +163,6 @@ local plugins = {
 		config = function()
 			require("plugins.configs.lspconfig")
 			require("custom.configs.lspconfig")
-			require("core.utils").load_mappings("lspconfig")
 		end,
 	},
 
