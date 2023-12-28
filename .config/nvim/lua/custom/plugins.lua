@@ -1,5 +1,4 @@
 local overrides = require("custom.configs.overrides")
-local clang_format_config = vim.fn.stdpath("config") .. "/.clang-format"
 
 ---@type NvPluginSpec[]
 local plugins = {
@@ -12,6 +11,12 @@ local plugins = {
 		config = function()
 			require("core.utils").load_mappings("Harpoon")
 		end,
+	},
+
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^3", -- Recommended
+		ft = { "rust" },
 	},
 
 	{
@@ -71,6 +76,9 @@ local plugins = {
 				javascript = { "prettierd" },
 				rust = { "rustfmt" },
 				go = { "gofmt" },
+				c = { "clang_format" },
+				cpp = { "clang_format" },
+				cuda = { "clang_format" },
 			},
 			format_on_save = { timeout_ms = 500, lsp_fallback = true },
 		},
@@ -141,10 +149,14 @@ local plugins = {
 
 	{
 		"neovim/nvim-lspconfig",
+		init = function()
+			require("core.utils").lazy_load("nvim-lspconfig")
+		end,
 		config = function()
 			require("plugins.configs.lspconfig")
 			require("custom.configs.lspconfig")
-		end, -- Override to setup mason-lspconfig
+			require("core.utils").load_mappings("lspconfig")
+		end,
 	},
 
 	-- override plugin configs
@@ -200,6 +212,8 @@ local plugins = {
 		"windwp/nvim-autopairs",
 		enabled = false,
 	},
+
+	{ "NvChad/nvim-colorizer.lua", enabled = false },
 
 	-- All NvChad plugins are lazy-loaded by default
 	-- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
