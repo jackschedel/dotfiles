@@ -51,6 +51,7 @@ M.treesitter = {
 		"rust",
 		"markdown",
 		"markdown_inline",
+		"php",
 	},
 	indent = {
 		enable = true,
@@ -74,6 +75,7 @@ M.mason = {
 		"rust-analyzer",
 		"omnisharp",
 		"gopls",
+		"intelephense",
 	},
 }
 
