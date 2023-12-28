@@ -151,7 +151,7 @@ M.LSP = {
 		},
 		["<leader>lf"] = {
 			function()
-				require("conform").format({ async = true, lsp_fallback = true })
+				require("conform").format({ async = true, lsp_fallback = true, quiet = true })
 			end,
 			"Format",
 		},
@@ -282,7 +282,7 @@ M.general = {
 				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
 				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
 				vim.cmd("normal p")
-				require("conform").format({ async = true, lsp_fallback = true })
+				require("conform").format({ async = true, lsp_fallback = true, quiet = true })
 			end,
 			"Paste pretty",
 		},
