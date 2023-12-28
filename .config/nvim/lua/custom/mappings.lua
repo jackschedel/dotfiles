@@ -210,13 +210,15 @@ M.general = {
 		["ct"] = { '"_ct', "which_key_ignore", opts = { nowait = true } },
 		["cf"] = { '"_cf', "which_key_ignore", opts = { nowait = true } },
 		["ca"] = { '"_ca', "which_key_ignore", opts = { nowait = true } },
+		["ce"] = { '"_ce', "which_key_ignore", opts = { nowait = true } },
+		["cw"] = { '"_cw', "which_key_ignore", opts = { nowait = true } },
 		["C"] = { '"_C', "which_key_ignore" },
-		["<leader d>"] = { '"_d', "which_key_ignore", opts = { nowait = true } },
-		["{"] = { "?{<CR>", "which_key_ignore", opts = { nowait = true } },
-		["}"] = { "/}<CR>", "which_key_ignore", opts = { nowait = true } },
+		["<leader>d"] = { '"_d', "which_key_ignore", opts = { nowait = true } },
+		["{"] = { "l?}<CR><cmd>noh<CR>[{", "which_key_ignore", opts = { nowait = true } },
+		["}"] = { "h/{<CR><cmd>noh<CR>]}", "which_key_ignore", opts = { nowait = true } },
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
-		["<leader>{"] = { "f{va{o0", "Select {} Block" },
+		["<leader>]"] = { "0vf{]}$", "Select {} Block" },
 		["gt"] = {
 			function()
 				vim.lsp.buf.type_definition()
