@@ -27,6 +27,8 @@ local plugins = {
 		end,
 	},
 
+	{ "Hoffs/omnisharp-extended-lsp.nvim", ft = { "cs" } },
+
 	{
 		"numToStr/Navigator.nvim",
 		lazy = false,
