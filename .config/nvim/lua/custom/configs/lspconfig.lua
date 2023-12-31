@@ -19,7 +19,12 @@ end
 lspconfig.omnisharp.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	cmd = { "/opt/omnisharp/OmniSharp", "--languageserver", "--hostPID", tostring(pid) },
+	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+	root_dir = function()
+		return require("lspconfig/util").root_pattern("*.sln", "*.csproj", "omnisharp.json", "function.json", ".git")(
+			vim.fn.expand("%:p:h")
+		) or vim.fn.expand("%:p:h")
+	end,
 })
 
 lspconfig.clangd.setup({
