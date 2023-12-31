@@ -89,8 +89,10 @@ local plugins = {
 				c = { "clang_format" },
 				cpp = { "clang_format" },
 				cuda = { "clang_format" },
+				cs = { "clang_format" },
 			},
 			format_on_save = { timeout_ms = 500, lsp_fallback = true, quiet = true },
+			formatters = { clang_format = { prepend_args = { "-style=file:/Users/jack/.config/nvim/.clang-format" } } },
 		},
 		init = function()
 			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"

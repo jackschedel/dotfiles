@@ -52,6 +52,9 @@ M.treesitter = {
 		"markdown",
 		"markdown_inline",
 		"php",
+		"gdscript",
+		"godot_resource",
+		"c_sharp",
 	},
 	indent = {
 		enable = true,

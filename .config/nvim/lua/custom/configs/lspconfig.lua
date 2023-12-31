@@ -6,7 +6,8 @@ capabilities.offsetEncoding = "utf-8"
 local lspconfig = require("lspconfig")
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "gopls", "jedi_language_server", "tailwindcss", "intelephense" }
+local servers =
+	{ "html", "cssls", "tsserver", "gopls", "jedi_language_server", "tailwindcss", "intelephense", "gdscript" }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
@@ -24,9 +25,14 @@ lspconfig.omnisharp.setup({
 	},
 	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
 	root_dir = function()
-		return require("lspconfig/util").root_pattern("*.sln", "*.csproj", "omnisharp.json", "function.json", ".git")(
-			vim.fn.expand("%:p:h")
-		) or vim.fn.expand("%:p:h")
+		return require("lspconfig/util").root_pattern(
+			"*.sln",
+			"*.csproj",
+			"omnisharp.json",
+			"*.godot",
+			"function.json",
+			".git"
+		)(vim.fn.expand("%:p:h")) or vim.fn.expand("%:p:h")
 	end,
 })
 
@@ -37,12 +43,3 @@ lspconfig.clangd.setup({
 	end,
 	capabilities = capabilities,
 })
-
--- vim.diagnostic.config {
---   virtual_text = {
---     prefix = "",
---   },
---   signs = false,
---   underline = true,
---   update_in_insert = false,
--- }

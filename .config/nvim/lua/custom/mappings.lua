@@ -1,6 +1,10 @@
 ---@type ChadrcConfig
 local M = {}
 
+function Format()
+	require("conform").format({ async = true, lsp_fallback = true })
+end
+
 function VFit()
 	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 	local max_width = 0
@@ -151,7 +155,7 @@ M.LSP = {
 		},
 		["<leader>lf"] = {
 			function()
-				require("conform").format({ async = true, lsp_fallback = true, quiet = true })
+				Format()
 			end,
 			"Format",
 		},
@@ -218,6 +222,7 @@ M.general = {
 		["}"] = { "h/{<CR><cmd>noh<CR>]}", "which_key_ignore", opts = { nowait = true } },
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
+		["<C-s>"] = { "<cmd> noautocmd w <CR>", "Save file (no autocmd)" },
 		["<leader>]"] = { "0vf{]}$", "Select {} Block" },
 		["gt"] = {
 			function()
@@ -284,7 +289,7 @@ M.general = {
 				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
 				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
 				vim.cmd("normal p")
-				require("conform").format({ async = true, lsp_fallback = true, quiet = true })
+				Format()
 			end,
 			"Paste pretty",
 		},
