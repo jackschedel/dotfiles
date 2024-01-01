@@ -5,6 +5,22 @@ function Format()
 	require("conform").format({ async = true, lsp_fallback = true })
 end
 
+function JumpContext(to_top)
+	local ok, start, finish = require("indent_blankline.utils").get_current_context(
+		vim.g.indent_blankline_context_patterns,
+		vim.g.indent_blankline_use_treesitter_scope
+	)
+	if ok then
+		local target_line = to_top and start or finish
+		vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { target_line, 0 })
+	end
+	if to_top then
+		vim.cmd([[normal! _]])
+	else
+		vim.cmd([[normal! $]])
+	end
+end
+
 function VFit()
 	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 	local max_width = 0
@@ -133,25 +149,21 @@ M.LSP = {
 		},
 		["<leader>ll"] = {
 			function()
-				local error_exists = vim.diagnostic.open_float({ border = "rounded" })
-				if error_exists then
-					vim.diagnostic.open_float({ border = "rounded" })
-					vim.cmd("normal jllly$")
-					vim.cmd("q")
+				local bufnr = vim.api.nvim_get_current_buf()
+				local cursor_pos = vim.api.nvim_win_get_cursor(0)
+				local cursor_line = cursor_pos[1] - 1
+				local diagnostics = vim.diagnostic.get(bufnr, { lnum = cursor_line })
+				if #diagnostics > 0 then
+					vim.cmd("normal yy")
+					local diag_text = "Diagnostics:\n"
+					for _, diag in ipairs(diagnostics) do
+						diag_text = diag_text .. diag.message .. "\n"
+					end
+					local current_line = vim.fn.getreg("*")
+					vim.fn.setreg("*", current_line .. "\n" .. diag_text)
 				end
 			end,
-			"Copy diagnostic",
-		},
-		["<leader>lL"] = {
-			function()
-				local error_exists = vim.diagnostic.open_float({ border = "rounded" })
-				if error_exists then
-					vim.diagnostic.open_float({ border = "rounded" })
-					vim.cmd("normal jyG")
-					vim.cmd("q")
-				end
-			end,
-			"Copy all diagnostics",
+			"Copy diagnostics",
 		},
 		["<leader>lf"] = {
 			function()
@@ -178,6 +190,22 @@ M.general = {
 				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
 			end,
 			"Add spacing around",
+		},
+		["{"] = {
+			function()
+				vim.cmd("normal h")
+				JumpContext(true)
+			end,
+			"Context start",
+			opts = { nowait = true },
+		},
+		["}"] = {
+			function()
+				vim.cmd("normal l")
+				JumpContext(false)
+			end,
+			"Context end",
+			opts = { nowait = true },
 		},
 	},
 	i = {
@@ -218,12 +246,34 @@ M.general = {
 		["cw"] = { '"_cw', "which_key_ignore", opts = { nowait = true } },
 		["C"] = { '"_C', "which_key_ignore" },
 		["<leader>d"] = { '"_d', "which_key_ignore", opts = { nowait = true } },
-		["{"] = { "l?}<CR><cmd>noh<CR>[{", "which_key_ignore", opts = { nowait = true } },
-		["}"] = { "h/{<CR><cmd>noh<CR>]}", "which_key_ignore", opts = { nowait = true } },
+		["{"] = {
+			function()
+				vim.cmd("normal h")
+				JumpContext(true)
+			end,
+			"Context start",
+			opts = { nowait = true },
+		},
+		["}"] = {
+			function()
+				vim.cmd("normal l")
+				JumpContext(false)
+			end,
+			"Context end",
+			opts = { nowait = true },
+		},
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		["<C-s>"] = { "<cmd> noautocmd w <CR>", "Save file (no autocmd)" },
-		["<leader>]"] = { "0vf{]}$", "Select {} Block" },
+		["<leader>]"] = {
+			function()
+				JumpContext(true)
+				vim.cmd("normal V")
+				JumpContext(false)
+				vim.cmd("normal $")
+			end,
+			"Select {} Block",
+		},
 		["gt"] = {
 			function()
 				vim.lsp.buf.type_definition()
@@ -241,21 +291,6 @@ M.general = {
 		["<C-j>"] = { "<Cmd>NavigatorDown<CR>", "which_key_ignore" },
 		["<C-k>"] = { "<Cmd>NavigatorUp<CR>", "which_key_ignore" },
 		["<C-l>"] = { "<Cmd>NavigatorRight<CR>", "which_key_ignore" },
-		["gC"] = {
-			function()
-				local ok, start = require("indent_blankline.utils").get_current_context(
-					vim.g.indent_blankline_context_patterns,
-					vim.g.indent_blankline_use_treesitter_scope
-				)
-
-				if ok then
-					vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
-					vim.cmd([[normal! _]])
-				end
-			end,
-
-			"Current context",
-		},
 		["<S-Left>"] = { "2<C-W><", "which_key_ignore" },
 		["<S-Up>"] = { "2<C-W>+", "which_key_ignore" },
 		["<S-Down>"] = { "2<C-W>-", "which_key_ignore" },
