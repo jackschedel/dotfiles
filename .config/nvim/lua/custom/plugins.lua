@@ -44,7 +44,20 @@ local plugins = {
 	"NvChad/nvcommunity",
 	{ import = "nvcommunity.editor.hlargs" },
 	{ import = "nvcommunity.editor.illuminate" },
-	{ import = "nvcommunity.editor.treesittercontext" },
+
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		opts = {
+			throttle = true,
+			max_lines = 2,
+			multiline_threshold = 1,
+
+			trim_scope = "inner",
+
+			mode = "topline",
+		},
+		event = "BufReadPost",
+	},
 
 	{
 		"kevinhwang91/nvim-fundo",
@@ -84,6 +97,7 @@ local plugins = {
 				lua = { "stylua" },
 				python = { "isort", "black" },
 				javascript = { "prettierd" },
+				typescriptreact = { "prettierd" },
 				rust = { "rustfmt" },
 				go = { "gofmt" },
 				c = { "clang_format" },
