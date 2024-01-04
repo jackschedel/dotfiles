@@ -12,6 +12,7 @@ vim.cmd("map <RightMouse> <nop>")
 vim.cmd("map! <RightMouse> <nop>")
 vim.cmd("autocmd InsertEnter * set nohlsearch")
 vim.cmd("autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab")
+vim.cmd("autocmd FileType php setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab")
 vim.cmd("autocmd VimLeave * mksession! ~/.Session.vim")
 vim.cmd("set scrolloff=6")
 vim.cmd(

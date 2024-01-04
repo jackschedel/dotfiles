@@ -124,6 +124,9 @@ M.Git = {
 
 M.LSP = {
 	n = {
+		["<leader>lE"] = { "<cmd> Telescope diagnostics <CR>", "Diagnostics in file" },
+		["<leader>ld"] = { "<cmd> Telescope lsp_definitions <CR>", "Definitions" },
+		["<leader>lu"] = { "<cmd> Telescope lsp_references <CR>", "Usages" },
 		["<leader>la"] = {
 			function()
 				local current_ft = vim.bo.filetype
@@ -181,6 +184,7 @@ M.general = {
 		["x"] = { '"_d', "which_key_ignore" },
 		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore" },
+		["Y"] = { "ygv", "Yank (keep selection)" },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
 		["<leader>o"] = {
