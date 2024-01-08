@@ -125,7 +125,64 @@ M.Git = {
 M.LSP = {
 	n = {
 		["<leader>lE"] = { "<cmd> Telescope diagnostics <CR>", "Diagnostics in file" },
-		["<leader>ld"] = { "<cmd> Telescope lsp_definitions <CR>", "Definitions" },
+
+		["gr"] = {
+			function()
+				vim.cmd("Telescope lsp_references")
+			end,
+
+			"LSP references",
+		},
+		["gd"] = {
+			function()
+				local locations =
+					vim.lsp.buf_request_sync(0, "textDocument/definition", vim.lsp.util.make_position_params(), 1000)
+				if not locations or vim.tbl_isempty(locations) then
+					return
+				end
+
+				local original_location_count = 0
+				local in_node_modules = false
+				for _, server_locations in pairs(locations) do
+					for _, loc in ipairs(server_locations.result) do
+						original_location_count = original_location_count + 1
+						local uri = loc.uri or loc.targetUri
+						if string.find(vim.uri_to_fname(uri), "node_modules") then
+							in_node_modules = true
+						else
+							in_node_modules = false
+						end
+					end
+				end
+
+				if original_location_count == 1 and in_node_modules then
+					print("Definition in node_modules")
+					return
+				end
+
+				for _, server_locations in pairs(locations) do
+					for i = #server_locations.result, 1, -1 do
+						local uri = server_locations.result[i].uri or server_locations.result[i].targetUri
+						if string.find(vim.uri_to_fname(uri), "node_modules") then
+							table.remove(server_locations.result, i)
+						end
+					end
+				end
+
+				local filtered_locations = locations[1] and locations[1].result
+				if not filtered_locations or vim.tbl_isempty(filtered_locations) then
+					return
+				end
+
+				if #filtered_locations == 1 then
+					vim.lsp.util.jump_to_location(filtered_locations[1], "utf-8")
+					return
+				end
+
+				vim.cmd("Telescope lsp_definitions")
+			end,
+			"LSP definitions",
+		},
 		["<leader>lu"] = { "<cmd> Telescope lsp_references <CR>", "Usages" },
 		["<leader>la"] = {
 			function()
@@ -239,6 +296,7 @@ M.general = {
 	n = {
 		-- x and c don't replace register
 		["x"] = { '"_x', "which_key_ignore" },
+		["r"] = { '"_r', "which_key_ignore" },
 		["X"] = { '"_X', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore", opts = { nowait = true } },
 		["cc"] = { '"_cc', "which_key_ignore", opts = { nowait = true } },
@@ -269,6 +327,7 @@ M.general = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		["<C-s>"] = { "<cmd> noautocmd w <CR>", "Save file (no autocmd)" },
+		["<leader>["] = { "0vf{]}$", "Select {} Block" },
 		["<leader>]"] = {
 			function()
 				JumpContext(true)
@@ -340,7 +399,30 @@ M.general = {
 		},
 		["<Tab>"] = { "V>ll", "Indent line" },
 		["<S-Tab>"] = { "V<hh", "De-indent line" },
-		["<leader>fg"] = { "<cmd> Telescope git_files <CR>", "Find files in repo" },
+		["<leader>fg"] = {
+			function()
+				local success, _ = pcall(function()
+					vim.cmd("Telescope git_files")
+				end)
+
+				if not success then
+					vim.cmd("Telescope find_files")
+				end
+			end,
+			"Find repo files",
+		},
+		["<leader>ff"] = {
+			function()
+				vim.cmd("Telescope find_files")
+			end,
+			"Find all files",
+		},
+		["<leader>fa"] = {
+			function()
+				vim.cmd("Telescope find_files no_ignore=true hidden=true")
+			end,
+			"Find all files",
+		},
 		["<leader>fw"] = {
 			function()
 				vim.cmd("Telescope live_grep")
@@ -379,14 +461,22 @@ M.general = {
 		},
 		["<leader>V"] = {
 			function()
+				local cur_win = vim.api.nvim_get_current_win()
+				local cur_pos = vim.api.nvim_win_get_cursor(cur_win)
 				vim.cmd("vsplit %")
+				local new_win = vim.api.nvim_get_current_win()
+				vim.api.nvim_win_set_cursor(new_win, cur_pos)
 			end,
 			-- Vertical Split (Clone)
 			"which_key_ignore",
 		},
 		["<leader>H"] = {
 			function()
+				local cur_win = vim.api.nvim_get_current_win()
+				local cur_pos = vim.api.nvim_win_get_cursor(cur_win)
 				vim.cmd("split %")
+				local new_win = vim.api.nvim_get_current_win()
+				vim.api.nvim_win_set_cursor(new_win, cur_pos)
 			end,
 			-- Horizontal Split (Clone)
 			"which_key_ignore",
