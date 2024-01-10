@@ -42,4 +42,5 @@ lspconfig.clangd.setup({
 		on_attach(client, bufnr)
 	end,
 	capabilities = capabilities,
+	root_dir = root_pattern,
 })

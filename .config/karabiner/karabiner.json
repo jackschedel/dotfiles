@@ -81,31 +81,6 @@
                         ]
                     },
                     {
-                        "description": "Option CapsLock -> CapsLock",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "delete_forward",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_option"
-                                        ],
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "caps_lock",
-                                        "modifiers": []
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Option WASD -> PgUp/Home/PgDn/End",
                         "manipulators": [
                             {

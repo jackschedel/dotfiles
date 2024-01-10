@@ -490,17 +490,24 @@ M.general = {
 		},
 		["<F5>"] = {
 			function()
-				pcall(function()
-					vim.cmd("w")
-				end)
+				vim.cmd("w")
+				local run_script = "./.nvim-run.sh"
+				if vim.fn.filereadable(run_script) == 1 then
+					vim.cmd("!chmod +x " .. run_script)
+					vim.cmd("!" .. run_script)
+					return
+				end
+
 				local current_ft = vim.bo.filetype
 				if current_ft == "rust" then
 					vim.cmd.RustLsp({
 						"runnables",
-						"last" --[[ optional ]],
+						"last",
 					})
-				else
-					vim.cmd("!./.nvim-run.sh")
+				elseif current_ft == "go" then
+					local current_file = vim.fn.expand("%:p")
+					local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
+					vim.cmd("!go run " .. relative_path)
 				end
 			end,
 			"Run Script",
