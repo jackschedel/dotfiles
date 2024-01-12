@@ -48,7 +48,7 @@ yabai -m config external_bar               all:49:0     \
                 window_gap                 10
 
 # Exclude problematic apps from being managed:
-yabai -m rule --add app="^(Vimac|Calculator|Software Update|Dictionary|System Preferences|System Settings|zoom.us|Archive Utility|App Store|Activity Monitor)$" manage=off
+yabai -m rule --add app="^(Vimac|Calculator|Software Update|Dictionary|System Preferences|System Settings|Archive Utility|App Store|Activity Monitor)$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 
@@ -61,6 +61,11 @@ yabai -m rule --add app="^Godot$" title="^(.*Godot Engine.*)$" manage=on
 
 yabai -m rule --add app="^Blender$" manage=off
 yabai -m rule --add app="^Blender$" title="^(.* - Blender 4.0)$" manage=on
+
+
+yabai -m rule --add app="^zoom.us$" manage=off
+yabai -m rule --add app="^zoom.us$" title="^(Zoom Meeting)$" manage=on
+
 
 
 yabai -m config layout bsp

@@ -20,6 +20,10 @@ vim.cmd("set scrolloff=6")
 vim.cmd(
 	"autocmd BufRead,BufNewFile  * if (line('$') == 1 && getline(1) != '') | set nonumber norelativenumber | else | set number relativenumber | endif"
 )
+vim.api.nvim_set_keymap("", "<C-d>", "<C-d>zz", { noremap = true })
+vim.api.nvim_set_keymap("", "<C-u>", "<C-u>zz", { noremap = true })
+vim.api.nvim_set_keymap("", "n", "nzzzv", { noremap = true })
+vim.api.nvim_set_keymap("", "N", "Nzzzv", { noremap = true })
 
 -- nvim-tree auto_close
 local function tab_win_closed(winnr)

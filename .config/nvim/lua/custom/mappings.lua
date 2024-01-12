@@ -42,6 +42,7 @@ end
 M.disabled = {
 	v = {
 		["<leader>ca"] = "",
+		["<leader>"] = "",
 	},
 	n = {
 		["<leader>h"] = "",
@@ -238,6 +239,8 @@ M.general = {
 	v = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
+		[","] = { "<", "which_key_ignore", opts = { nowait = true } },
+		["<"] = { ",", "which_key_ignore", opts = { nowait = true } },
 		["x"] = { '"_d', "which_key_ignore" },
 		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore" },
@@ -252,7 +255,17 @@ M.general = {
 			end,
 			"Add spacing around",
 		},
-		["{"] = {
+		["<leader>]"] = {
+			function()
+				vim.cmd("normal! oh")
+				JumpContext(true)
+				vim.cmd("normal VV")
+				JumpContext(false)
+			end,
+			"Select Block (treesitter)",
+		},
+		["<leader>["] = { "ok0v$%$", "Select Matching Block" },
+		["["] = {
 			function()
 				vim.cmd("normal h")
 				JumpContext(true)
@@ -260,7 +273,7 @@ M.general = {
 			"Context start",
 			opts = { nowait = true },
 		},
-		["}"] = {
+		["]"] = {
 			function()
 				vim.cmd("normal l")
 				JumpContext(false)
@@ -298,16 +311,9 @@ M.general = {
 		["x"] = { '"_x', "which_key_ignore" },
 		["r"] = { '"_r', "which_key_ignore" },
 		["X"] = { '"_X', "which_key_ignore" },
-		["c"] = { '"_c', "which_key_ignore", opts = { nowait = true } },
-		["cc"] = { '"_cc', "which_key_ignore", opts = { nowait = true } },
-		["ci"] = { '"_ci', "which_key_ignore", opts = { nowait = true } },
-		["ct"] = { '"_ct', "which_key_ignore", opts = { nowait = true } },
-		["cf"] = { '"_cf', "which_key_ignore", opts = { nowait = true } },
-		["ca"] = { '"_ca', "which_key_ignore", opts = { nowait = true } },
-		["ce"] = { '"_ce', "which_key_ignore", opts = { nowait = true } },
-		["cw"] = { '"_cw', "which_key_ignore", opts = { nowait = true } },
+		["c"] = { '"_c', "which_key_ignore" },
 		["C"] = { '"_C', "which_key_ignore" },
-		["<leader>d"] = { '"_d', "which_key_ignore", opts = { nowait = true } },
+		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["{"] = {
 			function()
 				vim.cmd("normal h")
@@ -326,16 +332,17 @@ M.general = {
 		},
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
+		[","] = { "<", "which_key_ignore", opts = { nowait = true } },
+		["<"] = { ",", "which_key_ignore", opts = { nowait = true } },
 		["<C-s>"] = { "<cmd> noautocmd w <CR>", "Save file (no autocmd)" },
-		["<leader>["] = { "0vf{]}$", "Select {} Block" },
+		["<leader>["] = { "0v$%$", "Select Matching Block" },
 		["<leader>]"] = {
 			function()
 				JumpContext(true)
 				vim.cmd("normal V")
 				JumpContext(false)
-				vim.cmd("normal $")
 			end,
-			"Select {} Block",
+			"Select Block (treesitter)",
 		},
 		["gt"] = {
 			function()
