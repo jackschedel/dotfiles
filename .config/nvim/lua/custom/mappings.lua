@@ -559,6 +559,23 @@ M.general = {
 	},
 }
 
+-- multiple register y and p binds ill actually use
+for i = 0, 9 do
+	local iStr = tostring(i)
+	M.general.n[iStr .. "y"] = { '"' .. iStr .. "y", "which_key_ignore", opts = { noremap = true } }
+	M.general.n[iStr .. "Y"] = { '"' .. iStr .. "Y", "which_key_ignore", opts = { noremap = true } }
+	M.general.v[iStr .. "y"] = { '"' .. iStr .. "y", "which_key_ignore", opts = { noremap = true } }
+	M.general.v[iStr .. "Y"] = { '"' .. iStr .. "ygv", "which_key_ignore", opts = { noremap = true } }
+
+	M.general.n[iStr .. "d"] = { '"' .. iStr .. "d", "which_key_ignore", opts = { noremap = true } }
+	M.general.n[iStr .. "D"] = { '"' .. iStr .. "D", "which_key_ignore", opts = { noremap = true } }
+	M.general.v[iStr .. "d"] = { '"' .. iStr .. "d", "which_key_ignore", opts = { noremap = true } }
+
+	M.general.n[iStr .. "p"] = { '"' .. iStr .. "p", "which_key_ignore", opts = { noremap = true } }
+	M.general.n[iStr .. "P"] = { '"' .. iStr .. "P", "which_key_ignore", opts = { noremap = true } }
+	M.general.v[iStr .. "p"] = { '"' .. iStr .. "p", "which_key_ignore", opts = { noremap = true } }
+end
+
 M.DAP = {
 	plugin = true,
 	n = {
