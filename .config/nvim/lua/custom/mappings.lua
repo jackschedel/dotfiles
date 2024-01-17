@@ -1,4 +1,4 @@
----@type ChadrcConfig
+--@type ChadrcConfig
 local M = {}
 
 function Format()
@@ -264,8 +264,8 @@ M.general = {
 			end,
 			"Select Block (treesitter)",
 		},
-		["<leader>["] = { "ok0v$%$", "Select Matching Block" },
-		["["] = {
+		["<leader>["] = { "okV%", "Select Matching Block" },
+		["{"] = {
 			function()
 				vim.cmd("normal h")
 				JumpContext(true)
@@ -273,7 +273,7 @@ M.general = {
 			"Context start",
 			opts = { nowait = true },
 		},
-		["]"] = {
+		["}"] = {
 			function()
 				vim.cmd("normal l")
 				JumpContext(false)
@@ -335,7 +335,7 @@ M.general = {
 		[","] = { "<", "which_key_ignore", opts = { nowait = true } },
 		["<"] = { ",", "which_key_ignore", opts = { nowait = true } },
 		["<C-s>"] = { "<cmd> noautocmd w <CR>", "Save file (no autocmd)" },
-		["<leader>["] = { "0v$%$", "Select Matching Block" },
+		["<leader>["] = { "$V%", "Select Matching Block" },
 		["<leader>]"] = {
 			function()
 				JumpContext(true)
@@ -575,6 +575,57 @@ for i = 0, 9 do
 	M.general.n[iStr .. "P"] = { '"' .. iStr .. "P", "which_key_ignore", opts = { noremap = true } }
 	M.general.v[iStr .. "p"] = { '"' .. iStr .. "p", "which_key_ignore", opts = { noremap = true } }
 end
+
+M.Cody = {
+	n = {
+		["<leader>cc"] = {
+			"<Cmd>CodyChat<CR>i",
+			"Cody Chat",
+		},
+		["<leader>cC"] = {
+			"<Cmd>CodyToggle<CR>",
+			"Closed Chat",
+		},
+		["<leader>ct"] = {
+			':CodyTask ""<Left>',
+			"Give Task",
+		},
+		["<leader>cT"] = {
+			"<Cmd>CodyTaskView<CR>",
+			"Closed Task",
+		},
+		["<leader>cA"] = {
+			"<Cmd>CodyTaskAccept<CR>",
+			"Accept task result",
+		},
+		["<leader>cN"] = {
+			"<Cmd>CodyTaskNext<CR>",
+			"Next Task",
+		},
+		["<leader>cP"] = {
+			"<Cmd>CodyTaskPrev<CR>",
+			"Previous Task",
+		},
+	},
+	v = {
+		["<leader>ca"] = {
+			":CodyAsk ",
+			"Ask Question",
+		},
+		["<leader>ct"] = {
+			":CodyTask ",
+			"Give Task",
+		},
+		["<leader>ce"] = {
+			":CodyAsk Explain the following code:<CR>",
+			"Explain Code",
+		},
+		["<leader>cr"] = {
+			":CodyTask Rewrite the given code to be more idiomatic<CR>",
+			"Idiomatic Rewrite",
+		},
+	},
+}
 
 M.DAP = {
 	plugin = true,

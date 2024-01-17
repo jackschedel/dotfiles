@@ -30,6 +30,29 @@ local plugins = {
 	{ "Hoffs/omnisharp-extended-lsp.nvim", ft = { "cs" } },
 
 	{
+		"hrsh7th/nvim-cmp",
+		config = function(_, opts)
+			table.insert(opts.sources, { name = "cody" })
+			require("cmp").setup(opts)
+		end,
+		dependencies = {
+			{
+				"sourcegraph/sg.nvim",
+				event = "VeryLazy",
+				dependencies = {
+					"nvim-lua/plenary.nvim",
+				},
+
+				config = function()
+					require("sg").setup({
+						on_attach = require("plugins.configs.lspconfig").on_attach,
+					})
+				end,
+			},
+		},
+	},
+
+	{
 		"numToStr/Navigator.nvim",
 		lazy = false,
 		config = function()
