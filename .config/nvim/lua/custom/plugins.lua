@@ -32,7 +32,7 @@ local plugins = {
 	{
 		"hrsh7th/nvim-cmp",
 		config = function(_, opts)
-			table.insert(opts.sources, { name = "cody" })
+			-- table.insert(opts.sources, { name = "cody" })
 			require("cmp").setup(opts)
 		end,
 		dependencies = {

@@ -240,7 +240,7 @@ M.general = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		[","] = { "<", "which_key_ignore", opts = { nowait = true } },
-		["<"] = { ",", "which_key_ignore", opts = { nowait = true } },
+		["<"] = { ",", "which_key_ignore", opts = { noremap = true } },
 		["x"] = { '"_d', "which_key_ignore" },
 		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["c"] = { '"_c', "which_key_ignore" },
@@ -311,7 +311,7 @@ M.general = {
 		["x"] = { '"_x', "which_key_ignore" },
 		["r"] = { '"_r', "which_key_ignore" },
 		["X"] = { '"_X', "which_key_ignore" },
-		["c"] = { '"_c', "which_key_ignore" },
+		["c"] = { '"_c', "which_key_ignore", opts = { noremap = true } },
 		["C"] = { '"_C', "which_key_ignore" },
 		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["{"] = {
@@ -333,7 +333,7 @@ M.general = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
 		[","] = { "<", "which_key_ignore", opts = { nowait = true } },
-		["<"] = { ",", "which_key_ignore", opts = { nowait = true } },
+		["<"] = { ",", "which_key_ignore", opts = { noremap = true } },
 		["<C-s>"] = { "<cmd> noautocmd w <CR>", "Save file (no autocmd)" },
 		["<leader>["] = { "$V%", "Select Matching Block" },
 		["<leader>]"] = {
@@ -623,6 +623,10 @@ M.Cody = {
 		["<leader>cr"] = {
 			":CodyTask Rewrite the given code to be more idiomatic<CR>",
 			"Idiomatic Rewrite",
+		},
+		["<leader>cA"] = {
+			":CodyTaskAccept<CR>",
+			"Accept task result",
 		},
 	},
 }
