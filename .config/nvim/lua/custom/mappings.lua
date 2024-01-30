@@ -236,6 +236,14 @@ M.LSP = {
 }
 
 M.general = {
+	t = {
+		["<Esc>"] = {
+			function()
+				require("nvterm.terminal").toggle("float")
+			end,
+			"Toggle floating term",
+		},
+	},
 	v = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
@@ -247,6 +255,12 @@ M.general = {
 		["Y"] = { "ygv", "Yank (keep selection)" },
 		["<Tab>"] = { ">llgv", "Indent line" },
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
+		["<leader>t"] = {
+			function()
+				require("nvterm.terminal").toggle("float")
+			end,
+			"Toggle floating term",
+		},
 		["<leader>o"] = {
 			function()
 				local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -377,6 +391,12 @@ M.general = {
 			end,
 			"Horizontal scale to fit",
 		},
+		["<leader>t"] = {
+			function()
+				require("nvterm.terminal").toggle("float")
+			end,
+			"Toggle floating term",
+		},
 		["<leader>o"] = {
 			function()
 				local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -497,11 +517,15 @@ M.general = {
 		},
 		["<F5>"] = {
 			function()
-				vim.cmd("w")
+				pcall(function()
+					vim.cmd("w")
+				end)
 				local run_script = "./.nvim-run.sh"
 				if vim.fn.filereadable(run_script) == 1 then
-					vim.cmd("!chmod +x " .. run_script)
-					vim.cmd("!" .. run_script)
+					vim.fn.system("chmod +x " .. run_script .. " > /dev/null 2>&1")
+					require("nvterm.terminal").toggle("float")
+					require("nvterm.terminal").send(run_script)
+					vim.cmd("startinsert")
 					return
 				end
 

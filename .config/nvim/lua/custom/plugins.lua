@@ -54,7 +54,7 @@ local plugins = {
 
 	{
 		"numToStr/Navigator.nvim",
-		lazy = false,
+		cmd = { "NavigatorLeft", "NavigatorDown", "NavigatorUp", "NavigatorRight" },
 		config = function()
 			require("Navigator").setup()
 		end,
@@ -125,6 +125,7 @@ local plugins = {
 				json = { "prettierd" },
 				typescriptreact = { "prettierd" },
 				javascriptreact = { "prettierd" },
+				jsonc = { "prettierd" },
 				rust = { "rustfmt" },
 				go = { "gofmt" },
 				c = { "clang_format" },

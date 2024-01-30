@@ -87,10 +87,6 @@ case "$SENDER" in
   ;;
   "system_woke") sleep 10 && update # Wait for network to connect
   ;;
-  "mouse.entered") popup on
-  ;;
-  "mouse.exited"|"mouse.exited.global") popup off
-  ;;
   "mouse.clicked") popup toggle
   ;;
 esac

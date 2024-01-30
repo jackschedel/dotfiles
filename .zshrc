@@ -217,6 +217,7 @@ alias f='open .'
 alias t='tmux'
 alias c='clear'
 alias e='exit'
+alias q='exit'
 alias j='if [ -f package.json ]; then nvim package.json; else if [ -f ../package.json ]; then nvim ../package.json; if [ -f ../../package.json ]; then nvim ../../package.json; else echo "No package.json found"; fi; fi; fi'
 alias z="unzip_most_recent_new_folder"
 alias m="move_most_recent"
@@ -234,6 +235,7 @@ alias lf='colorls -t --tree --sd'
 alias fuck='sudo $(fc -ln -1)'
 
 alias python='python3'
+alias pip='pip3'
 
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'

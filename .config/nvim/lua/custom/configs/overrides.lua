@@ -41,6 +41,7 @@ M.blankline = {
 M.treesitter = {
 	ensure_installed = {
 		"vim",
+		"vimdoc",
 		"lua",
 		"html",
 		"css",
