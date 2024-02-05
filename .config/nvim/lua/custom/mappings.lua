@@ -236,14 +236,6 @@ M.LSP = {
 }
 
 M.general = {
-	t = {
-		["<Esc>"] = {
-			function()
-				require("nvterm.terminal").toggle("float")
-			end,
-			"Toggle floating term",
-		},
-	},
 	v = {
 		[";"] = { ":", "which_key_ignore", opts = { nowait = true } },
 		[":"] = { ";", "which_key_ignore", opts = { nowait = true } },
@@ -257,9 +249,9 @@ M.general = {
 		["<S-Tab>"] = { "<hhgv", "De-indent line" },
 		["<leader>t"] = {
 			function()
-				require("nvterm.terminal").toggle("float")
+				require("nvterm.terminal").new("float")
 			end,
-			"Toggle floating term",
+			"New floating term",
 		},
 		["<leader>o"] = {
 			function()
@@ -393,9 +385,9 @@ M.general = {
 		},
 		["<leader>t"] = {
 			function()
-				require("nvterm.terminal").toggle("float")
+				require("nvterm.terminal").new("float")
 			end,
-			"Toggle floating term",
+			"New floating term",
 		},
 		["<leader>o"] = {
 			function()
@@ -523,7 +515,7 @@ M.general = {
 				local run_script = "./.nvim-run.sh"
 				if vim.fn.filereadable(run_script) == 1 then
 					vim.fn.system("chmod +x " .. run_script .. " > /dev/null 2>&1")
-					require("nvterm.terminal").toggle("float")
+					require("nvterm.terminal").new("float")
 					require("nvterm.terminal").send(run_script)
 					vim.cmd("startinsert")
 					return
