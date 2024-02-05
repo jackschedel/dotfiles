@@ -523,10 +523,7 @@ M.general = {
 
 				local current_ft = vim.bo.filetype
 				if current_ft == "rust" then
-					vim.cmd.RustLsp({
-						"runnables",
-						"last",
-					})
+					vim.cmd.RustLsp({ "runnables", bang = true })
 				elseif current_ft == "go" then
 					local current_file = vim.fn.expand("%:p")
 					local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
@@ -549,10 +546,7 @@ M.general = {
 							vim.cmd("w")
 							local current_ft = vim.bo.filetype
 							if current_ft == "rust" then
-								vim.cmd.RustLsp({
-									"debuggables",
-									"last" --[[ optional ]],
-								})
+								vim.cmd.RustLsp({ "debuggables", bang = true })
 							else
 								require("dap").continue()
 							end

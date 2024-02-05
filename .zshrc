@@ -110,6 +110,11 @@ else
   export EDITOR='nvim'
 fi
 
+
+source "$ZSH/passwordless-history.plugin.zsh"
+export HISTORY_EXCLUDE_PATTERN="^ykchalresp|$HISTORY_EXCLUDE_PATTERN"
+export HISTORY_EXCLUDE_PATTERN="^cd|$HISTORY_EXCLUDE_PATTERN"
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
