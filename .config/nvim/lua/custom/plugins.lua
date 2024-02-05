@@ -38,7 +38,7 @@ local plugins = {
 		dependencies = {
 			{
 				"sourcegraph/sg.nvim",
-				event = "VeryLazy",
+				event = "User FilePost",
 				dependencies = {
 					"nvim-lua/plenary.nvim",
 				},
@@ -84,7 +84,7 @@ local plugins = {
 
 	{
 		"kevinhwang91/nvim-fundo",
-		event = "VeryLazy",
+		event = "User FilePost",
 		opts = {},
 		dependencies = {
 			"kevinhwang91/promise-async",
