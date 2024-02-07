@@ -7,7 +7,7 @@ local plugins = {
 
 	{
 		"ThePrimeagen/harpoon",
-		lazy = false,
+		event = "VeryLazy",
 		config = function()
 			require("core.utils").load_mappings("Harpoon")
 		end,
@@ -31,23 +31,16 @@ local plugins = {
 
 	{
 		"hrsh7th/nvim-cmp",
-		config = function(_, opts)
-			-- table.insert(opts.sources, { name = "cody" })
-			require("cmp").setup(opts)
-		end,
+		opts = overrides.cmp,
+		event = "VeryLazy",
 		dependencies = {
 			{
 				"sourcegraph/sg.nvim",
-				event = "User FilePost",
 				dependencies = {
 					"nvim-lua/plenary.nvim",
 				},
 
-				config = function()
-					require("sg").setup({
-						on_attach = require("plugins.configs.lspconfig").on_attach,
-					})
-				end,
+				config = true,
 			},
 		},
 	},
@@ -55,14 +48,15 @@ local plugins = {
 	{
 		"numToStr/Navigator.nvim",
 		cmd = { "NavigatorLeft", "NavigatorDown", "NavigatorUp", "NavigatorRight" },
-		config = function()
-			require("Navigator").setup()
-		end,
+		config = true,
 	},
 
-	{ "ThePrimeagen/git-worktree.nvim" },
+	{
+		"ThePrimeagen/git-worktree.nvim",
+		event = "VeryLazy",
+	},
 
-	{ "mbbill/undotree", lazy = false },
+	{ "mbbill/undotree", event = "VeryLazy" },
 
 	"NvChad/nvcommunity",
 	{ import = "nvcommunity.editor.hlargs" },
@@ -84,7 +78,7 @@ local plugins = {
 
 	{
 		"kevinhwang91/nvim-fundo",
-		event = "User FilePost",
+		event = "VeryLazy",
 		opts = {},
 		dependencies = {
 			"kevinhwang91/promise-async",
@@ -99,9 +93,7 @@ local plugins = {
 
 	{
 		"kdheepak/lazygit.nvim",
-
 		cmd = "LazyGit",
-
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 			"nvim-lua/plenary.nvim",
@@ -143,7 +135,7 @@ local plugins = {
 
 	{
 		"ggandor/leap.nvim",
-		lazy = false,
+		event = "VeryLazy",
 		dependencies = { { "tpope/vim-repeat" } },
 		config = function()
 			require("leap").add_default_mappings()
@@ -212,7 +204,6 @@ local plugins = {
 		end,
 	},
 
-	-- override plugin configs
 	{
 		"williamboman/mason.nvim",
 		opts = overrides.mason,
@@ -220,25 +211,19 @@ local plugins = {
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		version = "2.20.7",
 		init = function()
 			require("core.utils").lazy_load("indent-blankline.nvim")
 		end,
 		opts = overrides.blankline,
 		config = function(_, opts)
-			require("core.utils").load_mappings("blankline")
 			dofile(vim.g.base46_cache .. "blankline")
 			require("indent_blankline").setup(opts)
 		end,
 	},
 
 	{
-		"hrsh7th/nvim-cmp",
-		opts = overrides.cmp,
-	},
-
-	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
 		opts = overrides.treesitter,
 	},
 
@@ -252,9 +237,7 @@ local plugins = {
 	{
 		"max397574/better-escape.nvim",
 		event = "InsertEnter",
-		config = function()
-			require("better_escape").setup()
-		end,
+		config = true,
 	},
 
 	{
@@ -262,21 +245,12 @@ local plugins = {
 		branch = "main",
 	},
 
-	-- To make a plugin not be loaded
 	{
 		"windwp/nvim-autopairs",
 		enabled = false,
 	},
 
 	{ "NvChad/nvim-colorizer.lua", enabled = false },
-
-	-- All NvChad plugins are lazy-loaded by default
-	-- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
-	-- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
-	-- {
-	--   "mg979/vim-visual-multi",
-	--   lazy = false,
-	-- }
 }
 
 return plugins
