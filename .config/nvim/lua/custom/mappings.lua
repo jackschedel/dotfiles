@@ -500,7 +500,7 @@ M.general = {
 			-- Horizontal Split (Clone)
 			"which_key_ignore",
 		},
-		["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle explorer" },
+		["<leader>e"] = { "<cmd>Oil --float<CR>", "Toggle explorer" },
 		["<F4>"] = {
 			function()
 				vim.cmd("silent ! explorer.exe .")

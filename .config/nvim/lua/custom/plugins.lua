@@ -243,8 +243,10 @@ local plugins = {
 	},
 
 	{
-		"nvim-tree/nvim-tree.lua",
-		opts = overrides.nvimtree,
+		"stevearc/oil.nvim",
+		cmd = "Oil",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = overrides.oil,
 	},
 
 	{
