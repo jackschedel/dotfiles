@@ -23,3 +23,5 @@
   a = add
 [init]
 	defaultBranch = main
+[push]
+  default = simple

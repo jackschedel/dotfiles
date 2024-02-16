@@ -33,16 +33,15 @@ local plugins = {
 		"hrsh7th/nvim-cmp",
 		opts = overrides.cmp,
 		event = "VeryLazy",
-		dependencies = {
-			{
-				"sourcegraph/sg.nvim",
-				dependencies = {
-					"nvim-lua/plenary.nvim",
-				},
+	},
 
-				config = true,
-			},
+	{
+		"nvim-pack/nvim-spectre",
+		config = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
 		},
+		cmd = "Spectre",
 	},
 
 	{

@@ -236,6 +236,7 @@ alias la='colorls -Al --sd'
 alias ls='colorls -A --sd'
 alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
+alias nvr='nvr -s'
 
 alias fuck='sudo $(fc -ln -1)'
 

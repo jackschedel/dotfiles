@@ -125,8 +125,14 @@ M.Git = {
 
 M.LSP = {
 	n = {
-		["<leader>lE"] = { "<cmd> Telescope diagnostics <CR>", "Diagnostics in file" },
+		["<leader>lE"] = {
 
+			function()
+				require("telescope.builtin").diagnostics()
+			end,
+
+			"Diagnostics in file",
+		},
 		["gr"] = {
 			function()
 				vim.cmd("Telescope lsp_references")
@@ -232,6 +238,35 @@ M.LSP = {
 			end,
 			"Format",
 		},
+		["<leader>lA"] = {
+			function()
+				local exts = {
+					"ts",
+					"tsx",
+					"js",
+					"jsx",
+					"html",
+					"css",
+					"md",
+					"yaml",
+					"scss",
+					"json",
+					"yml",
+					"lua",
+					"c",
+					"py",
+					"cpp",
+					"asm",
+				}
+				for _, ext in ipairs(exts) do
+					local files = vim.fn.glob("**/*." .. ext)
+					if #files > 0 then
+						vim.cmd("args **/*." .. ext)
+					end
+				end
+			end,
+			"Open all src files",
+		},
 	},
 }
 
@@ -317,7 +352,7 @@ M.general = {
 		["x"] = { '"_x', "which_key_ignore" },
 		["r"] = { '"_r', "which_key_ignore" },
 		["X"] = { '"_X', "which_key_ignore" },
-		["c"] = { '"_c', "which_key_ignore", opts = { noremap = true } },
+		["c"] = { '"_c', "which_key_ignore" },
 		["C"] = { '"_C', "which_key_ignore" },
 		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["{"] = {
@@ -397,6 +432,7 @@ M.general = {
 			end,
 			"Add spacing around",
 		},
+		["<leader>R"] = { "<cmd> Spectre <CR>", "SSR" },
 		["<leader>m"] = { "<cmd> Telescope marks <CR>", "Marks" },
 		["<leader>N"] = { "<cmd> enew <CR>", "New buffer" },
 		["<leader>p"] = {
@@ -585,61 +621,6 @@ for i = 0, 9 do
 	M.general.n[iStr .. "P"] = { '"' .. iStr .. "P", "which_key_ignore", opts = { noremap = true } }
 	M.general.v[iStr .. "p"] = { '"' .. iStr .. "p", "which_key_ignore", opts = { noremap = true } }
 end
-
-M.Cody = {
-	n = {
-		["<leader>cc"] = {
-			"<Cmd>CodyChat<CR>i",
-			"Cody Chat",
-		},
-		["<leader>cC"] = {
-			"<Cmd>CodyToggle<CR>",
-			"Closed Chat",
-		},
-		["<leader>ct"] = {
-			':CodyTask ""<Left>',
-			"Give Task",
-		},
-		["<leader>cT"] = {
-			"<Cmd>CodyTaskView<CR>",
-			"Closed Task",
-		},
-		["<leader>cA"] = {
-			"<Cmd>CodyTaskAccept<CR>",
-			"Accept task result",
-		},
-		["<leader>cN"] = {
-			"<Cmd>CodyTaskNext<CR>",
-			"Next Task",
-		},
-		["<leader>cP"] = {
-			"<Cmd>CodyTaskPrev<CR>",
-			"Previous Task",
-		},
-	},
-	v = {
-		["<leader>ca"] = {
-			":CodyAsk ",
-			"Ask Question",
-		},
-		["<leader>ct"] = {
-			":CodyTask ",
-			"Give Task",
-		},
-		["<leader>ce"] = {
-			":CodyAsk Explain the following code:<CR>",
-			"Explain Code",
-		},
-		["<leader>cr"] = {
-			":CodyTask Rewrite the given code to be more idiomatic<CR>",
-			"Idiomatic Rewrite",
-		},
-		["<leader>cA"] = {
-			":CodyTaskAccept<CR>",
-			"Accept task result",
-		},
-	},
-}
 
 M.DAP = {
 	plugin = true,
