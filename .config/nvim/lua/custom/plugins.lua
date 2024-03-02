@@ -67,12 +67,19 @@ local plugins = {
 			throttle = true,
 			max_lines = 2,
 			multiline_threshold = 1,
-
 			trim_scope = "inner",
-
 			mode = "topline",
 		},
-		event = "BufReadPost",
+		-- event = "BufReadPost",
+		init = function()
+			vim.api.nvim_create_autocmd("BufEnter", {
+				callback = function()
+					if not vim.tbl_contains({ "cs", "" }, vim.bo.ft) then
+						require("treesitter-context").setup()
+					end
+				end,
+			})
+		end,
 	},
 
 	{
@@ -114,6 +121,7 @@ local plugins = {
 				typescript = { "prettierd" },
 				yaml = { "prettierd" },
 				json = { "prettierd" },
+				html = { "prettierd" },
 				typescriptreact = { "prettierd" },
 				javascriptreact = { "prettierd" },
 				jsonc = { "prettierd" },
@@ -124,7 +132,7 @@ local plugins = {
 				cuda = { "clang_format" },
 				cs = { "clang_format" },
 			},
-			format_on_save = { timeout_ms = 500, lsp_fallback = true, quiet = true },
+			format_on_save = { async = true, lsp_fallback = false, quiet = true },
 			formatters = { clang_format = { prepend_args = { "-style=file:/Users/jack/.config/nvim/.clang-format" } } },
 		},
 		init = function()

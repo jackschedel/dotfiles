@@ -352,7 +352,8 @@ M.general = {
 		["x"] = { '"_x', "which_key_ignore" },
 		["r"] = { '"_r', "which_key_ignore" },
 		["X"] = { '"_X', "which_key_ignore" },
-		["c"] = { '"_c', "which_key_ignore" },
+		["c"] = { '"_c', "which_key_ignore", noremap = true },
+		["c_"] = { 'v_"_c', "which_key_ignore" },
 		["C"] = { '"_C', "which_key_ignore" },
 		["<leader>d"] = { '"_d', "which_key_ignore" },
 		["{"] = {
@@ -441,7 +442,7 @@ M.general = {
 				local row = vim.api.nvim_win_get_cursor(0)[1]
 				vim.api.nvim_buf_set_lines(0, row, row, false, { "" })
 				vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
-				vim.cmd("normal p")
+				vim.cmd("normal pk")
 				Format()
 			end,
 			"Paste pretty",
@@ -606,7 +607,7 @@ M.general = {
 }
 
 -- multiple register y and p binds ill actually use
-for i = 0, 9 do
+for i = 1, 9 do
 	local iStr = tostring(i)
 	M.general.n[iStr .. "y"] = { '"' .. iStr .. "y", "which_key_ignore", opts = { noremap = true } }
 	M.general.n[iStr .. "Y"] = { '"' .. iStr .. "Y", "which_key_ignore", opts = { noremap = true } }

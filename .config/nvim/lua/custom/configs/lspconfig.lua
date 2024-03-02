@@ -23,7 +23,7 @@ lspconfig.omnisharp.setup({
 	handlers = {
 		["textDocument/definition"] = require("omnisharp_extended").handler,
 	},
-	cmd = { "omnisharp-mono", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
 	root_dir = function()
 		return require("lspconfig/util").root_pattern(
 			"*.sln",
