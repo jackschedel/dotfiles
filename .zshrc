@@ -112,8 +112,8 @@ fi
 
 
 source "$ZSH/passwordless-history.plugin.zsh"
-export HISTORY_EXCLUDE_PATTERN="^ykchalresp|$HISTORY_EXCLUDE_PATTERN"
-export HISTORY_EXCLUDE_PATTERN="^cd|$HISTORY_EXCLUDE_PATTERN"
+export HISTORY_EXCLUDE_PATTERN="^ykchalresp*|$HISTORY_EXCLUDE_PATTERN"
+export HISTORY_EXCLUDE_PATTERN="^cd*|$HISTORY_EXCLUDE_PATTERN"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -237,6 +237,7 @@ alias ls='colorls -A --sd'
 alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
 alias nvr='nvr -s'
+alias ase='/Users/jack/reps/aseprite/build/bin/aseprite.app'
 
 alias fuck='sudo $(fc -ln -1)'
 
@@ -284,3 +285,4 @@ setopt banghist
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+eval "$(zoxide init zsh --cmd cd)"

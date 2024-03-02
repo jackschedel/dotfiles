@@ -84,7 +84,3 @@ cmd + lalt - s : yabai -m window --insert stack
 cmd + lalt - v : yabai -m window --insert south; skhd -k "cmd - n"
 cmd + lalt - h : yabai -m window --insert east; skhd -k "cmd - n"
 
-# Non-yabai
-# Command + D to open Downloads in Finder
-cmd - d : open $HOME/Downloads
-

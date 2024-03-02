@@ -15,7 +15,7 @@ yabai -m signal --add event=space_changed action="sleep 30 && sketchybar --trigg
 
 $HOME/.config/yabai/create_spaces.sh
 
-yabai -m config external_bar               all:49:0     \
+yabai -m config external_bar               all:43:0     \
                 window_border              on           \
                 mouse_follows_focus        off          \
                 focus_follows_mouse        off          \
@@ -42,10 +42,10 @@ yabai -m config external_bar               all:49:0     \
                 mouse_drop_action          swap         \
                                                         \
                 top_padding                0            \
-                bottom_padding             10           \
-                left_padding               10           \
-                right_padding              10           \
-                window_gap                 10
+                bottom_padding             5            \
+                left_padding               5            \
+                right_padding              5            \
+                window_gap                 5 
 
 # Exclude problematic apps from being managed:
 yabai -m rule --add app="^(Vimac|Calculator|Software Update|Dictionary|System Preferences|System Settings|Archive Utility|App Store|Activity Monitor|Preview)$" manage=off
