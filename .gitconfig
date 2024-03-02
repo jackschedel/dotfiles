@@ -11,6 +11,7 @@
 	autocrlf = false
 	whitespace = trailing-space,space-before-tab
 	fileMode = false
+	excludesfile = ~/.global_gitignore
 [diff]
 	ignoreWhitespace = change
 [alias]

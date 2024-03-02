@@ -3,6 +3,7 @@
 
 # Overrides:
 !.gitignore
+!.global_gitignore
 !.gitconfig
 
 !.p10k.zsh
