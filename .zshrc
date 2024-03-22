@@ -17,6 +17,7 @@ export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.local/share/gem/ruby/3.2.0/bin
 export PATH=$PATH:$HOME/miniforge3/bin:/usr/local/anaconda3/bin
+export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 
 
 # Path to your oh-my-zsh installation.
@@ -237,7 +238,7 @@ alias ls='colorls -A --sd'
 alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
 alias nvr='nvr -s'
-alias ase='/Users/jack/reps/aseprite/build/bin/aseprite.app'
+alias ase='open /Users/jack/reps/aseprite/build/bin/aseprite.app'
 
 alias fuck='sudo $(fc -ln -1)'
 

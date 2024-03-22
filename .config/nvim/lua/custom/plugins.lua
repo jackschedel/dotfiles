@@ -15,7 +15,7 @@ local plugins = {
 
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^4", -- Recommended
+		version = "^4",
 		ft = { "rust" },
 		opts = {
 			server = {
@@ -31,8 +31,30 @@ local plugins = {
 
 	{
 		"hrsh7th/nvim-cmp",
-		opts = overrides.cmp,
 		event = "VeryLazy",
+		opts = overrides.cmp,
+		dependencies = {
+			"luckasRanarison/tailwind-tools.nvim",
+			"onsails/lspkind-nvim",
+			{
+				"L3MON4D3/LuaSnip",
+				dependencies = "rafamadriz/friendly-snippets",
+				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+				config = function(_, opts)
+					require("plugins.configs.others").luasnip(opts)
+				end,
+			},
+			{
+				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-nvim-lua",
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-path",
+			},
+		},
+		config = function(_, opts)
+			require("cmp").setup(opts)
+		end,
 	},
 
 	{
