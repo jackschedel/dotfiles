@@ -80,6 +80,7 @@ M.mason = {
 		"omnisharp",
 		"gopls",
 		"intelephense",
+		"jedi-language-server",
 	},
 }
 

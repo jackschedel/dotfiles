@@ -160,6 +160,24 @@ nvm_init() {
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 
+anaconda_init() {
+  __conda_setup="$('/Users/jack/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/Users/jack/miniforge3/etc/profile.d/conda.sh" ]; then
+          . "/Users/jack/miniforge3/etc/profile.d/conda.sh"
+      else
+          export PATH="/Users/jack/miniforge3/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+
+  if [ -f "/Users/jack/miniforge3/etc/profile.d/mamba.sh" ]; then
+      . "/Users/jack/miniforge3/etc/profile.d/mamba.sh"
+  fi
+}
+
 unzip_most_recent_new_folder() {
   for type in "${unzippable_types[@]}"; do
     file=$(\ls -t /Users/jack/Downloads/*.$type 2> /dev/null | head -n1)
@@ -228,6 +246,7 @@ alias j='if [ -f package.json ]; then nvim package.json; else if [ -f ../package
 alias z="unzip_most_recent_new_folder"
 alias m="move_most_recent"
 alias n='nvm_init'
+alias ac='anaconda_init'
 
 
 alias lg='lazygit'
@@ -262,25 +281,6 @@ setopt aliases
 setopt noautomenu
 setopt nomenucomplete
 setopt banghist
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/Users/jack/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/Users/jack/miniforge3/etc/profile.d/conda.sh" ]; then
-#         . "/Users/jack/miniforge3/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/Users/jack/miniforge3/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-#
-# if [ -f "/Users/jack/miniforge3/etc/profile.d/mamba.sh" ]; then
-#     . "/Users/jack/miniforge3/etc/profile.d/mamba.sh"
-# fi
-# <<< conda initialize <<<
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
