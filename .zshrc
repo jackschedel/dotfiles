@@ -16,7 +16,6 @@ export PATH=$PATH:$HOME/.local/lib/python3.11/site-packages
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.local/share/gem/ruby/3.2.0/bin
-export PATH=$PATH:$HOME/miniforge3/bin:/usr/local/anaconda3/bin
 export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 
 
@@ -119,11 +118,6 @@ export HISTORY_EXCLUDE_PATTERN="^cd*|$HISTORY_EXCLUDE_PATTERN"
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-
 unzippable_types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
 
 unzip_most_recent_here() {
@@ -158,24 +152,6 @@ nvm_init() {
   export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-}
-
-anaconda_init() {
-  __conda_setup="$('/Users/jack/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-  if [ $? -eq 0 ]; then
-      eval "$__conda_setup"
-  else
-      if [ -f "/Users/jack/miniforge3/etc/profile.d/conda.sh" ]; then
-          . "/Users/jack/miniforge3/etc/profile.d/conda.sh"
-      else
-          export PATH="/Users/jack/miniforge3/bin:$PATH"
-      fi
-  fi
-  unset __conda_setup
-
-  if [ -f "/Users/jack/miniforge3/etc/profile.d/mamba.sh" ]; then
-      . "/Users/jack/miniforge3/etc/profile.d/mamba.sh"
-  fi
 }
 
 unzip_most_recent_new_folder() {
@@ -242,14 +218,13 @@ alias t='tmux'
 alias c='clear'
 alias e='exit'
 alias q='exit'
-alias j='if [ -f package.json ]; then nvim package.json; else if [ -f ../package.json ]; then nvim ../package.json; if [ -f ../../package.json ]; then nvim ../../package.json; else echo "No package.json found"; fi; fi; fi'
+alias j='if [ -f package.json ]; then nvim package.json; else if [ -f ../package.json ]; then nvim ../package.json; else if [ -f ../../package.json ]; then nvim ../../package.json; else if [ -f ../../../package.json ]; then nvim ../../../package.json; else if [ -f ../../../../package.json ]; then nvim ../../../../package.json; else echo "No package.json found"; fi; fi; fi; fi; fi'
 alias z="unzip_most_recent_new_folder"
 alias m="move_most_recent"
 alias n='nvm_init'
-alias ac='anaconda_init'
-
 
 alias lg='lazygit'
+alias en='nvim .env'
 alias zh="unzip_most_recent_here"
 alias vd="edit_most_recent"
 alias la='colorls -Al --sd'
@@ -258,6 +233,7 @@ alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
 alias nvr='nvr -s'
 alias ase='open /Users/jack/reps/aseprite/build/bin/aseprite.app'
+alias dev='pnpm run dev'
 
 alias fuck='sudo $(fc -ln -1)'
 
@@ -265,7 +241,7 @@ alias python='python3'
 alias pip='pip3'
 
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
-alias nvconf='cd ~/.config/nvim/lua/ && nvim ./custom/mappings.lua'
+alias nvconf='nvim ~/.config/nvim/lua/'
 alias sketch='cd ~/.config/sketchybar/ && nvim ./sketchybarrc'
 alias ahk='nvim ~/.config/skhd/skhdrc && skhd --restart-service'
 alias wez='nvim ~/.wezterm.lua'
@@ -273,14 +249,19 @@ alias tmuxrc='cd ~/.config/tmux/ && nvim ./tmux.conf'
 alias yabairc='nvim ~/.config/yabai/yabairc && yabai --restart-service'
 
 alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
-alias pynp='i=1; while [[ -e ~/.notepads/notepad$i.py || -e ~/.local/state/nvim/swap//%tmp%notepad$i.py.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.py'
-alias cppnp='i=1; while [[ -e ~/.notepads/notepad$i.cpp || -e ~/.local/state/nvim/swap//%tmp%notepad$i.cpp.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.cpp'
-alias cnp='i=1; while [[ -e ~/.notepads/notepad$i.c || -e ~/.local/state/nvim/swap//%tmp%notepad$i.c.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.c'
 
 setopt aliases
 setopt noautomenu
 setopt nomenucomplete
 setopt banghist
+
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

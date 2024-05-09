@@ -38,13 +38,6 @@ local function HFit()
   vim.cmd("resize " .. max_height + 1)
 end
 
--- Core editor changes
-map({ "n", "v" }, "n", "nzzzv")
-map({ "n", "v" }, "N", "Nzzzv")
-
--- Better escape
-map("i", "jk", "<ESC>")
-
 -- NvChad mappings
 map("n", "<leader>Ch", "<cmd> NvCheatsheet <CR>", { desc = "Mapping cheatsheet" })
 map("n", "<leader>Ct", "<cmd> Telescope themes <CR>", { desc = "Theme picker" })
@@ -140,6 +133,7 @@ map("n", "gd", function()
 end, { desc = "LSP definitions" })
 
 map("n", "<leader>lu", "<cmd> Telescope lsp_references <CR>", { desc = "Usages" })
+map("n", "<leader>ls", "<cmd> LspStop <CR>", { desc = "Stop LSP" })
 
 map("n", "<leader>la", function()
   local current_ft = vim.bo.filetype
@@ -151,7 +145,7 @@ map("n", "<leader>la", function()
 end, { desc = "Code action" })
 
 map("n", "<leader>lr", function()
-  require("nvchad.renamer").open()
+  require "nvchad.lsp.renamer"()
 end, { desc = "Rename" })
 
 map("n", "<leader>le", function()
@@ -231,15 +225,6 @@ map("v", "<leader>]", function()
 end, { desc = "Select Block (treesitter)" })
 
 map("v", "<leader>[", "okV%", { desc = "Select Matching Block" })
-map("v", "{", function()
-  vim.cmd "normal h"
-  JumpContext(true)
-end, { desc = "Context start", nowait = true })
-
-map("v", "}", function()
-  vim.cmd "normal l"
-  JumpContext(false)
-end, { desc = "Context end", nowait = true })
 
 -- Insert mode mappings
 map("i", "<Up>", function()
@@ -552,7 +537,7 @@ map(
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 
-map({ "n", "t" }, "<C-a>", function()
+map({ "n" }, "<leader>t", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Terminal Toggle Floating term" })
 

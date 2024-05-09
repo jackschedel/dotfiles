@@ -17,11 +17,21 @@ vim.cmd "map <RightMouse> <nop>"
 vim.cmd "map! <RightMouse> <nop>"
 vim.cmd "map <2-LeftMouse> <nop>"
 vim.cmd "map! <2-LeftMouse> <nop>"
+vim.cmd "map <3-LeftMouse> <nop>"
+vim.cmd "map! <3-LeftMouse> <nop>"
 
 local map = vim.keymap.set
 
 -- basic crutches I want even if I mess up mappings.lua and it won't load
 map("n", ";", ":", { desc = "CMD enter command mode" })
+map({ "n", "v" }, "c_", 'v0w"_c')
+map({ "n", "v" }, "c", '"_c', { noremap = true })
+map("v", "p", "pgvy")
+
+map({ "n", "v" }, "n", "nzzzv")
+map({ "n", "v" }, "N", "Nzzzv")
+
+map("i", "jk", "<ESC>")
 
 map("n", "<leader>ff", function()
   vim.cmd "Telescope find_files"

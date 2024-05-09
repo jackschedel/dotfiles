@@ -5,6 +5,15 @@ return {
   },
 
   {
+    "andymass/vim-matchup",
+    event = "VeryLazy",
+    config = function()
+      vim.g.matchup_matchparen_enabled = 0
+      vim.g.matchup_surround_enabled = 0
+    end,
+  },
+
+  {
     "mrcjkb/rustaceanvim",
     version = "^4",
     ft = { "rust" },
@@ -259,49 +268,54 @@ return {
         "stylua",
         "css-lsp",
         "html-lsp",
+        "isort",
+        "black",
         "typescript-language-server",
         "deno",
         "prettierd",
         "clangd",
+        "go",
         "clang-format",
         "rust-analyzer",
         "omnisharp",
         "gopls",
         "intelephense",
         "jedi-language-server",
+        "tailwindcss-language-server",
+        "prisma",
       },
     },
   },
 
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    version = "^2",
-    opts = {
-      indentLine_enabled = 1,
-      filetype_exclude = {
-        "help",
-        "terminal",
-        "lazy",
-        "lspinfo",
-        "TelescopePrompt",
-        "TelescopeResults",
-        "mason",
-        "nvdash",
-        "nvcheatsheet",
-        "",
-      },
-      buftype_exclude = { "terminal" },
-      show_trailing_blankline_indent = false,
-      show_first_indent_level = true,
-      show_current_context = true,
-      show_current_context_start = false,
-      show_current_context_start_on_current_line = false,
-    },
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "blankline")
-      require("indent_blankline").setup(opts)
-    end,
-  },
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   version = "^2",
+  --   opts = {
+  --     indentLine_enabled = 1,
+  --     filetype_exclude = {
+  --       "help",
+  --       "terminal",
+  --       "lazy",
+  --       "lspinfo",
+  --       "TelescopePrompt",
+  --       "TelescopeResults",
+  --       "mason",
+  --       "nvdash",
+  --       "nvcheatsheet",
+  --       "",
+  --     },
+  --     buftype_exclude = { "terminal" },
+  --     show_trailing_blankline_indent = false,
+  --     show_first_indent_level = true,
+  --     show_current_context = true,
+  --     show_current_context_start = false,
+  --     show_current_context_start_on_current_line = false,
+  --   },
+  --   config = function(_, opts)
+  --     dofile(vim.g.base46_cache .. "blankline")
+  --     require("indent_blankline").setup(opts)
+  --   end,
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter",
@@ -324,6 +338,7 @@ return {
         "gdscript",
         "godot_resource",
         "c_sharp",
+        "prisma",
       },
       indent = {
         enable = true,
