@@ -7,9 +7,20 @@ return {
   {
     "andymass/vim-matchup",
     event = "VeryLazy",
-    config = function()
-      vim.g.matchup_matchparen_enabled = 0
+    config = {
+      include_match_words = true,
+    },
+    init = function()
+      vim.g.matchup_matchparen_offscreen = {}
       vim.g.matchup_surround_enabled = 0
+
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          vim.api.nvim_set_hl(0, "MatchWordCur", { ctermfg = "NONE", fg = "NONE" })
+          vim.api.nvim_set_hl(0, "MatchWord", { fg = "NONE", bg = "NONE", underline = true })
+          vim.api.nvim_set_hl(0, "MatchParen", { fg = "#ebdbb2", bg = "#4b4b4b" })
+        end,
+      })
     end,
   },
 
@@ -93,7 +104,6 @@ return {
 
   "NvChad/nvcommunity",
   { import = "nvcommunity.editor.hlargs" },
-  { import = "nvcommunity.editor.illuminate" },
 
   {
     "nvim-treesitter/nvim-treesitter-context",
@@ -287,36 +297,6 @@ return {
     },
   },
 
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   version = "^2",
-  --   opts = {
-  --     indentLine_enabled = 1,
-  --     filetype_exclude = {
-  --       "help",
-  --       "terminal",
-  --       "lazy",
-  --       "lspinfo",
-  --       "TelescopePrompt",
-  --       "TelescopeResults",
-  --       "mason",
-  --       "nvdash",
-  --       "nvcheatsheet",
-  --       "",
-  --     },
-  --     buftype_exclude = { "terminal" },
-  --     show_trailing_blankline_indent = false,
-  --     show_first_indent_level = true,
-  --     show_current_context = true,
-  --     show_current_context_start = false,
-  --     show_current_context_start_on_current_line = false,
-  --   },
-  --   config = function(_, opts)
-  --     dofile(vim.g.base46_cache .. "blankline")
-  --     require("indent_blankline").setup(opts)
-  --   end,
-  -- },
-
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
@@ -351,7 +331,7 @@ return {
 
   {
     "stevearc/oil.nvim",
-    opts = {},
+    opts = { view_options = { show_hidden = true } },
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },

@@ -234,6 +234,8 @@ alias lf='colorls -t --tree --sd'
 alias nvr='nvr -s'
 alias ase='open /Users/jack/reps/aseprite/build/bin/aseprite.app'
 alias dev='pnpm run dev'
+alias yarn='pnpm'
+alias studio='pnpm run db:studio'
 
 alias fuck='sudo $(fc -ln -1)'
 

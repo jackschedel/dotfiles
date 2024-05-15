@@ -25,7 +25,7 @@ local map = vim.keymap.set
 -- basic crutches I want even if I mess up mappings.lua and it won't load
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map({ "n", "v" }, "c_", 'v0w"_c')
-map({ "n", "v" }, "c", '"_c', { noremap = true })
+map({ "n", "v" }, "c", '"_c', { noremap = true, nowait = true })
 map("v", "p", "pgvy")
 
 map({ "n", "v" }, "n", "nzzzv")

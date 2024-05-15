@@ -18,7 +18,9 @@ local options = {
     cs = { "clang_format" },
   },
   format_on_save = { async = true, lsp_fallback = false, quiet = true },
-  formatters = { clang_format = { prepend_args = { "-style=file:/Users/jack/.config/nvim/.clang-format" } } },
+  formatters = {
+    clang_format = { prepend_args = { "-style=file:~/.config/nvim/.clang-format" } },
+  },
 }
 
 require("conform").setup(options)
