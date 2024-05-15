@@ -39,8 +39,6 @@ local function HFit()
 end
 
 -- NvChad mappings
-map("n", "<leader>Ch", "<cmd> NvCheatsheet <CR>", { desc = "Mapping cheatsheet" })
-map("n", "<leader>Ct", "<cmd> Telescope themes <CR>", { desc = "Theme picker" })
 map("n", "<leader>Cr", "<cmd> source ~/.Session.vim <CR>", { desc = "Restore Session" })
 map("n", "<leader>Ce", "<cmd> Telescope help_tags <CR>", { desc = "Search help" })
 
@@ -202,12 +200,12 @@ end, { desc = "Open all src files" })
 -- General mappings
 -- Visual mode mappings
 map("v", ";", ":", { desc = "enter cmdline", nowait = true })
-map("v", ":", ";", { desc = "which_key_ignore", nowait = true })
-map("v", ",", "<", { desc = "which_key_ignore", nowait = true })
-map("v", "<", ",", { desc = "which_key_ignore", nowait = true, noremap = true })
-map("v", "x", '"_d', { desc = "which_key_ignore" })
-map("v", "<leader>d", '"_d', { desc = "which_key_ignore" })
-map("v", "c", '"_c', { desc = "which_key_ignore" })
+map("v", ":", ";", { nowait = true })
+map("v", ",", "<", { nowait = true })
+map("v", "<", ",", { nowait = true, noremap = true })
+map("v", "x", '"_d')
+map("v", "<leader>d", '"_d')
+map("v", "c", '"_c')
 map("v", "Y", "ygv", { desc = "Yank (keep selection)" })
 map("v", "<Tab>", ">llgv", { desc = "Indent line" })
 map("v", "<S-Tab>", "<hhgv", { desc = "De-indent line" })
@@ -248,13 +246,13 @@ end, { desc = "Next suggestion" })
 -- Normal mode mappings
 map("n", "c_", 'v0w"_c')
 map("n", "cc", '"_c')
-map("n", "x", '"_x', { desc = "which_key_ignore" })
-map("n", "r", '"_r', { desc = "which_key_ignore" })
-map("n", "X", '"_X', { desc = "which_key_ignore" })
-map("n", "c", '"_c', { desc = "which_key_ignore", noremap = true })
-map("n", "c_", 'v_"_c', { desc = "which_key_ignore" })
-map("n", "C", '"_C', { desc = "which_key_ignore" })
-map("n", "<leader>d", '"_d', { desc = "which_key_ignore" })
+map("n", "x", '"_x')
+map("n", "r", '"_r')
+map("n", "X", '"_X')
+map("n", "c", '"_c', { noremap = true })
+map("n", "c_", 'v_"_c')
+map("n", "C", '"_C')
+map("n", "<leader>d", '"_d')
 map("n", "{", function()
   vim.cmd "normal h"
   JumpContext(true)
@@ -266,9 +264,9 @@ map("n", "}", function()
 end, { desc = "Context end", nowait = true })
 
 map("n", ";", ":", { desc = "enter cmdline", nowait = true })
-map("n", ":", ";", { desc = "which_key_ignore", nowait = true })
-map("n", ",", "<", { desc = "which_key_ignore", nowait = true })
-map("n", "<", ",", { desc = "which_key_ignore", nowait = true, noremap = true })
+map("n", ":", ";", { nowait = true })
+map("n", ",", "<", { nowait = true })
+map("n", "<", ",", { nowait = true, noremap = true })
 map("n", "<C-s>", "<cmd> noautocmd w <CR>", { desc = "Save file (no autocmd)" })
 map("n", "<leader>[", "$V%", { desc = "Select Matching Block" })
 map("n", "<leader>]", function()
@@ -284,16 +282,16 @@ end, { desc = "LSP type definition" })
 map("n", "I", function()
   vim.cmd "normal _"
   vim.cmd "startinsert"
-end, { desc = "which_key_ignore" })
+end)
 
-map({ "n", "v" }, "<C-h>", "<Cmd>NavigatorLeft<CR>", { desc = "which_key_ignore" })
-map({ "n", "v" }, "<C-j>", "<Cmd>NavigatorDown<CR>", { desc = "which_key_ignore" })
-map({ "n", "v" }, "<C-k>", "<Cmd>NavigatorUp<CR>", { desc = "which_key_ignore" })
-map({ "n", "v" }, "<C-l>", "<Cmd>NavigatorRight<CR>", { desc = "which_key_ignore" })
-map("n", "<S-Left>", "2<C-W><", { desc = "which_key_ignore" })
-map("n", "<S-Up>", "2<C-W>+", { desc = "which_key_ignore" })
-map("n", "<S-Down>", "2<C-W>-", { desc = "which_key_ignore" })
-map("n", "<S-Right>", "2<C-W>>", { desc = "which_key_ignore" })
+map({ "n", "v" }, "<C-h>", "<Cmd>NavigatorLeft<CR>")
+map({ "n", "v" }, "<C-j>", "<Cmd>NavigatorDown<CR>")
+map({ "n", "v" }, "<C-k>", "<Cmd>NavigatorUp<CR>")
+map({ "n", "v" }, "<C-l>", "<Cmd>NavigatorRight<CR>")
+map("n", "<S-Left>", "2<C-W><")
+map("n", "<S-Up>", "2<C-W>+")
+map("n", "<S-Down>", "2<C-W>-")
+map("n", "<S-Right>", "2<C-W>>")
 map("n", "<C-W>v", function()
   VFit()
 end, { desc = "Vertical scale to fit" })
@@ -358,11 +356,11 @@ end, { desc = "Paste buffer" })
 
 map("n", "<leader>v", function()
   vim.cmd "vnew"
-end, { desc = "which_key_ignore" })
+end)
 
 map("n", "<leader>h", function()
   vim.cmd "new"
-end, { desc = "which_key_ignore" })
+end)
 
 map("n", "<leader>V", function()
   local cur_win = vim.api.nvim_get_current_win()
@@ -370,7 +368,7 @@ map("n", "<leader>V", function()
   vim.cmd "vsplit %"
   local new_win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_set_cursor(new_win, cur_pos)
-end, { desc = "which_key_ignore" })
+end)
 
 map("n", "<leader>H", function()
   local cur_win = vim.api.nvim_get_current_win()
@@ -378,7 +376,7 @@ map("n", "<leader>H", function()
   vim.cmd "split %"
   local new_win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_set_cursor(new_win, cur_pos)
-end, { desc = "which_key_ignore" })
+end)
 
 map("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Toggle explorer" })
 map("n", "<F3>", function()
@@ -497,16 +495,16 @@ map("n", "<leader>Dl", "<cmd>lua require'dap'.run_last()<cr>", { silent = true, 
 -- Harpoon Mappings
 map("n", "<leader>a", function()
   require("harpoon.mark").add_file()
-end, { desc = "which_key_ignore" })
+end)
 
 map("n", "<leader>q", function()
   require("harpoon.ui").toggle_quick_menu()
-end, { desc = "which_key_ignore" })
+end)
 
 for i = 1, 6 do
   map("n", "<leader>" .. i, function()
     require("harpoon.ui").nav_file(i)
-  end, { desc = "which_key_ignore" })
+  end)
 
   map("n", "<leader>" .. ({ "!", "@", "#", "$", "%", "^" })[i], function()
     -- auto determine based on aspect ratio
@@ -519,7 +517,7 @@ for i = 1, 6 do
       require("harpoon.ui").nav_file(i)
       HFit()
     end
-  end, { desc = "which_key_ignore" })
+  end)
 end
 
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
