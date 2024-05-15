@@ -246,6 +246,8 @@ map("i", "<Down>", function()
 end, { desc = "Next suggestion" })
 
 -- Normal mode mappings
+map("n", "c_", 'v0w"_c')
+map("n", "cc", '"_c')
 map("n", "x", '"_x', { desc = "which_key_ignore" })
 map("n", "r", '"_r', { desc = "which_key_ignore" })
 map("n", "X", '"_X', { desc = "which_key_ignore" })
