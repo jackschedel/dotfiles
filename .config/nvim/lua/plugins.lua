@@ -25,6 +25,21 @@ return {
   },
 
   {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "whichkey")
+      require("which-key").setup(opts)
+
+      -- which-key was overwriting the c mapping which took forever to figure out
+      vim.keymap.set("n", "c", '"_<Cmd>lua require("which-key").show("c", {mode = "n", auto = true})<CR>')
+      vim.keymap.set("n", "ci", '"_<Cmd>lua require("which-key").show("ci", {mode = "n", auto = true})<CR>')
+      vim.keymap.set("n", "ca", '"_<Cmd>lua require("which-key").show("ca", {mode = "n", auto = true})<CR>')
+      vim.keymap.set("n", "c_", 'v_"_c')
+    end,
+  },
+
+  {
     "mrcjkb/rustaceanvim",
     version = "^4",
     ft = { "rust" },

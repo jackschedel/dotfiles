@@ -19,5 +19,3 @@ vim.cmd "map <2-LeftMouse> <nop>"
 vim.cmd "map! <2-LeftMouse> <nop>"
 vim.cmd "map <3-LeftMouse> <nop>"
 vim.cmd "map! <3-LeftMouse> <nop>"
-
-vim.cmd 'map  c "_c'
