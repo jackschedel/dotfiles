@@ -41,6 +41,7 @@ end
 -- NvChad mappings
 map("n", "<leader>Cr", "<cmd> source ~/.Session.vim <CR>", { desc = "Restore Session" })
 map("n", "<leader>Ce", "<cmd> Telescope help_tags <CR>", { desc = "Search help" })
+map("n", "<leader>Ct", "<cmd> Telescope themes <CR>", { desc = "Theme picker" })
 
 -- Git mappings
 map("n", "<leader>ga", function()
@@ -224,27 +225,28 @@ end, { desc = "Select Block (treesitter)" })
 
 map("v", "<leader>[", "okV%", { desc = "Select Matching Block" })
 
--- Insert mode mappings
-map("i", "<Up>", function()
-  if require("cmp").visible() then
-    require("cmp").select_prev_item()
-  else
-    local cur = vim.api.nvim_win_get_cursor(0)
-    vim.api.nvim_win_set_cursor(0, { cur[1] - 1, cur[2] })
-  end
-end, { desc = "Previous suggestion" })
-
-map("i", "<Down>", function()
-  if require("cmp").visible() then
-    require("cmp").select_next_item()
-  else
-    local cur = vim.api.nvim_win_get_cursor(0)
-    vim.api.nvim_win_set_cursor(0, { cur[1] + 1, cur[2] })
-  end
-end, { desc = "Next suggestion" })
-
+-- -- Insert mode mappings
+-- map("i", "<Up>", function()
+--   if require("cmp").visible() then
+--     require("cmp").select_prev_item()
+--   else
+--     local cur = vim.api.nvim_win_get_cursor(0)
+--     vim.api.nvim_win_set_cursor(0, { cur[1] - 1, cur[2] })
+--   end
+-- end, { desc = "Previous suggestion" })
+--
+-- map("i", "<Down>", function()
+--   if require("cmp").visible() then
+--     require("cmp").select_next_item()
+--   else
+--     local cur = vim.api.nvim_win_get_cursor(0)
+--     vim.api.nvim_win_set_cursor(0, { cur[1] + 1, cur[2] })
+--   end
+-- end, { desc = "Next suggestion" })
+--
 -- Normal mode mappings
 -- map("n", "c_", 'v0w"_c')
+
 map("n", "x", '"_x')
 map("n", "r", '"_r')
 map("n", "X", '"_X')

@@ -69,8 +69,8 @@ return {
           behavior = require("cmp").ConfirmBehavior.Insert,
           select = true,
         },
-        ["<CR>"] = require("cmp").config.disable,
-        ["<S-Tab>"] = require("cmp").config.disable,
+        ["<Up>"] = require('cmp').mapping.select_prev_item { behavior = require('cmp.types').cmp.SelectBehavior.Select },
+        ["<Down>"] = require('cmp').mapping.select_next_item { behavior = require('cmp.types').cmp.SelectBehavior.Select },
       },
     },
 

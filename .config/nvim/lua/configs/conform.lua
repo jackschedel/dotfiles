@@ -17,7 +17,7 @@ local options = {
     cuda = { "clang_format" },
     cs = { "clang_format" },
   },
-  format_on_save = { async = true, lsp_fallback = false, quiet = true },
+  format_on_save = { lsp_fallback = true, quiet = true },
   formatters = {
     clang_format = { prepend_args = { "-style=file:~/.config/nvim/.clang-format" } },
   },
