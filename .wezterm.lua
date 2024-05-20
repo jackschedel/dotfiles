@@ -26,6 +26,10 @@ config.check_for_updates = false
 
 config.color_scheme = "Gruvbox dark, medium (base16)"
 
+config.window_background_opacity = 0.7
+
+config.window_decorations = "RESIZE"
+
 -- Config end
 
 return config

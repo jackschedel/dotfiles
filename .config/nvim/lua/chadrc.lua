@@ -5,17 +5,17 @@
 local M = {}
 
 M.ui = {
-  theme = "gruvbox",
-  theme_toggle = { "gruvbox", "gruvbox_light" },
+  theme = "gruvchad",
+  theme_toggle = { "gruvchad", "gruvchad_light" },
   lsp_semantic_tokens = true,
   extended_integrations = { "dap", "bufferline" },
   telescope = { style = "bordered" },
   tabufline = {
     enabled = false,
   },
-
+  transparency = true,
   statusline = {
-    theme = "vscode_colored",
+    theme = "minimal",
     separator_style = "round",
     modules = {
       file = function()

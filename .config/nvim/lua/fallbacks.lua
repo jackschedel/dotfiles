@@ -8,8 +8,6 @@ map("v", "p", "pgvy")
 map({ "n", "v" }, "n", "nzzzv")
 map({ "n", "v" }, "N", "Nzzzv")
 
-map("i", "jk", "<ESC>")
-
 map("n", "<leader>ff", function()
   vim.cmd "Telescope find_files"
 end, { desc = "Find files" })

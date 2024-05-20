@@ -69,8 +69,10 @@ return {
           behavior = require("cmp").ConfirmBehavior.Insert,
           select = true,
         },
-        ["<Up>"] = require('cmp').mapping.select_prev_item { behavior = require('cmp.types').cmp.SelectBehavior.Select },
-        ["<Down>"] = require('cmp').mapping.select_next_item { behavior = require('cmp.types').cmp.SelectBehavior.Select },
+        ["<Up>"] = require("cmp").mapping.select_prev_item { behavior = require("cmp.types").cmp.SelectBehavior.Select },
+        ["<Down>"] = require("cmp").mapping.select_next_item {
+          behavior = require("cmp.types").cmp.SelectBehavior.Select,
+        },
       },
     },
 
@@ -347,7 +349,7 @@ return {
   {
     "stevearc/oil.nvim",
     opts = { view_options = { show_hidden = true } },
-    event = "VeryLazy",
+    cmd = "Oil",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
