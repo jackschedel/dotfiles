@@ -161,7 +161,6 @@ return {
       trim_scope = "inner",
       mode = "topline",
     },
-    -- event = "BufReadPost",
     init = function()
       vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
@@ -176,12 +175,12 @@ return {
   {
     "kevinhwang91/nvim-fundo",
     event = "VeryLazy",
-    opts = {},
     dependencies = {
       "kevinhwang91/promise-async",
     },
-    init = function()
+    config = function()
       vim.o.undofile = true
+      require("fundo").setup()
     end,
     build = function()
       require("fundo").install()
@@ -190,22 +189,24 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
-    init = function()
-      require("telescope").setup {
-        defaults = {
-          vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "-u",
-          },
+    event = "VeryLazy",
+    dependencies = {
+      "davvid/telescope-git-grep.nvim",
+    },
+    opts = {
+      defaults = {
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "-u",
         },
-      }
-    end,
+      },
+    },
   },
 
   {
@@ -387,11 +388,6 @@ return {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
     config = true,
-  },
-
-  {
-    "davvid/telescope-git-grep.nvim",
-    branch = "main",
   },
 
   {
