@@ -32,11 +32,14 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
+-- comment highlight
+vim.cmd "hi @comment guifg=#828282"
+
 require "nvchad.autocmds"
+-- remove autoreload
+vim.cmd "autocmd! ReloadNvChad"
 
 vim.schedule(function()
   require "fallbacks"
   require "mappings"
 end)
-
-vim.cmd "autocmd! ReloadNvChad"

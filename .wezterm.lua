@@ -14,10 +14,10 @@ config.font = wezterm.font("JetBrainsMono Nerd Font")
 config.font_size = 15
 
 config.window_padding = {
-	left = 0,
-	right = 0,
-	top = 5,
-	bottom = 0,
+	left = 4,
+	right = 4,
+	top = 20,
+	bottom = 4,
 }
 
 config.hide_tab_bar_if_only_one_tab = true
@@ -26,7 +26,7 @@ config.check_for_updates = false
 
 config.color_scheme = "Gruvbox dark, medium (base16)"
 
-config.window_background_opacity = 0.7
+config.window_background_opacity = 0.65
 
 config.window_decorations = "RESIZE"
 

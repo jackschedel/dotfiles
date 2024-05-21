@@ -1,4 +1,11 @@
-local map = vim.keymap.set
+local function map(mode, lhs, rhs, opts)
+  opts = opts or {} -- Ensure opts is a table if not provided
+  if opts.desc == nil then -- If desc is not provided
+    opts.desc = "which_key_ignore" -- Set default desc value
+  end
+
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 local function Format()
   require("conform").format { async = true, lsp_fallback = true }
@@ -224,28 +231,6 @@ map("v", "<leader>]", function()
 end, { desc = "Select Block (treesitter)" })
 
 map("v", "<leader>[", "okV%", { desc = "Select Matching Block" })
-
--- -- Insert mode mappings
--- map("i", "<Up>", function()
---   if require("cmp").visible() then
---     require("cmp").select_prev_item()
---   else
---     local cur = vim.api.nvim_win_get_cursor(0)
---     vim.api.nvim_win_set_cursor(0, { cur[1] - 1, cur[2] })
---   end
--- end, { desc = "Previous suggestion" })
---
--- map("i", "<Down>", function()
---   if require("cmp").visible() then
---     require("cmp").select_next_item()
---   else
---     local cur = vim.api.nvim_win_get_cursor(0)
---     vim.api.nvim_win_set_cursor(0, { cur[1] + 1, cur[2] })
---   end
--- end, { desc = "Next suggestion" })
---
--- Normal mode mappings
--- map("n", "c_", 'v0w"_c')
 
 map("n", "x", '"_x')
 map("n", "r", '"_r')

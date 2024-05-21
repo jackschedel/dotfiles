@@ -7,20 +7,16 @@ return {
   {
     "andymass/vim-matchup",
     event = "VeryLazy",
-    config = {
+    opts = {
       include_match_words = true,
     },
-    init = function()
+    config = function()
       vim.g.matchup_matchparen_offscreen = {}
       vim.g.matchup_surround_enabled = 0
 
-      vim.api.nvim_create_autocmd("VimEnter", {
-        callback = function()
-          vim.api.nvim_set_hl(0, "MatchWordCur", { ctermfg = "NONE", fg = "NONE" })
-          vim.api.nvim_set_hl(0, "MatchWord", { fg = "NONE", bg = "NONE", underline = true })
-          vim.api.nvim_set_hl(0, "MatchParen", { fg = "#ebdbb2", bg = "#4b4b4b" })
-        end,
-      })
+      vim.api.nvim_set_hl(0, "MatchWordCur", { ctermfg = "NONE", fg = "NONE" })
+      vim.api.nvim_set_hl(0, "MatchWord", { fg = "NONE", bg = "NONE", underline = true })
+      vim.api.nvim_set_hl(0, "MatchParen", { fg = "#ebdbb2", bg = "#4b4b4b" })
     end,
   },
 
@@ -30,7 +26,6 @@ return {
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
       require("which-key").setup(opts)
-
       -- which-key was overwriting the c mapping which took forever to figure out
       vim.keymap.set("n", "c", '"_<Cmd>lua require("which-key").show("c", {mode = "n", auto = true})<CR>')
       vim.keymap.set("n", "ci", '"_<Cmd>lua require("which-key").show("ci", {mode = "n", auto = true})<CR>')
@@ -74,6 +69,17 @@ return {
           behavior = require("cmp.types").cmp.SelectBehavior.Select,
         },
       },
+      snippet = {
+        expand = function(args)
+          require("luasnip").lsp_expand(args.body)
+        end,
+      },
+      sources = {
+        { name = "nvim_lsp" },
+        { name = "luasnip", keyword_length = 2 },
+        { name = "buffer", keyword_length = 3 },
+        { name = "path" },
+      },
     },
 
     dependencies = {
@@ -90,10 +96,34 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
       },
     },
     config = function(_, opts)
-      require("cmp").setup(opts)
+      local cmp = require "cmp"
+
+      cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
+
+      cmp.setup.cmdline(":", {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          {
+            name = "cmdline",
+            option = {
+              ignore_cmds = { "Man", "!" },
+            },
+          },
+        }),
+      })
+
+      cmp.setup(opts)
     end,
   },
 
@@ -349,7 +379,7 @@ return {
   {
     "stevearc/oil.nvim",
     opts = { view_options = { show_hidden = true } },
-    cmd = "Oil",
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 

@@ -5,8 +5,7 @@
 local M = {}
 
 M.ui = {
-  theme = "gruvchad",
-  theme_toggle = { "gruvchad", "gruvchad_light" },
+  theme = "gruvbox",
   lsp_semantic_tokens = true,
   extended_integrations = { "dap", "bufferline" },
   telescope = { style = "bordered" },
