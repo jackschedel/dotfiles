@@ -31,6 +31,7 @@ return {
       vim.keymap.set("n", "ci", '"_<Cmd>lua require("which-key").show("ci", {mode = "n", auto = true})<CR>')
       vim.keymap.set("n", "ca", '"_<Cmd>lua require("which-key").show("ca", {mode = "n", auto = true})<CR>')
       vim.keymap.set("n", "c_", 'v_"_c')
+      vim.keymap.set("n", "d_", "v_d")
     end,
   },
 
@@ -332,7 +333,6 @@ return {
         "deno",
         "prettierd",
         "clangd",
-        "go",
         "clang-format",
         "rust-analyzer",
         "omnisharp",
@@ -340,7 +340,6 @@ return {
         "intelephense",
         "jedi-language-server",
         "tailwindcss-language-server",
-        "prisma",
       },
     },
   },
