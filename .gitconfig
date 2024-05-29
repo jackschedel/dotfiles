@@ -1,9 +1,9 @@
 [credential "https://github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
 [user]
 	email = jackschedel@gmail.com
 	name = Jack Schedel
@@ -26,3 +26,5 @@
 	defaultBranch = main
 [push]
   default = simple
+[credential]
+	helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-core.exe

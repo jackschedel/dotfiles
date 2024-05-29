@@ -10,8 +10,8 @@ export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:/snap/bin
 export PATH=$PATH:/usr/local/go/bin
-export PATH=/opt/homebrew/bin:$PATH
-export PATH=/opt/homebrew/sbin:$PATH
+export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+export PATH=/home/linuxbrew/.linuxbrew/sbin:$PATH
 export PATH=$PATH:$HOME/.local/lib/python3.11/site-packages
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/.cargo/bin
@@ -111,7 +111,6 @@ else
 fi
 
 
-source "$ZSH/passwordless-history.plugin.zsh"
 export HISTORY_EXCLUDE_PATTERN="^ykchalresp*|$HISTORY_EXCLUDE_PATTERN"
 export HISTORY_EXCLUDE_PATTERN="^cd*|$HISTORY_EXCLUDE_PATTERN"
 
@@ -150,8 +149,8 @@ unzip_most_recent_here() {
 
 nvm_init() {
   export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 
 unzip_most_recent_new_folder() {
@@ -271,5 +270,7 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval "$(zoxide init zsh --cmd cd)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
