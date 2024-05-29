@@ -248,7 +248,7 @@ alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias nvconf='nvim ~/.config/nvim/lua/'
 alias sketch='cd ~/.config/sketchybar/ && nvim ./sketchybarrc'
 alias ahk='nvim ~/.config/skhd/skhdrc && skhd --restart-service'
-alias wez='nvim ~/.wezterm.lua'
+alias wez='nvim /mnt/c/Users/t-jschedel/.wezterm.lua'
 alias tmuxrc='cd ~/.config/tmux/ && nvim ./tmux.conf'
 alias yabairc='nvim ~/.config/yabai/yabairc && yabai --restart-service'
 
