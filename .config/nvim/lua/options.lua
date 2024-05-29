@@ -19,3 +19,15 @@ vim.cmd "map <2-LeftMouse> <nop>"
 vim.cmd "map! <2-LeftMouse> <nop>"
 vim.cmd "map <3-LeftMouse> <nop>"
 vim.cmd "map! <3-LeftMouse> <nop>"
+
+vim.g.clipboard = {
+  name = "WslClipboard",
+  copy = {
+    ["+"] = "/mnt/c/Users/t-jschedel/PATH/win32yank.exe -i --crlf",
+    ["*"] = "/mnt/c/Users/t-jschedel/PATH/win32yank.exe -i --crlf",
+  },
+  paste = {
+    ["+"] = "/mnt/c/Users/t-jschedel/PATH/win32yank.exe -o --lf",
+    ["*"] = "/mnt/c/Users/t-jschedel/PATH/win32yank.exe -o --lf",
+  },
+}
