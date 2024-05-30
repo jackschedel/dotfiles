@@ -45,6 +45,35 @@ local function HFit()
   vim.cmd("resize " .. max_height + 1)
 end
 
+local function RefactorPopup(title, apply)
+  local currName = vim.fn.expand "<cword>" .. " "
+
+  local win = require("plenary.popup").create(currName, {
+    title = title,
+    style = "minimal",
+    borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    relative = "cursor",
+    borderhighlight = "RenamerBorder",
+    titlehighlight = "RenamerTitle",
+    focusable = true,
+    width = 25,
+    height = 1,
+    line = "cursor+2",
+    col = "cursor-1",
+  })
+
+  vim.cmd "normal A"
+  vim.cmd "startinsert"
+
+  map("i", "<Esc>", "<cmd>q<CR><Esc>l", { buffer = 0 })
+  map("n", "<Esc>", "<cmd>q<CR>", { buffer = 0 })
+
+  map({ "i", "n" }, "<CR>", function()
+    apply(currName, win)
+    vim.cmd.stopinsert()
+  end, { buffer = 0 })
+end
+
 -- NvChad mappings
 map("n", "<leader>Cr", "<cmd> source ~/.Session.vim <CR>", { desc = "Restore Session" })
 map("n", "<leader>Ce", "<cmd> Telescope help_tags <CR>", { desc = "Search help" })
@@ -151,7 +180,18 @@ map("n", "<leader>la", function()
 end, { desc = "Code action" })
 
 map("n", "<leader>lr", function()
-  require "nvchad.lsp.renamer"()
+  RefactorPopup("Rename", function(curr, win)
+    local newName = vim.trim(vim.fn.getline ".")
+    vim.api.nvim_win_close(win, true)
+
+    if #newName > 0 and newName ~= curr then
+      vim.api.nvim_input "lb"
+      local params = vim.lsp.util.make_position_params()
+      params.newName = newName
+
+      vim.lsp.buf_request(0, "textDocument/rename", params)
+    end
+  end)
 end, { desc = "Rename" })
 
 map("n", "<leader>le", function()
@@ -177,6 +217,17 @@ end, { desc = "Copy diagnostics" })
 map("n", "<leader>lf", function()
   Format()
 end, { desc = "Format" })
+
+map("n", "<leader>lt", function()
+  RefactorPopup("test", function(curr, win)
+    local newName = vim.trim(vim.fn.getline ".")
+    vim.api.nvim_win_close(win, true)
+    if #newName > 0 and newName ~= curr then
+      vim.cmd.stopinsert()
+      vim.api.nvim_input("lvit<Esc>f/lce" .. newName .. "<Esc>ciw" .. newName .. "<Esc>b")
+    end
+  end)
+end, { desc = "Rename tag" })
 
 map("n", "<leader>lA", function()
   local exts = {
