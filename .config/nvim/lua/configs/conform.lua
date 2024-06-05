@@ -19,7 +19,7 @@ local options = {
   },
   format_on_save = { lsp_fallback = true, quiet = true },
   formatters = {
-    clang_format = { prepend_args = { "-style=file:~/.config/nvim/.clang-format" } },
+    clang_format = { prepend_args = { "-style=file:/home/jack/.config/nvim/.clang-format" } },
   },
 }
 
