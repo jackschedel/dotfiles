@@ -281,8 +281,14 @@ end, { desc = "Select Block (treesitter)" })
 
 map("v", "<leader>[", "okV%", { desc = "Select Matching Block" })
 
+map("n", "<leader>Ca", function()
+  vim.cmd "redir! >~/autocmds.txt"
+  vim.cmd "silent autocmd"
+  vim.cmd "redir END"
+end, { desc = "Output autocmds" })
+
 map("n", "<leader>Cm", function()
-  vim.cmd "redir >maps.txt"
+  vim.cmd "redir! >~/maps.txt"
   vim.cmd "silent map"
   vim.cmd "redir END"
 end, { desc = "Output mappings" })
