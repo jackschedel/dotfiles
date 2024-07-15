@@ -281,6 +281,12 @@ end, { desc = "Select Block (treesitter)" })
 
 map("v", "<leader>[", "okV%", { desc = "Select Matching Block" })
 
+map("n", "<leader>Cm", function()
+  vim.cmd "redir >maps.txt"
+  vim.cmd "silent map"
+  vim.cmd "redir END"
+end, { desc = "Output mappings" })
+
 map("n", "x", '"_x')
 map("n", "r", '"_r')
 map("n", "X", '"_X')
