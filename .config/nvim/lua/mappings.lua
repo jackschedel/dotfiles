@@ -566,16 +566,9 @@ end
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "File Copy whole" })
 
-map("n", "<leader>/", function()
-  require("Comment.api").toggle.linewise.current()
-end, { desc = "Comment Toggle" })
+map("n", "<leader>/", "gcc", { desc = "Comment Toggle", remap = true })
 
-map(
-  "v",
-  "<leader>/",
-  "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-  { desc = "Comment Toggle" }
-)
+map("v", "<leader>/", "gc", { desc = "Comment Toggle", remap = true })
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })

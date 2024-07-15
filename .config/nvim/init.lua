@@ -35,10 +35,6 @@ dofile(vim.g.base46_cache .. "statusline")
 -- comment highlight
 vim.cmd "hi @comment guifg=#929292"
 
-require "nvchad.autocmds"
--- remove autoreload
-vim.cmd "autocmd! ReloadNvChad"
-
 vim.schedule(function()
   require "fallbacks"
   require "mappings"
