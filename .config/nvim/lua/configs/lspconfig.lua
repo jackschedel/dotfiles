@@ -13,10 +13,8 @@ local lspconfig = require "lspconfig"
 local servers = {
   "html",
   "cssls",
-  "tsserver",
   "gopls",
   "jedi_language_server",
-  "tailwindcss",
   "intelephense",
   "gdscript",
   "clangd",

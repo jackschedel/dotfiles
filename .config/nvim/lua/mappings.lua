@@ -258,8 +258,6 @@ end, { desc = "Open all src files" })
 
 -- General mappings
 -- Visual mode mappings
-map("v", ";", ":", { desc = "enter cmdline", nowait = true })
-map("v", ":", ";", { nowait = true })
 map("v", ",", "<", { nowait = true })
 map("v", "<", ",", { nowait = true, noremap = true })
 map("v", "x", '"_d')
@@ -298,8 +296,6 @@ map("n", "}", function()
   JumpContext(false)
 end, { desc = "Context end", nowait = true })
 
-map("n", ";", ":", { desc = "enter cmdline", nowait = true })
-map("n", ":", ";", { nowait = true })
 map("n", ",", "<", { nowait = true })
 map("n", "<", ",", { nowait = true, noremap = true })
 map("n", "<C-s>", "<cmd> noautocmd w <CR>", { desc = "Save file (no autocmd)" })

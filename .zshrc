@@ -12,6 +12,7 @@ export PATH=$PATH:/snap/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 export PATH=/home/linuxbrew/.linuxbrew/sbin:$PATH
+export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/node@16/bin
 export PATH=$PATH:$HOME/.local/lib/python3.11/site-packages
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/.cargo/bin
@@ -171,9 +172,9 @@ _dotnet_zsh_complete()
 compdef _dotnet_zsh_complete dotnet
 
 nvm_init() {
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 
 unzip_most_recent_new_folder() {

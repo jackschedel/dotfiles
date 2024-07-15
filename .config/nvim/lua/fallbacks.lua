@@ -2,7 +2,8 @@
 
 local map = vim.keymap.set
 
-map("n", ";", ":", { desc = "CMD enter command mode" })
+map({ "n", "v" }, ";", ":")
+map({ "n", "v" }, ":", ";")
 map("v", "p", "pgvy")
 
 map({ "n", "v" }, "n", "nzzzv")
