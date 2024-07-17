@@ -168,7 +168,7 @@ map("n", "gd", function()
 end, { desc = "LSP definitions" })
 
 map("n", "<leader>lu", "<cmd> Telescope lsp_references <CR>", { desc = "Usages" })
-map("n", "<leader>ls", "<cmd> LspStop <CR>", { desc = "Stop LSP" })
+map("n", "<leader>ls", "<cmd> silent! LspStop <CR>", { desc = "Stop LSP" })
 
 map("n", "<leader>la", function()
   local current_ft = vim.bo.filetype
