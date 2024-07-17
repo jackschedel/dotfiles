@@ -13,13 +13,12 @@ local lspconfig = require "lspconfig"
 local servers = {
   "html",
   "cssls",
-  "tsserver",
   "gopls",
   "jedi_language_server",
-  "tailwindcss",
   "intelephense",
   "gdscript",
   "clangd",
+  "csharp_ls",
 }
 
 for _, lsp in ipairs(servers) do
@@ -33,32 +32,27 @@ end
 lspconfig.omnisharp.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  on_init = on_init,
   handlers = {
     ["textDocument/definition"] = require("omnisharp_extended").handler,
   },
-  cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+  on_init = on_init,
+  cmd = { "omnisharp", "--languageserver" },
   root_dir = function()
-    return require("lspconfig/util").root_pattern(
-      "*.sln",
-      "*.csproj",
-      "omnisharp.json",
-      "*.godot",
-      "function.json",
-      ".git"
-    )(vim.fn.expand "%:p:h") or vim.fn.expand "%:p:h"
+    return require("lspconfig/util").root_pattern("*.csproj", "omnisharp.json", "*.godot", "function.json")(
+      vim.fn.expand "%:p:h"
+    ) or vim.fn.expand "%:p:h"
   end,
 }
 
--- lspconfig.clangd.setup {
---   on_attach = function(client, bufnr)
---     client.server_capabilities.signatureHelpProvider = false
---     on_attach(client, bufnr)
---   end,
---   capabilities = capabilities,
---   on_init = on_init,
--- }
---
+lspconfig.clangd.setup {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.signatureHelpProvider = false
+    on_attach(client, bufnr)
+  end,
+  capabilities = capabilities,
+  on_init = on_init,
+}
+
 lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,

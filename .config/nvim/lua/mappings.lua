@@ -258,8 +258,6 @@ end, { desc = "Open all src files" })
 
 -- General mappings
 -- Visual mode mappings
-map("v", ";", ":", { desc = "enter cmdline", nowait = true })
-map("v", ":", ";", { nowait = true })
 map("v", ",", "<", { nowait = true })
 map("v", "<", ",", { nowait = true, noremap = true })
 map("v", "x", '"_d')
@@ -283,6 +281,18 @@ end, { desc = "Select Block (treesitter)" })
 
 map("v", "<leader>[", "okV%", { desc = "Select Matching Block" })
 
+map("n", "<leader>Ca", function()
+  vim.cmd "redir! >~/autocmds.txt"
+  vim.cmd "silent autocmd"
+  vim.cmd "redir END"
+end, { desc = "Output autocmds" })
+
+map("n", "<leader>Cm", function()
+  vim.cmd "redir! >~/maps.txt"
+  vim.cmd "silent map"
+  vim.cmd "redir END"
+end, { desc = "Output mappings" })
+
 map("n", "x", '"_x')
 map("n", "r", '"_r')
 map("n", "X", '"_X')
@@ -298,8 +308,6 @@ map("n", "}", function()
   JumpContext(false)
 end, { desc = "Context end", nowait = true })
 
-map("n", ";", ":", { desc = "enter cmdline", nowait = true })
-map("n", ":", ";", { nowait = true })
 map("n", ",", "<", { nowait = true })
 map("n", "<", ",", { nowait = true, noremap = true })
 map("n", "<C-s>", "<cmd> noautocmd w <CR>", { desc = "Save file (no autocmd)" })
@@ -558,16 +566,9 @@ end
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "File Copy whole" })
 
-map("n", "<leader>/", function()
-  require("Comment.api").toggle.linewise.current()
-end, { desc = "Comment Toggle" })
+map("n", "<leader>/", "gcc", { desc = "Comment Toggle", remap = true })
 
-map(
-  "v",
-  "<leader>/",
-  "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-  { desc = "Comment Toggle" }
-)
+map("v", "<leader>/", "gc", { desc = "Comment Toggle", remap = true })
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })

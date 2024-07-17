@@ -23,15 +23,21 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
+    opts = { preset = "modern", icons = { rules = false } },
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
-      require("which-key").setup(opts)
-      -- which-key was overwriting the c mapping which took forever to figure out
-      vim.keymap.set("n", "c", '"_<Cmd>lua require("which-key").show("c", {mode = "n", auto = true})<CR>')
-      vim.keymap.set("n", "ci", '"_<Cmd>lua require("which-key").show("ci", {mode = "n", auto = true})<CR>')
-      vim.keymap.set("n", "ca", '"_<Cmd>lua require("which-key").show("ca", {mode = "n", auto = true})<CR>')
-      vim.keymap.set("n", "c_", 'v_"_c')
-      vim.keymap.set("n", "d_", "v_d")
+      local wk = require "which-key"
+      wk.setup(opts)
+      wk.add {
+        {
+          mode = { "n" },
+          { "c", '"_c' },
+          { "ci", '"_ci' },
+          { "ca", '"_ca' },
+          { "c_", 'v0w"_c' },
+          { "d_", "v_d" },
+        },
+      }
     end,
   },
 
@@ -103,13 +109,6 @@ return {
     config = function(_, opts)
       local cmp = require "cmp"
 
-      cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
-        },
-      })
-
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
@@ -130,7 +129,7 @@ return {
 
   {
     "nvim-pack/nvim-spectre",
-    config = true,
+    opts = {},
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -140,7 +139,7 @@ return {
   {
     "numToStr/Navigator.nvim",
     cmd = { "NavigatorLeft", "NavigatorDown", "NavigatorUp", "NavigatorRight" },
-    config = true,
+    opts = {},
   },
 
   {
@@ -386,7 +385,7 @@ return {
   {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
-    config = true,
+    opts = {},
   },
 
   {

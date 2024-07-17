@@ -2,6 +2,7 @@ require "nvchad.options"
 
 -- autocmds
 vim.cmd "autocmd InsertEnter * set nohlsearch"
+vim.cmd "autocmd BufEnter * set formatoptions=jcql"
 vim.cmd "autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab"
 vim.cmd "autocmd FileType php setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab"
 vim.cmd "autocmd VimLeave * mksession! ~/.Session.vim"

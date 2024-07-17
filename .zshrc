@@ -12,15 +12,17 @@ export PATH=$PATH:/snap/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/opt/homebrew/sbin:$PATH
+export PATH=$PATH:/opt/homebrew/opt/node@16/bin
 export PATH=$PATH:$HOME/.local/lib/python3.11/site-packages
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.local/share/gem/ruby/3.2.0/bin
 export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+
+# Misc env variables
 export HOMEBREW_NO_ENV_HINTS=1
 
 # Set name of the theme to load --- if set to "random", it will
@@ -111,7 +113,6 @@ else
 fi
 
 
-source "$ZSH/passwordless-history.plugin.zsh"
 export HISTORY_EXCLUDE_PATTERN="^ykchalresp*|$HISTORY_EXCLUDE_PATTERN"
 export HISTORY_EXCLUDE_PATTERN="^cd*|$HISTORY_EXCLUDE_PATTERN"
 
@@ -149,7 +150,7 @@ unzip_most_recent_here() {
 }
 
 nvm_init() {
-  export NVM_DIR="$HOME/.nvm"
+export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
@@ -251,7 +252,9 @@ alias sketch='cd ~/.config/sketchybar/ && nvim ./sketchybarrc'
 alias ahk='nvim ~/.config/skhd/skhdrc && skhd --restart-service'
 alias wez='nvim ~/.wezterm.lua'
 alias tmuxrc='cd ~/.config/tmux/ && nvim ./tmux.conf'
+alias lcw='cd /mnt/c/Users/t-jschedel/reps/AD-LCM'
 alias yabairc='nvim ~/.config/yabai/yabairc && yabai --restart-service'
+alias open='explorer.exe'
 
 alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
 
