@@ -74,6 +74,24 @@ local function RefactorPopup(title, apply)
   end, { buffer = 0 })
 end
 
+-- Only replace cmds, not search; only replace the first instance
+local function cmd_abbrev(abbrev, expansion)
+  local cmd = "cabbr "
+    .. abbrev
+    .. ' <c-r>=(getcmdpos() == 1 && getcmdtype() == ":" ? "'
+    .. expansion
+    .. '" : "'
+    .. abbrev
+    .. '")<CR>'
+  vim.cmd(cmd)
+end
+
+-- Redirect `:h` to `:FloatingHelp`
+cmd_abbrev("h", "FloatingHelp")
+cmd_abbrev("help", "FloatingHelp")
+cmd_abbrev("helpc", "FloatingHelpClose")
+cmd_abbrev("helpclose", "FloatingHelpClose")
+
 -- NvChad mappings
 map("n", "<leader>Cr", "<cmd> source ~/.Session.vim <CR>", { desc = "Restore Session" })
 map("n", "<leader>Ce", "<cmd> Telescope help_tags <CR>", { desc = "Search help" })

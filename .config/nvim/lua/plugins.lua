@@ -5,6 +5,17 @@ return {
   },
 
   {
+    "Tyler-Barham/floating-help.nvim",
+    cmd = "FloatingHelp",
+    opts = {
+      width = 0.8, -- Whole numbers are columns/rows
+      height = 0.8, -- Decimals are a percentage of the editor
+      position = "C", -- NW,N,NW,W,C,E,SW,S,SE (C==center)
+      border = "rounded", -- rounded,double,single
+    },
+  },
+
+  {
     "andymass/vim-matchup",
     event = "VeryLazy",
     opts = {
