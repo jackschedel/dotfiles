@@ -241,8 +241,6 @@ alias yarn='pnpm'
 alias pret='pnpm prettier --write .'
 alias studio='pnpm run db:studio'
 
-alias fuck='sudo $(fc -ln -1)'
-
 alias python='python3'
 alias pip='pip3'
 
@@ -254,7 +252,6 @@ alias wez='nvim ~/.wezterm.lua'
 alias tmuxrc='cd ~/.config/tmux/ && nvim ./tmux.conf'
 alias lcw='cd /mnt/c/Users/t-jschedel/reps/AD-LCM'
 alias yabairc='nvim ~/.config/yabai/yabairc && yabai --restart-service'
-alias open='explorer.exe'
 
 alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
 

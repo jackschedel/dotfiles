@@ -1,12 +1,7 @@
+local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 capabilities.offsetEncoding = "utf-8"
-
-local on_attach = function(client, bufnr)
-  if require("nvconfig").ui.lsp.signature and client.server_capabilities.signatureHelpProvider then
-    require("nvchad.lsp.signature").setup(client, bufnr)
-  end
-end
 
 local lspconfig = require "lspconfig"
 
@@ -17,7 +12,6 @@ local servers = {
   "jedi_language_server",
   "intelephense",
   "gdscript",
-  "clangd",
   "csharp_ls",
 }
 

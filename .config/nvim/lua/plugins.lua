@@ -312,35 +312,11 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     config = function()
       require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
     end,
-  },
-
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "lua-language-server",
-        "stylua",
-        "css-lsp",
-        "html-lsp",
-        "isort",
-        "black",
-        "typescript-language-server",
-        "deno",
-        "prettierd",
-        "clangd",
-        "clang-format",
-        "rust-analyzer",
-        "omnisharp",
-        "gopls",
-        "intelephense",
-        "jedi-language-server",
-        "tailwindcss-language-server",
-      },
-    },
   },
 
   {
