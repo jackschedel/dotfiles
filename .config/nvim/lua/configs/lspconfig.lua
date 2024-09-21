@@ -15,16 +15,27 @@ local servers = {
   "csharp_ls",
 }
 
+local function HoverStyle()
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded",
+  })
+end
+
+local function BaseOnAttach(client, bufnr)
+  HoverStyle()
+  on_attach(client, bufnr)
+end
+
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    on_attach = on_attach,
+    on_attach = BaseOnAttach,
     capabilities = capabilities,
     on_init = on_init,
   }
 end
 
 lspconfig.omnisharp.setup {
-  on_attach = on_attach,
+  on_attach = BaseOnAttach,
   capabilities = capabilities,
   handlers = {
     ["textDocument/definition"] = require("omnisharp_extended").handler,
@@ -40,6 +51,7 @@ lspconfig.omnisharp.setup {
 
 lspconfig.clangd.setup {
   on_attach = function(client, bufnr)
+    HoverStyle()
     client.server_capabilities.signatureHelpProvider = false
     on_attach(client, bufnr)
   end,
@@ -48,7 +60,7 @@ lspconfig.clangd.setup {
 }
 
 lspconfig.lua_ls.setup {
-  on_attach = on_attach,
+  on_attach = BaseOnAttach,
   capabilities = capabilities,
   on_init = on_init,
   settings = {

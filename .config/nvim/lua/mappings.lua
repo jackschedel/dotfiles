@@ -62,8 +62,8 @@ local function RefactorPopup(title, apply)
     col = "cursor-1",
   })
 
-  vim.cmd "normal A"
-  vim.cmd "startinsert"
+  -- vim.cmd "normal A"
+  -- vim.cmd "startinsert"
 
   map("i", "<Esc>", "<cmd>q<CR><Esc>l", { buffer = 0 })
   map("n", "<Esc>", "<cmd>q<CR>", { buffer = 0 })
@@ -237,7 +237,7 @@ map("n", "<leader>lf", function()
 end, { desc = "Format" })
 
 map("n", "<leader>lt", function()
-  RefactorPopup("test", function(curr, win)
+  RefactorPopup("Rename Tag", function(curr, win)
     local newName = vim.trim(vim.fn.getline ".")
     vim.api.nvim_win_close(win, true)
     if #newName > 0 and newName ~= curr then
@@ -581,7 +581,13 @@ for i = 1, 6 do
   end)
 end
 
-map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
+map("n", "<Esc>", function()
+  if vim.bo.buftype == "nofile" then
+    vim.cmd "q"
+  else
+    vim.cmd "noh"
+  end
+end)
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "File Copy whole" })
 
 map("n", "<leader>/", "gcc", { desc = "Comment Toggle", remap = true })
