@@ -4,6 +4,8 @@ return {
     event = "VeryLazy",
   },
 
+  { "akinsho/toggleterm.nvim", config = true, cmd = { "ToggleTerm", "TermExec" } },
+
   {
     "yetone/avante.nvim",
     enabled = false,

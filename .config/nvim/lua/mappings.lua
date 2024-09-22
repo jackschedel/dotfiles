@@ -463,19 +463,19 @@ map("n", "<F5>", function()
   local run_script = "./.nvim-run.sh"
   if vim.fn.filereadable(run_script) == 1 then
     vim.fn.system("chmod +x " .. run_script .. " > /dev/null 2>&1")
-    require("nvterm.terminal").new "float"
-    require("nvterm.terminal").send(run_script)
-    vim.cmd "startinsert"
+    vim.cmd('TermExec cmd="' .. run_script .. '" direction=float')
     return
-  end
-
-  local current_ft = vim.bo.filetype
-  if current_ft == "rust" then
-    vim.cmd.RustLsp { "runnables", bang = true }
-  elseif current_ft == "go" then
-    local current_file = vim.fn.expand "%:p"
-    local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
-    vim.cmd("!go run " .. relative_path)
+  else
+    local current_ft = vim.bo.filetype
+    if current_ft == "rust" then
+      vim.cmd.RustLsp { "runnables", bang = true }
+    elseif current_ft == "go" then
+      local current_file = vim.fn.expand "%:p"
+      local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
+      vim.cmd('TermExec cmd="go run ' .. relative_path .. '" direction=float')
+    else
+      vim.print "Saved. No run configs supported for the current directory or filetype."
+    end
   end
 end, { desc = "Run Script" })
 
@@ -582,12 +582,14 @@ for i = 1, 6 do
 end
 
 map("n", "<Esc>", function()
+  -- LSP Hover exit when expanded
   if vim.bo.buftype == "nofile" then
     vim.cmd "q"
   else
     vim.cmd "noh"
   end
 end)
+
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "File Copy whole" })
 
 map("n", "<leader>/", "gcc", { desc = "Comment Toggle", remap = true })
@@ -596,12 +598,6 @@ map("v", "<leader>/", "gc", { desc = "Comment Toggle", remap = true })
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
+map("t", "<Esc>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 
-map({ "n" }, "<leader>t", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "Terminal Toggle Floating term" })
-
-map("t", "<ESC>", function()
-  local win = vim.api.nvim_get_current_win()
-  vim.api.nvim_win_close(win, true)
-end, { desc = "Terminal Close term in terminal mode" })
+map({ "n" }, "<leader>t", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal Toggle Floating term" })
