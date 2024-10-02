@@ -8,23 +8,33 @@ return {
 
   {
     "yetone/avante.nvim",
-    enabled = false,
     event = "VeryLazy",
-    version = false, -- set this if you want to always pull the latest change
+    version = false,
     opts = {
-      -- add any opts here
+      ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
+      provider = "copilot",
+      mappings = {
+        ask = "<leader>sa",
+        edit = "<leader>se",
+        refresh = "<leader>sr",
+      },
+      hints = { enabled = false },
     },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       "nvim-tree/nvim-web-devicons",
-      "zbirenbaum/copilot.lua", -- for providers='copilot'
       {
-        -- support for image pasting
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+          require("copilot").setup {}
+        end,
+      },
+      {
         "HakonHarnes/img-clip.nvim",
         event = "VeryLazy",
         opts = {
@@ -39,7 +49,6 @@ return {
         },
       },
       {
-        -- Make sure to set this up properly if you have lazy=true
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
           file_types = { "markdown", "Avante" },
@@ -135,6 +144,7 @@ return {
         ["<Down>"] = require("cmp").mapping.select_next_item {
           behavior = require("cmp.types").cmp.SelectBehavior.Select,
         },
+        ["<CR>"] = vim.NIL,
       },
       snippet = {
         expand = function(args)
@@ -144,7 +154,7 @@ return {
       sources = {
         { name = "nvim_lsp" },
         { name = "luasnip", keyword_length = 2 },
-        { name = "buffer", keyword_length = 3 },
+        { name = "buffer", keyword_length = 4 },
         { name = "path" },
       },
     },
@@ -417,12 +427,6 @@ return {
     opts = { view_options = { show_hidden = true } },
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-
-  {
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
-    opts = {},
   },
 
   {

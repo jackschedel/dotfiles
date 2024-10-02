@@ -583,7 +583,7 @@ end
 
 map("n", "<Esc>", function()
   -- LSP Hover exit when expanded
-  if vim.bo.buftype == "nofile" then
+  if vim.bo.buftype == "nofile" or vim.bo.buftype == "terminal" or vim.bo.buftype == "acwrite" then
     vim.cmd "q"
   else
     vim.cmd "noh"
