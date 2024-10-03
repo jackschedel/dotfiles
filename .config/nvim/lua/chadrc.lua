@@ -4,15 +4,18 @@
 ---@type ChadrcConfig
 local M = {}
 
-M.ui = {
+M.base46 = {
   theme = "gruvbox",
+  transparency = true,
+}
+
+M.ui = {
   lsp_semantic_tokens = true,
   extended_integrations = { "dap", "bufferline" },
   telescope = { style = "bordered" },
   tabufline = {
     enabled = false,
   },
-  transparency = true,
   statusline = {
     theme = "minimal",
     separator_style = "round",

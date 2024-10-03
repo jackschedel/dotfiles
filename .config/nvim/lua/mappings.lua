@@ -65,7 +65,6 @@ local function RefactorPopup(title, apply)
   -- vim.cmd "normal A"
   -- vim.cmd "startinsert"
 
-  map("i", "<Esc>", "<cmd>q<CR><Esc>l", { buffer = 0 })
   map("n", "<Esc>", "<cmd>q<CR>", { buffer = 0 })
 
   map({ "i", "n" }, "<CR>", function()
@@ -95,7 +94,9 @@ cmd_abbrev("helpclose", "FloatingHelpClose")
 -- NvChad mappings
 map("n", "<leader>Cr", "<cmd> source ~/.Session.vim <CR>", { desc = "Restore Session" })
 map("n", "<leader>Ce", "<cmd> Telescope help_tags <CR>", { desc = "Search help" })
-map("n", "<leader>Ct", "<cmd> Telescope themes <CR>", { desc = "Theme picker" })
+map("n", "<leader>Ct", function()
+  require("nvchad.themes").open()
+end, { desc = "Theme picker" })
 
 -- Git mappings
 map("n", "<leader>ga", function()
@@ -185,7 +186,6 @@ map("n", "gd", function()
   vim.cmd "Telescope lsp_definitions"
 end, { desc = "LSP definitions" })
 
-map("n", "<leader>lu", "<cmd> Telescope lsp_references <CR>", { desc = "Usages" })
 map("n", "<leader>ls", "<cmd> silent! LspStop <CR>", { desc = "Stop LSP" })
 
 map("n", "<leader>la", function()
@@ -367,9 +367,32 @@ map("n", "<leader>o", function()
   vim.api.nvim_buf_set_lines(0, row - 1, row - 1, false, { "" })
 end, { desc = "Add spacing around" })
 
-map("n", "<leader>R", "<cmd> Spectre <CR>", { desc = "SSR" })
+map("n", "<leader>R", function()
+  local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+
+  RefactorPopup("Find", function(_, find_win)
+    local find_word_trimmed = vim.trim(vim.fn.getline ".")
+    vim.api.nvim_win_close(find_win, true)
+
+    if #find_word_trimmed == 0 then
+      return
+    end
+
+    RefactorPopup("Replace", function(_, replace_win)
+      local replace_word_trimmed = vim.trim(vim.fn.getline ".")
+      vim.api.nvim_win_close(replace_win, true)
+
+      if #replace_word_trimmed == 0 then
+        return
+      end
+
+      vim.cmd(":%s/" .. find_word_trimmed .. "/" .. replace_word_trimmed .. "/g")
+      vim.api.nvim_win_set_cursor(0, { curr_line, 0 })
+    end)
+  end)
+end, { desc = "Find and Replace" })
+
 map("n", "<leader>m", "<cmd> Telescope marks <CR>", { desc = "Marks" })
-map("n", "<leader>N", "<cmd> enew <CR>", { desc = "New buffer" })
 map("n", "<leader>p", function()
   vim.cmd "normal o"
   local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -413,7 +436,7 @@ end, { desc = "Grep in repo" })
 map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Grep current buffer" })
 map("n", "<leader>P", function()
   vim.cmd "normal ggVGP"
-end, { desc = "Paste buffer" })
+end, { desc = "Paste entire buffer" })
 
 map("n", "<leader>v", function()
   vim.cmd "vnew"
@@ -439,7 +462,7 @@ map("n", "<leader>H", function()
   vim.api.nvim_win_set_cursor(new_win, cur_pos)
 end)
 
-map("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Toggle explorer" })
+map("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Explorer" })
 map("n", "<F3>", function()
   pcall(function()
     vim.cmd "w"
@@ -553,6 +576,8 @@ end, { silent = true, desc = "Breakpoint Condition" })
 map("n", "<leader>DD", "<cmd>lua require'dapui'.toggle()<cr>", { silent = true, desc = "Dap UI" })
 map("n", "<leader>Dl", "<cmd>lua require'dap'.run_last()<cr>", { silent = true, desc = "Run Last" })
 
+map("n", "<leader>sc", "<cmd>AvanteClear", { desc = "avante: clear" })
+
 -- Harpoon Mappings
 map("n", "<leader>a", function()
   require("harpoon.mark").add_file()
@@ -599,5 +624,3 @@ map("v", "<leader>/", "gc", { desc = "Comment Toggle", remap = true })
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
 map("t", "<Esc>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
-
-map({ "n" }, "<leader>t", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal Toggle Floating term" })

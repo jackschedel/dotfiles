@@ -1,4 +1,3 @@
-local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 capabilities.offsetEncoding = "utf-8"
@@ -15,15 +14,10 @@ local servers = {
   "csharp_ls",
 }
 
-local function HoverStyle()
+local function BaseOnAttach()
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
   })
-end
-
-local function BaseOnAttach(client, bufnr)
-  HoverStyle()
-  on_attach(client, bufnr)
 end
 
 for _, lsp in ipairs(servers) do
@@ -50,10 +44,9 @@ lspconfig.omnisharp.setup {
 }
 
 lspconfig.clangd.setup {
-  on_attach = function(client, bufnr)
-    HoverStyle()
+  on_attach = function(client, _)
+    BaseOnAttach()
     client.server_capabilities.signatureHelpProvider = false
-    on_attach(client, bufnr)
   end,
   capabilities = capabilities,
   on_init = on_init,

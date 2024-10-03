@@ -4,11 +4,12 @@ return {
     event = "VeryLazy",
   },
 
-  { "akinsho/toggleterm.nvim", config = true, cmd = { "ToggleTerm", "TermExec" } },
+  { "akinsho/toggleterm.nvim", opts = {}, cmd = { "ToggleTerm", "TermExec" } },
 
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
+    cmd = "Avante",
     version = false,
     opts = {
       ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
@@ -30,9 +31,7 @@ return {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
         event = "InsertEnter",
-        config = function()
-          require("copilot").setup {}
-        end,
+        opts = {},
       },
       {
         "HakonHarnes/img-clip.nvim",
@@ -198,15 +197,6 @@ return {
   },
 
   {
-    "nvim-pack/nvim-spectre",
-    opts = {},
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    cmd = "Spectre",
-  },
-
-  {
     "numToStr/Navigator.nvim",
     cmd = { "NavigatorLeft", "NavigatorDown", "NavigatorUp", "NavigatorRight" },
     opts = {},
@@ -224,6 +214,8 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
+    -- todo commit hardcode unnesecary once major bug introduced in main is fixed :)
+    commit = "0dd00bb6423b4c655e6a0f9dd2f5332167bb6d33",
     opts = {
       throttle = true,
       max_lines = 2,
@@ -234,7 +226,7 @@ return {
     init = function()
       vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
-          if not vim.tbl_contains({ "cs", "" }, vim.bo.ft) then
+          if not vim.tbl_contains({ "cs", "", "Avante", "AvanteInput" }, vim.bo.ft) then
             require("treesitter-context").setup()
           end
         end,
