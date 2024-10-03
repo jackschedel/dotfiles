@@ -17,7 +17,7 @@ return {
       mappings = {
         ask = "<leader>sa",
         edit = "<leader>se",
-        refresh = "<leader>sr",
+        refresh = nil,
       },
       hints = { enabled = false },
     },
