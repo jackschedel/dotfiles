@@ -573,10 +573,10 @@ map("n", "<leader>DB", function()
   require("dap").set_breakpoint(vim.fn.input "Breakpoint condition: ")
 end, { silent = true, desc = "Breakpoint Condition" })
 
-map("n", "<leader>DD", "<cmd>lua require'dapui'.toggle()<cr>", { silent = true, desc = "Dap UI" })
-map("n", "<leader>Dl", "<cmd>lua require'dap'.run_last()<cr>", { silent = true, desc = "Run Last" })
+map("n", "<leader>DD", "<cmd>lua require'dapui'.toggle()<CR>", { silent = true, desc = "Dap UI" })
+map("n", "<leader>Dl", "<cmd>lua require'dap'.run_last()<CR>", { silent = true, desc = "Run Last" })
 
-map("n", "<leader>sc", "<cmd>AvanteClear", { desc = "avante: clear" })
+map("n", "<leader>sc", "<cmd>AvanteClear<CR>", { desc = "avante: clear" })
 
 -- Harpoon Mappings
 map("n", "<leader>a", function()
