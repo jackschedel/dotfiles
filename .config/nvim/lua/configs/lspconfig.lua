@@ -12,6 +12,7 @@ local servers = {
   "intelephense",
   "gdscript",
   "csharp_ls",
+  "ts_ls",
 }
 
 local function BaseOnAttach()

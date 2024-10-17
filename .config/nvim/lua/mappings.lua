@@ -345,14 +345,14 @@ map("n", "I", function()
   vim.cmd "startinsert"
 end)
 
-map({ "n", "v" }, "<C-h>", "<Cmd>NavigatorLeft<CR>")
-map({ "n", "v" }, "<C-j>", "<Cmd>NavigatorDown<CR>")
-map({ "n", "v" }, "<C-k>", "<Cmd>NavigatorUp<CR>")
-map({ "n", "v" }, "<C-l>", "<Cmd>NavigatorRight<CR>")
-map({ "n", "i" }, "<S-Left>", "2<C-W><")
-map({ "n", "i" }, "<S-Up>", "2<C-W>+")
-map({ "n", "i" }, "<S-Down>", "2<C-W>-")
-map({ "n", "i" }, "<S-Right>", "2<C-W>>")
+map({ "n", "v", "t" }, "<C-h>", "<Cmd>NavigatorLeft<CR>")
+map({ "n", "v", "t" }, "<C-j>", "<Cmd>NavigatorDown<CR>")
+map({ "n", "v", "t" }, "<C-k>", "<Cmd>NavigatorUp<CR>")
+map({ "n", "v", "t" }, "<C-l>", "<Cmd>NavigatorRight<CR>")
+map({ "n", "i", "t" }, "<S-Left>", "2<C-W><")
+map({ "n", "i", "t" }, "<S-Up>", "2<C-W>+")
+map({ "n", "i", "t" }, "<S-Down>", "2<C-W>-")
+map({ "n", "i", "t" }, "<S-Right>", "2<C-W>>")
 map("n", "<C-W>v", function()
   VFit()
 end, { desc = "Vertical scale to fit" })
@@ -483,10 +483,41 @@ map("n", "<F5>", function()
   pcall(function()
     vim.cmd "w"
   end)
+  -- Run python script instead even if .nvim-run.sh exists
+  if vim.bo.filetype == "python" then
+    local current_file = vim.fn.expand "%:p"
+    local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
+    vim.cmd('TermExec cmd="python ' .. relative_path .. '" direction=float')
+  else
+    local run_script = "./.nvim-run.sh"
+    if vim.fn.filereadable(run_script) == 1 then
+      vim.fn.system("chmod +x " .. run_script .. " > /dev/null 2>&1")
+      vim.cmd('TermExec cmd="' .. run_script .. '" direction=float')
+      return
+    else
+      local current_ft = vim.bo.filetype
+      if current_ft == "rust" then
+        vim.cmd.RustLsp { "runnables", bang = true }
+      elseif current_ft == "go" then
+        local current_file = vim.fn.expand "%:p"
+        local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
+        vim.cmd('TermExec cmd="go run ' .. relative_path .. '" direction=float')
+      else
+        vim.print "Saved. No run configs supported for the current directory or filetype."
+      end
+    end
+  end
+end, { desc = "Run Script" })
+
+map("n", "<S-F5>", function()
+  pcall(function()
+    vim.cmd "w"
+  end)
   local run_script = "./.nvim-run.sh"
   if vim.fn.filereadable(run_script) == 1 then
     vim.fn.system("chmod +x " .. run_script .. " > /dev/null 2>&1")
-    vim.cmd('TermExec cmd="' .. run_script .. '" direction=float')
+    vim.cmd('TermExec cmd="' .. run_script .. '" direction=vertical size=80')
+    vim.cmd "set number relativenumber"
     return
   else
     local current_ft = vim.bo.filetype
@@ -495,7 +526,8 @@ map("n", "<F5>", function()
     elseif current_ft == "go" then
       local current_file = vim.fn.expand "%:p"
       local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
-      vim.cmd('TermExec cmd="go run ' .. relative_path .. '" direction=float')
+      vim.cmd('TermExec cmd="go run ' .. relative_path .. '" direction=vertical size=80')
+      vim.cmd "set number relativenumber"
     else
       vim.print "Saved. No run configs supported for the current directory or filetype."
     end
@@ -607,8 +639,14 @@ for i = 1, 6 do
 end
 
 map("n", "<Esc>", function()
-  -- LSP Hover exit when expanded
-  if vim.bo.buftype == "nofile" or vim.bo.buftype == "terminal" or vim.bo.buftype == "acwrite" then
+  if
+    -- LSP Hover
+    (vim.bo.buftype == "nofile" and vim.filetype == "markdown")
+    -- Terminal
+    or vim.bo.buftype == "terminal"
+    -- Oil
+    or vim.filetype == "oil"
+  then
     vim.cmd "q"
   else
     vim.cmd "noh"

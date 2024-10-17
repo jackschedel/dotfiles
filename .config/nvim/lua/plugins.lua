@@ -29,9 +29,12 @@ return {
       "nvim-tree/nvim-web-devicons",
       {
         "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        opts = {},
+        cmd = { "Copilot", "Avante" },
+        opts = {
+          filetypes = {
+            ["*"] = false,
+          },
+        },
       },
       {
         "HakonHarnes/img-clip.nvim",
