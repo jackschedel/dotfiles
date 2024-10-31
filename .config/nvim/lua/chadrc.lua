@@ -7,6 +7,7 @@ local M = {}
 M.base46 = {
   theme = "gruvbox",
   transparency = true,
+  hl_override = { IblChar = { fg = "#565b5d" }, IblScopeChar = { fg = "#7a8285" } },
 }
 
 M.ui = {

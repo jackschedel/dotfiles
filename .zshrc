@@ -18,6 +18,7 @@ export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.local/share/gem/ruby/3.2.0/bin
 export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
+export PATH=$PATH:/opt/homebrew/anaconda3/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

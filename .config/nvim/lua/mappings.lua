@@ -641,11 +641,9 @@ end
 map("n", "<Esc>", function()
   if
     -- LSP Hover
-    (vim.bo.buftype == "nofile" and vim.filetype == "markdown")
-    -- Terminal
+    (vim.bo.buftype == "nofile" and vim.bo.filetype == "markdown")
     or vim.bo.buftype == "terminal"
-    -- Oil
-    or vim.filetype == "oil"
+    or vim.bo.filetype == "oil"
   then
     vim.cmd "q"
   else
