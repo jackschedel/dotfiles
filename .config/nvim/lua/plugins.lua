@@ -333,20 +333,8 @@ return {
           end
 
           -- Enabled:
-          -- require("configs.dap.settings.cpptools")
           require "configs.dap.codelldb"
           require "configs.dap.go"
-
-          -- Disabled:
-          -- require("configs.dap.settings.netcoredbg")
-          -- require("configs.dap.settings.godot")
-          -- require("configs.dap.settings.bash-debug-adapter")
-          -- require("configs.dap.settings.chrome-debug-adapter")
-          -- require("configs.dap.settings.firefox-debug-adapter")
-          -- require("configs.dap.settings.java-debug")
-          -- require("configs.dap.settings.node-debug2")
-          -- require("configs.dap.settings.debugpy")
-          -- require("configs.dap.settings.js-debug")
         end,
       },
     },
