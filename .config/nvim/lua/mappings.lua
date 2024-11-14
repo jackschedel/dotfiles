@@ -93,6 +93,10 @@ local function exec_code_run(termargs)
   if vim.bo.filetype == "python" then
     local current_file = vim.fn.expand "%:p"
     local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
+    if vim.fn.filereadable "venv/bin/activate" == 1 then
+      vim.cmd('TermExec cmd="source venv/bin/activate" ' .. termargs)
+    end
+
     vim.cmd('TermExec cmd="python ' .. relative_path .. '" ' .. termargs)
   else
     local run_script = "./.nvim-run.sh"
@@ -258,7 +262,7 @@ map("n", "<leader>ll", function()
       diag_text = diag_text .. diag.message .. "\n"
     end
     local current_line = vim.fn.getreg "*"
-    vim.fn.setreg("*", current_line .. "\n" .. diag_text)
+    vim.fn.setreg("*", "Line: `" .. current_line .. "`\n" .. diag_text)
   end
 end, { desc = "Copy diagnostics" })
 
@@ -439,7 +443,7 @@ end, { desc = "Undotree" })
 map("n", "<Tab>", "V>ll", { desc = "Indent line" })
 map("n", "<S-Tab>", "V<hh", { desc = "De-indent line" })
 
-map("n", "<leader>fg", function()
+map("n", "<leader>fF", function()
   local success, _ = pcall(function()
     vim.cmd "Telescope git_files"
   end)
@@ -447,13 +451,21 @@ map("n", "<leader>fg", function()
   if not success then
     vim.cmd "Telescope find_files"
   end
-end, { desc = "Find repo files" })
+end, { desc = "Files (git)" })
 
-map("n", "<leader>fa", function()
+map("n", "<leader>fe", function()
   vim.cmd "Telescope find_files no_ignore=true hidden=true"
-end, { desc = "Find all files" })
+end, { desc = "Files (all)" })
 
-map("n", "<leader>fl", function()
+map("n", "<leader>fg", function()
+  require("telescope.builtin").live_grep {
+    additional_args = function()
+      return { "--no-ignore" }
+    end,
+  }
+end, { desc = "Words (all)" })
+
+map("n", "<leader>fW", function()
   local success, _ = pcall(function()
     vim.cmd "Telescope git_grep live_grep"
   end)
@@ -461,9 +473,9 @@ map("n", "<leader>fl", function()
   if not success then
     vim.cmd "Telescope live_grep"
   end
-end, { desc = "Grep in repo" })
+end, { desc = "Words (git)" })
 
-map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Grep current buffer" })
+map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Words (buffer)" })
 map("n", "<leader>P", function()
   vim.cmd "normal ggVGP"
 end, { desc = "Paste entire buffer" })

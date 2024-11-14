@@ -13,6 +13,15 @@ yabai -m signal --add event=space_created action="sleep 10 && sketchybar --trigg
 yabai -m signal --add event=space_destroyed action="sleep 30 && sketchybar --trigger space_change --trigger windows_on_spaces"
 yabai -m signal --add event=space_changed action="sleep 30 && sketchybar --trigger space_change --trigger windows_on_spaces"
 
+# Quickly switch to other space to prevent Brave vertical tabs glitch
+yabai -m signal --add event=window_created \
+    action="CURRENT_SPACE=\$(yabai -m query --spaces --space | jq '.index'); \
+            DISPLAY=\$(yabai -m query --displays --display | jq '.index'); \
+            TARGET_SPACE=\$((CURRENT_SPACE == 9+9*(\$DISPLAY-1) ? 8+9*(\$DISPLAY-1) : 9+9*(\$DISPLAY-1))); \
+            yabai -m space --focus \$TARGET_SPACE; \
+            yabai -m space --focus \$CURRENT_SPACE &> /dev/null" \
+    app="^Brave Browser$"
+
 $HOME/.config/yabai/create_spaces.sh
 
 yabai -m config external_bar               all:43:0     \

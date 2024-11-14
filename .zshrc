@@ -237,7 +237,6 @@ alias nvr='nvr -s'
 
 alias dev='pnpm run dev'
 alias lint='pnpm run lint'
-alias yarn='pnpm'
 alias pret='pnpm prettier --write .'
 alias studio='pnpm run db:studio'
 

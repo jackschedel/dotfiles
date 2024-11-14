@@ -17,8 +17,8 @@ end, { expr = true })
 
 map("n", "<leader>ff", function()
   vim.cmd "Telescope find_files"
-end, { desc = "Find files" })
+end, { desc = "Files" })
 
 map("n", "<leader>fw", function()
   vim.cmd "Telescope live_grep"
-end, { desc = "Grep files" })
+end, { desc = "Words" })

@@ -1,9 +1,14 @@
 ## Navigation (lalt - ...)
 # Space Navigation: option - {f1, f2, f3, f4}
-lalt - f1 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((1+4*($DISPLAY - 1)))
-lalt - f2 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((2+4*($DISPLAY - 1)))
-lalt - f3 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((3+4*($DISPLAY - 1)))
-lalt - f4 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((4+4*($DISPLAY - 1)))
+lalt - f1 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((1+9*($DISPLAY - 1)))
+lalt - f2 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((2+9*($DISPLAY - 1)))
+lalt - f3 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((3+9*($DISPLAY - 1)))
+lalt - f4 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((4+9*($DISPLAY - 1)))
+lalt - f5 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((5+9*($DISPLAY - 1)))
+lalt - f6 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((6+9*($DISPLAY - 1)))
+lalt - f7 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((7+9*($DISPLAY - 1)))
+lalt - f8 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((8+9*($DISPLAY - 1)))
+lalt - f9 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((9+9*($DISPLAY - 1)))
 
 # Window Navigation (through display borders): option - {h, j, k, l}
 lalt-h:yabai -m window --focus west  || yabai -m display --focus west
@@ -33,31 +38,31 @@ shift + lalt - l : yabai -m window --warp east || $(yabai -m window --display ea
 
 # Moving windows between spaces: shift + option - {1, 2, 3, 4}
 shift + lalt - f1 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
-                  yabai -m window --space $((1+4*($DISPLAY - 1)));\
+                  yabai -m window --space $((1+9*($DISPLAY - 1)));\
                   sketchybar --trigger windows_on_spaces
-
 shift + lalt - f2 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
-                  yabai -m window --space $((2+4*($DISPLAY - 1)));\
+                  yabai -m window --space $((2+9*($DISPLAY - 1)));\
                   sketchybar --trigger windows_on_spaces
-
 shift + lalt - f3 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
-                  yabai -m window --space $((3+4*($DISPLAY - 1)));\
+                  yabai -m window --space $((3+9*($DISPLAY - 1)));\
                   sketchybar --trigger windows_on_spaces
-
 shift + lalt - f4 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
-                  yabai -m window --space $((4+4*($DISPLAY - 1)));\
+                  yabai -m window --space $((4+9*($DISPLAY - 1)));\
                   sketchybar --trigger windows_on_spaces
-
 shift + lalt - f5 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
-                  yabai -m window --space $((4+4*($DISPLAY - 1)));\
+                  yabai -m window --space $((5+9*($DISPLAY - 1)));\
                   sketchybar --trigger windows_on_spaces
-
 shift + lalt - f6 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
-                  yabai -m window --space $((4+4*($DISPLAY - 1)));\
+                  yabai -m window --space $((6+9*($DISPLAY - 1)));\
                   sketchybar --trigger windows_on_spaces
-
 shift + lalt - f7 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
-                  yabai -m window --space $((4+4*($DISPLAY - 1)));\
+                  yabai -m window --space $((7+9*($DISPLAY - 1)));\
+                  sketchybar --trigger windows_on_spaces
+shift + lalt - f8 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
+                  yabai -m window --space $((8+9*($DISPLAY - 1)));\
+                  sketchybar --trigger windows_on_spaces
+shift + lalt - f9 : DISPLAY="$(yabai -m query --displays --display | jq '.index')";\
+                  yabai -m window --space $((9+9*($DISPLAY - 1)));\
                   sketchybar --trigger windows_on_spaces
 
 ## Stacks (shift + ctrl - ...)
@@ -77,7 +82,7 @@ shift + ctrl - p : yabai -m window --focus stack.prev || yabai -m window --focus
 ctrl + lalt - h    : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
 ctrl + lalt - j    : yabai -m window --resize bottom:0:100 || yabai -m window --resize top:0:100
 ctrl + lalt - k    : yabai -m window --resize bottom:0:-100 || yabai -m window --resize top:0:-100
-ctrl + lalt - l : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
+ctrl + lalt - l    : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
 
 # Equalize size of windows: ctrl + option - e
 ctrl + lalt - space : yabai -m space --balance

@@ -8,7 +8,6 @@ return {
 
   {
     "yetone/avante.nvim",
-    event = "VeryLazy",
     cmd = "Avante",
     version = false,
     opts = {
@@ -100,6 +99,7 @@ return {
       local wk = require "which-key"
       wk.setup(opts)
       wk.add {
+        { "<leader>f", group = "  Find", icon = "  " },
         {
           mode = { "n" },
           { "c", '"_c' },
