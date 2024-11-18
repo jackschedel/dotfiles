@@ -32,12 +32,6 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
--- load avante tokenizers and templates
-require("avante_lib").load()
-
--- comment highlight
-vim.cmd "hi @comment guifg=#929292"
-
 vim.schedule(function()
   require "fallbacks"
   require "mappings"

@@ -195,8 +195,8 @@ unzip_most_recent_new_folder() {
 move_most_recent() {
   file=$(\ls -t /Users/jack/Downloads/* 2> /dev/null | head -n1)
   if [[ -n "$file" ]]; then
-    echo "Copying $file"
-    cp $file ./
+    echo "Moving $file"
+    mv $file ./
   else
     echo "No files found."
   fi
@@ -234,6 +234,8 @@ alias ls='colorls -A --sd'
 alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
 alias nvr='nvr -s'
+
+alias npm='pnpm'
 
 alias dev='pnpm run dev'
 alias lint='pnpm run lint'

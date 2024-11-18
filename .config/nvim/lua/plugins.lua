@@ -8,14 +8,20 @@ return {
 
   {
     "yetone/avante.nvim",
-    cmd = "Avante",
+    cmd = { "AvanteAsk" },
     version = false,
+    config = function(_, opts)
+      -- load avante tokenizers and templates
+      require("avante_lib").load()
+
+      require("avante").setup(opts)
+    end,
     opts = {
       ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
       provider = "copilot",
       mappings = {
-        ask = "<leader>sa",
-        edit = "<leader>se",
+        ask = nil,
+        edit = nil,
         refresh = nil,
       },
       hints = { enabled = false },
@@ -37,7 +43,6 @@ return {
       },
       {
         "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
         opts = {
           default = {
             embed_image_as_base64 = false,
@@ -93,14 +98,21 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = { preset = "modern", icons = { rules = false } },
+    opts = { preset = "modern", icons = { rules = false, group = "" } },
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
       local wk = require "which-key"
       wk.setup(opts)
       wk.add {
-        { "<leader>f", group = "  Find", icon = "  " },
+        { "<leader>f", group = "Find", icon = " " },
+        { "<leader>s", group = "Avante", icon = " " },
+        { "<leader>C", group = "Settings", icon = " " },
+        { "<leader>D", group = "Debug", icon = " " },
+        { "<leader>g", group = "Git", icon = " " },
+        { "<leader>l", group = "LSP", icon = " " },
+        { "<leader>lw", group = "Workspaces", icon = " " },
         {
+          -- Prevents which-key overwriting when opening `c` or `d` display
           mode = { "n" },
           { "c", '"_c' },
           { "ci", '"_ci' },

@@ -12,13 +12,12 @@ local function Format()
 end
 
 local function JumpContext(to_top)
-  local ok, start, finish = require("indent_blankline.utils").get_current_context(
-    vim.g.indent_blankline_context_patterns,
-    vim.g.indent_blankline_use_treesitter_scope
-  )
-  if ok then
-    local target_line = to_top and start or finish
-    vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { target_line, 0 })
+  local bufnr = vim.api.nvim_get_current_buf()
+  local config = require("ibl.config").get_config(bufnr)
+  local scope = require("ibl.scope").get(bufnr, config)
+  if scope then
+    local row, column = scope:start()
+    vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { row + 1, column })
   end
   if to_top then
     vim.cmd [[normal! _]]
@@ -125,14 +124,25 @@ cmd_abbrev("help", "FloatingHelp")
 cmd_abbrev("helpc", "FloatingHelpClose")
 cmd_abbrev("helpclose", "FloatingHelpClose")
 
--- NvChad mappings
+-- Group: Settings
 map("n", "<leader>Cr", "<cmd> source ~/.Session.vim <CR>", { desc = "Restore Session" })
 map("n", "<leader>Ce", "<cmd> Telescope help_tags <CR>", { desc = "Search help" })
 map("n", "<leader>Ct", function()
   require("nvchad.themes").open()
 end, { desc = "Theme picker" })
+map("n", "<leader>Ca", function()
+  vim.cmd "redir! >~/autocmds.txt"
+  vim.cmd "silent autocmd"
+  vim.cmd "redir END"
+end, { desc = "Output autocmds" })
 
--- Git mappings
+map("n", "<leader>Cm", function()
+  vim.cmd "redir! >~/maps.txt"
+  vim.cmd "silent map"
+  vim.cmd "redir END"
+end, { desc = "Output mappings" })
+
+-- Group: Git
 map("n", "<leader>ga", function()
   pcall(function()
     vim.cmd "w"
@@ -142,7 +152,7 @@ end, { desc = "Stage all" })
 
 map("n", "<leader>gb", function()
   require("gitsigns").blame_line()
-end, { desc = "Git blame" })
+end, { desc = "Blame" })
 
 map("n", "<leader>gd", function()
   require("gitsigns").toggle_deleted()
@@ -158,15 +168,11 @@ end, { desc = "LazyGit" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "Lsp Go to declaration" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Lsp hover information" })
 map("n", "gi", vim.lsp.buf.implementation, { desc = "Lsp Go to implementation" })
-map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Lsp Add workspace folder" })
-map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { desc = "Lsp Remove workspace folder" })
-map("n", "<leader>wl", function()
+map("n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
+map("n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
+map("n", "<leader>lwl", function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-end, { desc = "Lsp List workspace folders" })
-
-map("n", "<leader>lE", function()
-  require("telescope.builtin").diagnostics()
-end, { desc = "Diagnostics in file" })
+end, { desc = "List workspace folders" })
 
 -- Lsp Mappings
 map("n", "gr", function()
@@ -220,8 +226,11 @@ map("n", "gd", function()
   vim.cmd "Telescope lsp_definitions"
 end, { desc = "LSP definitions" })
 
+-- Group: LSP
+map("n", "<leader>lE", function()
+  require("telescope.builtin").diagnostics()
+end, { desc = "Diagnostics in file" })
 map("n", "<leader>ls", "<cmd> silent! LspStop <CR>", { desc = "Stop LSP" })
-
 map("n", "<leader>la", function()
   local current_ft = vim.bo.filetype
   if current_ft == "rust" then
@@ -230,7 +239,6 @@ map("n", "<leader>la", function()
     vim.lsp.buf.code_action()
   end
 end, { desc = "Code action" })
-
 map("n", "<leader>lr", function()
   RefactorPopup("Rename", function(curr, win)
     local newName = vim.trim(vim.fn.getline ".")
@@ -245,11 +253,9 @@ map("n", "<leader>lr", function()
     end
   end)
 end, { desc = "Rename" })
-
 map("n", "<leader>le", function()
   vim.diagnostic.open_float { border = "rounded" }
 end, { desc = "Diagnostic" })
-
 map("n", "<leader>ll", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -265,11 +271,9 @@ map("n", "<leader>ll", function()
     vim.fn.setreg("*", "Line: `" .. current_line .. "`\n" .. diag_text)
   end
 end, { desc = "Copy diagnostics" })
-
 map("n", "<leader>lf", function()
   Format()
 end, { desc = "Format" })
-
 map("n", "<leader>lt", function()
   RefactorPopup("Rename Tag", function(curr, win)
     local newName = vim.trim(vim.fn.getline ".")
@@ -280,7 +284,6 @@ map("n", "<leader>lt", function()
     end
   end)
 end, { desc = "Rename tag" })
-
 map("n", "<leader>lA", function()
   local exts = {
     "ts",
@@ -332,18 +335,6 @@ map("v", "<leader>]", function()
 end, { desc = "Select Block (treesitter)" })
 
 map("v", "<leader>[", "okV%", { desc = "Select Matching Block" })
-
-map("n", "<leader>Ca", function()
-  vim.cmd "redir! >~/autocmds.txt"
-  vim.cmd "silent autocmd"
-  vim.cmd "redir END"
-end, { desc = "Output autocmds" })
-
-map("n", "<leader>Cm", function()
-  vim.cmd "redir! >~/maps.txt"
-  vim.cmd "silent map"
-  vim.cmd "redir END"
-end, { desc = "Output mappings" })
 
 map("n", "x", '"_x')
 map("n", "r", '"_r')
@@ -426,7 +417,6 @@ map("n", "<leader>R", function()
   end)
 end, { desc = "Find and Replace" })
 
-map("n", "<leader>m", "<cmd> Telescope marks <CR>", { desc = "Marks" })
 map("n", "<leader>p", function()
   vim.cmd "normal o"
   local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -443,7 +433,8 @@ end, { desc = "Undotree" })
 map("n", "<Tab>", "V>ll", { desc = "Indent line" })
 map("n", "<S-Tab>", "V<hh", { desc = "De-indent line" })
 
-map("n", "<leader>fF", function()
+-- Group: Find
+map("n", "<leader>fg", function()
   local success, _ = pcall(function()
     vim.cmd "Telescope git_files"
   end)
@@ -452,20 +443,17 @@ map("n", "<leader>fF", function()
     vim.cmd "Telescope find_files"
   end
 end, { desc = "Files (git)" })
-
-map("n", "<leader>fe", function()
+map("n", "<leader>fd", function()
   vim.cmd "Telescope find_files no_ignore=true hidden=true"
 end, { desc = "Files (all)" })
-
-map("n", "<leader>fg", function()
+map("n", "<leader>fq", function()
   require("telescope.builtin").live_grep {
     additional_args = function()
       return { "--no-ignore" }
     end,
   }
 end, { desc = "Words (all)" })
-
-map("n", "<leader>fW", function()
+map("n", "<leader>fe", function()
   local success, _ = pcall(function()
     vim.cmd "Telescope git_grep live_grep"
   end)
@@ -474,8 +462,9 @@ map("n", "<leader>fW", function()
     vim.cmd "Telescope live_grep"
   end
 end, { desc = "Words (git)" })
-
 map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Words (buffer)" })
+-- +1 more in fallbacks.lua
+
 map("n", "<leader>P", function()
   vim.cmd "normal ggVGP"
 end, { desc = "Paste entire buffer" })
@@ -575,35 +564,31 @@ for i = 1, 9 do
   map("v", iStr .. "p", '"' .. iStr .. "p", { noremap = true })
 end
 
--- DAP Mappings
+-- Group: Debug
 map("n", "<leader>Dc", function()
   require("dap").continue()
 end, { silent = true, desc = "Continue" })
-
 map("n", "<leader>Do", function()
   require("dap").step_over()
 end, { silent = true, desc = "Step Over" })
-
 map("n", "<leader>Di", function()
   require("dap").step_into()
 end, { silent = true, desc = "Step Into" })
-
 map("n", "<leader>Du", function()
   require("dap").step_out()
 end, { silent = true, desc = "Step Out" })
-
 map("n", "<leader>Db", function()
   require("dap").toggle_breakpoint()
 end, { silent = true, desc = "Breakpoint" })
-
 map("n", "<leader>DB", function()
   require("dap").set_breakpoint(vim.fn.input "Breakpoint condition: ")
 end, { silent = true, desc = "Breakpoint Condition" })
-
-map("n", "<leader>DD", "<cmd>lua require'dapui'.toggle()<CR>", { silent = true, desc = "Dap UI" })
+map("n", "<leader>DD", "<cmd>lua require'dapui'.toggle()<CR>", { silent = true, desc = "DAP UI" })
 map("n", "<leader>Dl", "<cmd>lua require'dap'.run_last()<CR>", { silent = true, desc = "Run Last" })
 
-map("n", "<leader>sc", "<cmd>silent! AvanteClear<CR>", { desc = "avante: clear" })
+-- Group: Avante
+map("n", "<leader>sc", "<cmd>silent! AvanteClear<CR>", { desc = "Clear" })
+map("n", "<leader>sa", "<cmd>AvanteAsk<CR>", { desc = "Ask" })
 
 -- Harpoon Mappings
 map("n", "<leader>a", function()
