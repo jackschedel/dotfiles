@@ -135,12 +135,14 @@ map("n", "<leader>Ca", function()
   vim.cmd "redir! >~/autocmds.txt"
   vim.cmd "silent autocmd"
   vim.cmd "redir END"
+  vim.print "Saved to ~/autocmds.txt"
 end, { desc = "Output autocmds" })
 
 map("n", "<leader>Cm", function()
   vim.cmd "redir! >~/maps.txt"
   vim.cmd "silent map"
   vim.cmd "redir END"
+  vim.print "Saved to ~/maps.txt"
 end, { desc = "Output mappings" })
 
 -- Group: Git
@@ -621,14 +623,18 @@ end
 
 map("n", "<Esc>", function()
   if
-    -- LSP Hover
-    (vim.bo.buftype == "nofile" and vim.bo.filetype == "markdown")
-    or vim.bo.buftype == "terminal"
-    or vim.bo.filetype == "oil"
+    (vim.bo.buftype == "nofile" and vim.bo.filetype == "markdown") -- Inside LSP Hover
+    or vim.bo.filetype == "oil" -- Oil
   then
     vim.cmd "q"
+  elseif vim.bo.buftype == "terminal" then -- NTERMINAL
+    -- Force close terminal on double-esc
+    -- First Esc to nterminal mode, second closes:
+    vim.cmd "startinsert"
+    vim.api.nvim_input "<C-d>"
   else
     vim.cmd "noh"
+    vim.api.nvim_input "<C-w>o"
   end
 end)
 
@@ -638,7 +644,11 @@ map("n", "<leader>/", "gcc", { desc = "Comment Toggle", remap = true })
 
 map("v", "<leader>/", "gc", { desc = "Comment Toggle", remap = true })
 
--- terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
-map("t", "<Esc>", "<C-\\><C-N>", { desc = "Terminal Escape terminal mode" })
+map("t", "<Esc>", function()
+  if vim.bo.filetype == "lazygit" then
+    vim.cmd "q"
+  else
+    vim.cmd "stopinsert"
+  end
+end, { desc = "Terminal Escape terminal mode" })
 map({ "n" }, "<leader>t", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal Toggle Floating term" })
