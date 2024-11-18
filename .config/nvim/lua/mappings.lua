@@ -8,7 +8,8 @@ local function map(mode, lhs, rhs, opts)
 end
 
 local function Format()
-  require("conform").format { async = true, lsp_fallback = true }
+  local conform = require "conform"
+  conform.format { async = true, lsp_fallback = true }
 end
 
 local function JumpContext(to_top)
