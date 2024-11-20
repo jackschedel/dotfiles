@@ -247,6 +247,7 @@ alias pip='pip3'
 
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
 alias nvconf='cd ~/.config/nvim/lua/ && nvim ./mappings.lua'
+alias n='nvconf'
 alias sketch='cd ~/.config/sketchybar/ && nvim ./sketchybarrc'
 alias ahk='nvim ~/.config/skhd/skhdrc && skhd --restart-service'
 alias wez='nvim ~/.wezterm.lua'

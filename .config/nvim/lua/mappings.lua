@@ -631,10 +631,9 @@ map("n", "<Esc>", function()
     -- Force close terminal on double-esc
     -- First Esc to nterminal mode, second closes:
     vim.cmd "startinsert"
-    vim.api.nvim_input "<C-d>"
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c><C-d>", true, true, true), "i", false)
   else
     vim.cmd "noh"
-    vim.api.nvim_input "<C-w>o"
   end
 end)
 
