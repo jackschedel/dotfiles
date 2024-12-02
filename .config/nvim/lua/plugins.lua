@@ -128,11 +128,6 @@ return {
     "mrcjkb/rustaceanvim",
     version = "^4",
     ft = { "rust" },
-    opts = {
-      server = {
-        on_attach = require("nvchad.configs.lspconfig").on_attach,
-      },
-    },
     config = function(_, opts)
       vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
@@ -343,6 +338,7 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     dependencies = {
+      { "nvim-neotest/nvim-nio" },
       {
         "mfussenegger/nvim-dap",
         config = function()

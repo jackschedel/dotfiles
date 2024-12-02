@@ -73,6 +73,31 @@ local function RefactorPopup(title, apply)
   end, { buffer = 0 })
 end
 
+local function GetDiagnostic()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor_pos = vim.api.nvim_win_get_cursor(0)
+  local cursor_line = cursor_pos[1] - 1
+  local diagnostics = vim.diagnostic.get(bufnr, { lnum = cursor_line })
+
+  if #diagnostics == 0 then
+    vim.print "No diagnostic found"
+    return nil
+  end
+
+  vim.cmd "normal yy"
+  local diag_text = "Diagnostics:\n"
+  for _, diag in ipairs(diagnostics) do
+    diag_text = diag_text .. diag.message .. "\n"
+  end
+  local current_line = vim.fn.getreg "*"
+  current_line = current_line:sub(1, -2)
+
+  return {
+    line = current_line,
+    diagnostics = diag_text,
+  }
+end
+
 -- Only replace cmds, not search; only replace the first instance
 local function cmd_abbrev(abbrev, expansion)
   local cmd = "cabbr "
@@ -256,24 +281,21 @@ map("n", "<leader>lr", function()
     end
   end)
 end, { desc = "Rename" })
-map("n", "<leader>le", function()
-  vim.diagnostic.open_float { border = "rounded" }
-end, { desc = "Diagnostic" })
 map("n", "<leader>ll", function()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local cursor_pos = vim.api.nvim_win_get_cursor(0)
-  local cursor_line = cursor_pos[1] - 1
-  local diagnostics = vim.diagnostic.get(bufnr, { lnum = cursor_line })
-  if #diagnostics > 0 then
-    vim.cmd "normal yy"
-    local diag_text = "Diagnostics:\n"
-    for _, diag in ipairs(diagnostics) do
-      diag_text = diag_text .. diag.message .. "\n"
-    end
-    local current_line = vim.fn.getreg "*"
-    vim.fn.setreg("*", "Line: `" .. current_line .. "`\n" .. diag_text)
+  local diag_info = GetDiagnostic()
+  if diag_info then
+    vim.fn.setreg("*", "Line: `" .. diag_info.line .. "`\n" .. diag_info.diagnostics)
   end
 end, { desc = "Copy diagnostics" })
+map("n", "<leader>lL", function()
+  local diag_info = GetDiagnostic()
+  if diag_info then
+    local file_content = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), "\n")
+    local output = "```\n" .. file_content .. "\n```\n\n"
+    output = output .. "Line: `" .. diag_info.line .. "`\n" .. diag_info.diagnostics
+    vim.fn.setreg("*", output)
+  end
+end, { desc = "Copy diagnostic and file" })
 map("n", "<leader>lf", function()
   Format()
 end, { desc = "Format" })

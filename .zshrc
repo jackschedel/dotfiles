@@ -1,3 +1,6 @@
+# Bar cursor
+echo -ne '\e[6 q'
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -253,6 +256,9 @@ alias ahk='nvim ~/.config/skhd/skhdrc && skhd --restart-service'
 alias wez='nvim ~/.wezterm.lua'
 alias tmuxrc='cd ~/.config/tmux/ && nvim ./tmux.conf'
 alias yabairc='nvim ~/.config/yabai/yabairc && yabai --restart-service'
+
+alias brew86=/usr/local/bin/brew
+alias wine='wine64'
 
 alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
 
