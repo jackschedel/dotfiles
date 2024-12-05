@@ -255,6 +255,9 @@ map("n", "gd", function()
 end, { desc = "LSP definitions" })
 
 -- Group: LSP
+map("n", "<leader>le", function()
+  vim.diagnostic.open_float { border = "rounded" }
+end, { desc = "Diagnostic" })
 map("n", "<leader>lE", function()
   require("telescope.builtin").diagnostics()
 end, { desc = "Diagnostics in file" })

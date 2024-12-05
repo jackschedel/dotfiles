@@ -18,7 +18,15 @@ return {
     end,
     opts = {
       ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-      provider = "copilot",
+      -- provider = "copilot",
+      provider = "openai",
+      openai = {
+        endpoint = "https://openrouter.ai/api/v1",
+        model = "anthropic/claude-3.5-sonnet:beta",
+        api_key_name = "OPENROUTER_API_KEY_AVANTE",
+        temperature = 0.7,
+        max_tokens = 8192,
+      },
       mappings = {
         ask = nil,
         edit = nil,
