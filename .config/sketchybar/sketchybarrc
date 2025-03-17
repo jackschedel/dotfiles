@@ -30,7 +30,7 @@ bar=(
   padding_left=20
   y_offset=0
   margin=0
-  topmost=window
+  topmost=off
 )
 
 sketchybar --bar "${bar[@]}"

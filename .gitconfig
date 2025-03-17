@@ -8,7 +8,7 @@
 	email = jackschedel@gmail.com
 	name = Jack Schedel
 [core]
-	autocrlf = false
+	autocrlf = input
 	whitespace = trailing-space,space-before-tab
 	fileMode = false
 	excludesfile = ~/.global_gitignore

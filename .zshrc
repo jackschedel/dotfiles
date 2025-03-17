@@ -125,34 +125,6 @@ export HISTORY_EXCLUDE_PATTERN="^cd*|$HISTORY_EXCLUDE_PATTERN"
 
 unzippable_types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
 
-unzip_most_recent_here() {
-  for type in "${unzippable_types[@]}"; do
-    file=$(\ls -t /Users/jack/Downloads/*.$type 2> /dev/null | head -n1)
-    if [[ -n "$file" ]]; then
-      echo "Unzipping $file"
-      case $type in
-        "zip")
-          unzip "$file" -d ./
-          ;;
-        "tar.gz")
-          tar -zxvf "$file" -C ./
-          ;;
-        "tar.bz2")
-          tar -jxvf "$file" -C ./
-          ;;
-        "tar.xz")
-          tar -Jxvf "$file" -C ./
-          ;;
-        "jar")
-          jar -xf "$file"
-          ;;
-      esac
-      return
-    fi
-  done
-  echo "No unzippable files found."
-}
-
 nvm_init() {
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
@@ -230,7 +202,6 @@ alias n='nvm_init'
 
 alias lg='lazygit'
 alias en='nvim .env'
-alias zh="unzip_most_recent_here"
 alias vd="edit_most_recent"
 alias la='colorls -Al --sd'
 alias ls='colorls -A --sd'
@@ -241,6 +212,7 @@ alias nvr='nvr -s'
 alias npm='pnpm'
 
 alias dev='pnpm run dev'
+alias start='pnpm start'
 alias lint='pnpm run lint'
 alias pret='pnpm prettier --write .'
 alias studio='pnpm run db:studio'
