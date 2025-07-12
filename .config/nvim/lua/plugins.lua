@@ -74,7 +74,28 @@ return {
 
   { "lukas-reineke/indent-blankline.nvim", event = "VeryLazy" },
 
-  { "lewis6991/gitsigns.nvim", event = "VeryLazy" },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
+    opts = {
+      signs = {
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
+      },
+      signs_staged = {
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
+      },
+    },
+  },
 
   {
     "Tyler-Barham/floating-help.nvim",
@@ -148,70 +169,17 @@ return {
     opts = { on_attach = function() end },
   },
 
+  { import = "nvchad.blink.lazyspec" },
+
   {
-    "hrsh7th/nvim-cmp",
-    event = "VeryLazy",
+    "Saghen/blink.cmp",
     opts = {
-      mapping = {
-        ["<Tab>"] = require("cmp").mapping.confirm {
-          behavior = require("cmp").ConfirmBehavior.Insert,
-          select = true,
-        },
-        ["<Up>"] = require("cmp").mapping.select_prev_item { behavior = require("cmp.types").cmp.SelectBehavior.Select },
-        ["<Down>"] = require("cmp").mapping.select_next_item {
-          behavior = require("cmp.types").cmp.SelectBehavior.Select,
-        },
-        ["<CR>"] = vim.NIL,
-      },
-      snippet = {
-        expand = function(args)
-          require("luasnip").lsp_expand(args.body)
-        end,
-      },
-      sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip", keyword_length = 2 },
-        { name = "buffer", keyword_length = 4 },
-        { name = "path" },
+      keymap = {
+        preset = "default",
+        ["<S-Tab>"] = false,
+        ["<Tab>"] = { "accept", "fallback" },
       },
     },
-
-    dependencies = {
-      "luckasRanarison/tailwind-tools.nvim",
-      "onsails/lspkind-nvim",
-      {
-        "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-      },
-      {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
-      },
-    },
-    config = function(_, opts)
-      local cmp = require "cmp"
-
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
-          {
-            name = "cmdline",
-            option = {
-              ignore_cmds = { "Man", "!" },
-            },
-          },
-        }),
-      })
-
-      cmp.setup(opts)
-    end,
   },
 
   {
@@ -309,7 +277,7 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "isort", "black" },
-        javascript = { "prettierd" },
+        -- javascript = { "prettierd" },
         typescript = { "prettierd" },
         yaml = { "prettierd" },
         json = { "prettierd" },
@@ -324,7 +292,7 @@ return {
         cuda = { "clang_format" },
         cs = { "clang_format" },
       },
-      format_on_save = { lsp_format = "fallback", timeout_ms = 500 },
+      format_on_save = { timeout_ms = 500 },
       formatters = {
         clang_format = { prepend_args = { "-style=file:/home/jack/.config/nvim/.clang-format" } },
       },

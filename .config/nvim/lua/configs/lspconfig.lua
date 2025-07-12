@@ -10,7 +10,6 @@ local servers = {
   "gopls",
   "jedi_language_server",
   "intelephense",
-  "gdscript",
   "csharp_ls",
   "ts_ls",
 }

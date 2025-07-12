@@ -28,9 +28,9 @@ noremap <leader>/ V:Commentary<CR>
 
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 
-Plug 'machakann/vim-highlightedyank'
-Plug 'tpope/vim-commentary'
-Plug 'easymotion/vim-easymotion'
+"Plug 'machakann/vim-highlightedyank'
+"Plug 'tpope/vim-commentary'
+"Plug 'easymotion/vim-easymotion'
 
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
