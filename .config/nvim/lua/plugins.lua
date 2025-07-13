@@ -8,61 +8,61 @@ return {
 
   {
     "yetone/avante.nvim",
-    cmd = { "AvanteAsk" },
+    event = "VeryLazy",
     version = false,
-    config = function(_, opts)
-      -- load avante tokenizers and templates
-      require("avante_lib").load()
-
-      require("avante").setup(opts)
-    end,
     opts = {
-      ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-      -- provider = "copilot",
       provider = "openai",
-      openai = {
-        endpoint = "https://openrouter.ai/api/v1",
-        model = "anthropic/claude-3.5-sonnet:beta",
-        api_key_name = "OPENROUTER_API_KEY_AVANTE",
-        temperature = 0.7,
-        max_tokens = 8192,
+      providers = {
+        claude = {
+          endpoint = "https://openrouter.ai/api/v1",
+          model = "anthropic/claude-opus-4",
+          timeout = 30000,
+          api_key_name = "OPENROUTER_API_KEY_AVANTE",
+          extra_request_body = {
+            temperature = 0.75,
+            max_tokens = 20480,
+          },
+        },
+        openai = {
+          endpoint = "https://api.openai.com/v1",
+          model = "gpt-4.1",
+          -- model = "o3",
+          timeout = 30000,
+          api_key_name = "OPENAI_API_KEY_AVANTE",
+          extra_request_body = {
+            temperature = 0.75,
+            max_tokens = 20480,
+          },
+        },
       },
       mappings = {
         ask = nil,
         edit = nil,
         refresh = nil,
       },
+      input = {
+        provider = "snacks",
+        provider_opts = {
+          -- Additional snacks.input options
+          title = "Avante Input",
+          icon = " ",
+        },
+      },
       hints = { enabled = false },
     },
     build = "make",
     dependencies = {
-      "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
+      --- The below dependencies are optional,
+      "echasnovski/mini.pick", -- for file_selector provider mini.pick
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "ibhagwan/fzf-lua", -- for file_selector provider fzf
+      "folke/snacks.nvim", -- for input provider snacks
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
       {
-        "zbirenbaum/copilot.lua",
-        cmd = { "Copilot", "Avante" },
-        opts = {
-          filetypes = {
-            ["*"] = false,
-          },
-        },
-      },
-      {
-        "HakonHarnes/img-clip.nvim",
-        opts = {
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
+        -- Make sure to set this up properly if you have lazy=true
         "MeanderingProgrammer/render-markdown.nvim",
         opts = {
           file_types = { "markdown", "Avante" },
@@ -173,11 +173,26 @@ return {
 
   {
     "Saghen/blink.cmp",
+    dependencies = {
+      "Kaiser-Yang/blink-cmp-avante",
+    },
     opts = {
       keymap = {
         preset = "default",
         ["<S-Tab>"] = false,
         ["<Tab>"] = { "accept", "fallback" },
+      },
+    },
+    sources = {
+      default = { "avante", "lsp", "path", "snippets", "buffer" },
+      providers = {
+        avante = {
+          module = "blink-cmp-avante",
+          name = "Avante",
+          opts = {
+            -- options for blink-cmp-avante
+          },
+        },
       },
     },
   },
@@ -200,8 +215,6 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
-    -- todo commit hardcode unnesecary once major bug introduced in main is fixed :)
-    commit = "0dd00bb6423b4c655e6a0f9dd2f5332167bb6d33",
     opts = {
       throttle = true,
       max_lines = 2,

@@ -617,6 +617,7 @@ map("n", "<leader>Dl", "<cmd>lua require'dap'.run_last()<CR>", { silent = true, 
 -- Group: Avante
 map("n", "<leader>sc", "<cmd>silent! AvanteClear<CR>", { desc = "Clear" })
 map("n", "<leader>sa", "<cmd>AvanteAsk<CR>", { desc = "Ask" })
+map("n", "<leader>se", "<cmd>AvanteEdit<CR>", { desc = "Edit" })
 
 -- Harpoon Mappings
 map("n", "<leader>a", function()
