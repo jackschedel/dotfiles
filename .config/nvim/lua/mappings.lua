@@ -615,12 +615,46 @@ map("n", "<leader>DD", "<cmd>lua require'dapui'.toggle()<CR>", { silent = true, 
 map("n", "<leader>Dl", "<cmd>lua require'dap'.run_last()<CR>", { silent = true, desc = "Run Last" })
 
 -- Group: Avante
-map("n", "<leader>sc", "<cmd>silent! AvanteClear<CR>", { desc = "Clear" })
-map("n", "<leader>sa", "<cmd>AvanteAsk<CR>", { desc = "Ask" })
-map("n", "<leader>se", "<cmd>AvanteEdit<CR>", { desc = "Edit" })
+map({ "n", "v" }, "<leader>sa", function()
+  require("avante.api").ask()
+end, { desc = "Ask" })
+map({ "n", "v" }, "<leader>sn", function()
+  require("avante.api").ask { new_chat = true }
+end, { desc = "Create new ask" })
+map("n", "<leader>sB", function()
+  require("avante.api").add_buffer_files()
+end, { desc = "Add all Open Buffers" })
+map("n", "<leader>s?", function()
+  require("avante.api").select_model()
+end, { desc = "Select model" })
+map("n", "<leader>sh", function()
+  require("avante.api").select_history()
+end, { desc = "Select history" })
+map("v", "<leader>se", function()
+  require("avante.api").edit()
+end, { desc = "Edit" })
+map("n", "<leader>sr", function()
+  require("avante.api").refresh()
+end, { desc = "Refresh" })
+map("n", "<leader>sf", function()
+  require("avante.api").focus()
+end, { desc = "Focus" })
+map("n", "<leader>sS", function()
+  require("avante.api").stop()
+end, { desc = "Stop" })
+map("n", "<leader>st", "<cmd>AvanteToggle<CR>", { desc = "Toggle" })
+map("n", "<leader>sh", "<cmd>AvanteToggleHint<CR>", { desc = "Toggle Hint" })
+map("n", "<leader>ss", "<cmd>AvanteToggleSuggestion<CR>", { desc = "Toggle suggestion" })
+map("n", "<leader>sR", function()
+  require("avante.repo_map").show()
+end, {
+  desc = "Display repo map",
+  noremap = true,
+  silent = true,
+})
 
 -- Harpoon Mappings
-map("n", "<leader>a", function()
+map({ "n", "v" }, "<leader>a", function()
   require("harpoon.mark").add_file()
 end)
 

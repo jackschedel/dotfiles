@@ -35,11 +35,6 @@ return {
           },
         },
       },
-      mappings = {
-        ask = nil,
-        edit = nil,
-        refresh = nil,
-      },
       input = {
         provider = "snacks",
         provider_opts = {
@@ -385,7 +380,7 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
-      require("nvchad.configs.lspconfig").defaults()
+      -- require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
     end,
   },
