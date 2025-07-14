@@ -20,6 +20,14 @@ config.window_padding = {
 	bottom = 4,
 }
 
+config.keys = {
+	{
+		key = "w",
+		mods = "CMD",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+}
+
 config.hide_tab_bar_if_only_one_tab = true
 
 config.check_for_updates = false

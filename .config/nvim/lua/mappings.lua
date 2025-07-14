@@ -1,8 +1,13 @@
+local HIDE_COMMON_BINDS = true
+
 local function map(mode, lhs, rhs, opts)
   opts = opts or {} -- Ensure opts is a table if not provided
   if opts.desc == nil then -- If desc is not provided
     opts.desc = "which_key_ignore" -- Set default desc value
+  elseif opts.hide_bind and HIDE_COMMON_BINDS then
+    opts.desc = "which_key_ignore"
   end
+  opts.hide_bind = nil
 
   vim.keymap.set(mode, lhs, rhs, opts)
 end
@@ -340,11 +345,12 @@ map("n", "<leader>lA", function()
 end, { desc = "Open all src files" })
 
 -- General mappings
+map({ "n", "v" }, "<leader>d", '"_d', { desc = "d (no copy)", hide_bind = true })
+
 -- Visual mode mappings
 map("v", ",", "<", { nowait = true })
 map("v", "<", ",", { nowait = true, noremap = true })
 map("v", "x", '"_d')
-map("v", "<leader>d", '"_d')
 map("v", "c", '"_c')
 map("v", "Y", "ygv", { desc = "Yank (keep selection)" })
 map("v", "<Tab>", ">llgv", { desc = "Indent line" })
@@ -362,13 +368,12 @@ map("v", "<leader>]", function()
   JumpContext(false)
 end, { desc = "Select Block (treesitter)" })
 
-map("v", "<leader>[", "okV%", { desc = "Select Matching Block" })
+map("v", "<leader>[", "okV%", { desc = "Select Block" })
 
 map("n", "x", '"_x')
 map("n", "r", '"_r')
 map("n", "X", '"_X')
 map("n", "C", '"_C')
-map("n", "<leader>d", '"_d')
 map("n", "{", function()
   vim.cmd "normal h"
   JumpContext(true)
@@ -382,7 +387,7 @@ end, { desc = "Context end", nowait = true })
 map("n", ",", "<", { nowait = true })
 map("n", "<", ",", { nowait = true, noremap = true })
 map("n", "<C-s>", "<cmd> noautocmd w <CR>", { desc = "Save file (no autocmd)" })
-map("n", "<leader>[", "$V%", { desc = "Select Matching Block" })
+map("n", "<leader>[", "$V%", { desc = "Select Block" })
 map("n", "<leader>]", function()
   JumpContext(true)
   vim.cmd "normal V"
@@ -495,15 +500,15 @@ map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = 
 
 map("n", "<leader>P", function()
   vim.cmd "normal ggVGP"
-end, { desc = "Paste entire buffer" })
+end, { desc = "Paste entire buffer", hide_bind = true })
 
 map("n", "<leader>v", function()
   vim.cmd "vnew"
-end)
+end, { desc = "Vertical Split", hide_bind = true })
 
 map("n", "<leader>h", function()
   vim.cmd "new"
-end)
+end, { desc = "Horizontal Split", hide_bind = true })
 
 map("n", "<leader>V", function()
   local cur_win = vim.api.nvim_get_current_win()
@@ -511,7 +516,7 @@ map("n", "<leader>V", function()
   vim.cmd "vsplit %"
   local new_win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_set_cursor(new_win, cur_pos)
-end)
+end, { desc = "Vertical Split (Current buffer)", hide_bind = true })
 
 map("n", "<leader>H", function()
   local cur_win = vim.api.nvim_get_current_win()
@@ -519,9 +524,9 @@ map("n", "<leader>H", function()
   vim.cmd "split %"
   local new_win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_set_cursor(new_win, cur_pos)
-end)
+end, { desc = "Horizontal Split (Current buffer)", hide_bind = true })
 
-map("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Explorer" })
+map("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Explorer", hide_bind = true })
 map("n", "<F3>", function()
   pcall(function()
     vim.cmd "w"
@@ -535,7 +540,7 @@ map("n", "<F3>", function()
 end, { desc = "Run Script" })
 
 map("n", "<F4>", function()
-  vim.cmd "silent ! explorer.exe ."
+  vim.cmd "silent ! open ."
 end, { desc = "Open Explorer Here" })
 
 map("n", "<F5>", function()
@@ -656,11 +661,11 @@ end, {
 -- Harpoon Mappings
 map({ "n", "v" }, "<leader>a", function()
   require("harpoon.mark").add_file()
-end)
+end, { desc = "Harpoon Add", hide_bind = true })
 
 map("n", "<leader>q", function()
   require("harpoon.ui").toggle_quick_menu()
-end)
+end, { desc = "Harpoon Menu", hide_bind = true })
 
 for i = 1, 6 do
   map("n", "<leader>" .. i, function()
@@ -699,9 +704,9 @@ end)
 
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "File Copy whole" })
 
-map("n", "<leader>/", "gcc", { desc = "Comment Toggle", remap = true })
+map("n", "<leader>/", "gcc", { desc = "Comment Toggle", hide_bind = true })
 
-map("v", "<leader>/", "gc", { desc = "Comment Toggle", remap = true })
+map("v", "<leader>/", "gc", { desc = "Comment Toggle", hide_bind = true })
 
 map("t", "<Esc>", function()
   if vim.bo.filetype == "lazygit" then
@@ -710,4 +715,9 @@ map("t", "<Esc>", function()
     vim.cmd "stopinsert"
   end
 end, { desc = "Terminal Escape terminal mode" })
-map({ "n" }, "<leader>t", "<cmd>ToggleTerm direction=float<CR>", { desc = "Terminal Toggle Floating term" })
+map(
+  { "n" },
+  "<leader>t",
+  "<cmd>ToggleTerm direction=float<CR>",
+  { desc = "Terminal Toggle Floating term", hide_bind = true }
+)

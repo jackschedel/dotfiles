@@ -129,7 +129,7 @@ return {
       wk.setup(opts)
       wk.add {
         { "<leader>f", group = "Find", icon = " " },
-        { "<leader>s", group = "Avante", icon = " " },
+        { "<leader>s", group = "Avante", icon = " ", mode = { "n", "v" } },
         { "<leader>C", group = "Settings", icon = " " },
         { "<leader>D", group = "Debug", icon = " " },
         { "<leader>g", group = "Git", icon = " " },
@@ -380,7 +380,8 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
-      -- require("nvchad.configs.lspconfig").defaults()
+      dofile(vim.g.base46_cache .. "lsp")
+      require("nvchad.lsp").diagnostic_config()
       require "configs.lspconfig"
     end,
   },
