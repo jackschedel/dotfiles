@@ -4,6 +4,105 @@ return {
     event = "VeryLazy",
   },
 
+  { "akinsho/toggleterm.nvim", opts = {}, cmd = { "ToggleTerm", "TermExec" } },
+
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    version = false,
+    opts = {
+      provider = "openai",
+      providers = {
+        claude = {
+          endpoint = "https://openrouter.ai/api/v1",
+          model = "anthropic/claude-opus-4",
+          timeout = 30000,
+          api_key_name = "OPENROUTER_API_KEY_AVANTE",
+          extra_request_body = {
+            temperature = 0.75,
+            max_tokens = 20480,
+          },
+        },
+        openai = {
+          endpoint = "https://api.openai.com/v1",
+          model = "gpt-4.1",
+          -- model = "o3",
+          timeout = 30000,
+          api_key_name = "OPENAI_API_KEY_AVANTE",
+          extra_request_body = {
+            temperature = 0.75,
+            max_tokens = 20480,
+          },
+        },
+      },
+      input = {
+        provider = "snacks",
+        provider_opts = {
+          -- Additional snacks.input options
+          title = "Avante Input",
+          icon = " ",
+        },
+      },
+      hints = { enabled = false },
+    },
+    build = "make",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "echasnovski/mini.pick", -- for file_selector provider mini.pick
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "ibhagwan/fzf-lua", -- for file_selector provider fzf
+      "folke/snacks.nvim", -- for input provider snacks
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+  },
+
+  { "lukas-reineke/indent-blankline.nvim", event = "VeryLazy" },
+
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
+    opts = {
+      signs = {
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
+      },
+      signs_staged = {
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
+      },
+    },
+  },
+
+  {
+    "Tyler-Barham/floating-help.nvim",
+    cmd = "FloatingHelp",
+    opts = {
+      width = 0.8, -- Whole numbers are columns/rows
+      height = 0.8, -- Decimals are a percentage of the editor
+      position = "C", -- NW,N,NW,W,C,E,SW,S,SE (C==center)
+      border = "rounded", -- rounded,double,single
+    },
+  },
+
   {
     "andymass/vim-matchup",
     event = "VeryLazy",
@@ -23,13 +122,21 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = { preset = "modern", icons = { rules = false } },
+    opts = { preset = "modern", icons = { rules = false, group = "" } },
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "whichkey")
       local wk = require "which-key"
       wk.setup(opts)
       wk.add {
+        { "<leader>f", group = "Find", icon = " " },
+        { "<leader>s", group = "Avante", icon = " ", mode = { "n", "v" } },
+        { "<leader>C", group = "Settings", icon = " " },
+        { "<leader>D", group = "Debug", icon = " " },
+        { "<leader>g", group = "Git", icon = " " },
+        { "<leader>l", group = "LSP", icon = " " },
+        { "<leader>lw", group = "Workspaces", icon = " " },
         {
+          -- Prevents which-key overwriting when opening `c` or `d` display
           mode = { "n" },
           { "c", '"_c' },
           { "ci", '"_ci' },
@@ -45,11 +152,6 @@ return {
     "mrcjkb/rustaceanvim",
     version = "^4",
     ft = { "rust" },
-    opts = {
-      server = {
-        on_attach = require("nvchad.configs.lspconfig").on_attach,
-      },
-    },
     config = function(_, opts)
       vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
@@ -62,78 +164,32 @@ return {
     opts = { on_attach = function() end },
   },
 
+  { import = "nvchad.blink.lazyspec" },
+
   {
-    "hrsh7th/nvim-cmp",
-    event = "VeryLazy",
+    "Saghen/blink.cmp",
+    dependencies = {
+      "Kaiser-Yang/blink-cmp-avante",
+    },
     opts = {
-      mapping = {
-        ["<Tab>"] = require("cmp").mapping.confirm {
-          behavior = require("cmp").ConfirmBehavior.Insert,
-          select = true,
-        },
-        ["<Up>"] = require("cmp").mapping.select_prev_item { behavior = require("cmp.types").cmp.SelectBehavior.Select },
-        ["<Down>"] = require("cmp").mapping.select_next_item {
-          behavior = require("cmp.types").cmp.SelectBehavior.Select,
-        },
-      },
-      snippet = {
-        expand = function(args)
-          require("luasnip").lsp_expand(args.body)
-        end,
-      },
-      sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip", keyword_length = 2 },
-        { name = "buffer", keyword_length = 3 },
-        { name = "path" },
+      keymap = {
+        preset = "default",
+        ["<S-Tab>"] = false,
+        ["<Tab>"] = { "accept", "fallback" },
       },
     },
-
-    dependencies = {
-      "luckasRanarison/tailwind-tools.nvim",
-      "onsails/lspkind-nvim",
-      {
-        "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-      },
-      {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
-      },
-    },
-    config = function(_, opts)
-      local cmp = require "cmp"
-
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
-          {
-            name = "cmdline",
-            option = {
-              ignore_cmds = { "Man", "!" },
-            },
+    sources = {
+      default = { "avante", "lsp", "path", "snippets", "buffer" },
+      providers = {
+        avante = {
+          module = "blink-cmp-avante",
+          name = "Avante",
+          opts = {
+            -- options for blink-cmp-avante
           },
-        }),
-      })
-
-      cmp.setup(opts)
-    end,
-  },
-
-  {
-    "nvim-pack/nvim-spectre",
-    opts = {},
-    dependencies = {
-      "nvim-lua/plenary.nvim",
+        },
+      },
     },
-    cmd = "Spectre",
   },
 
   {
@@ -164,7 +220,7 @@ return {
     init = function()
       vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
-          if not vim.tbl_contains({ "cs", "" }, vim.bo.ft) then
+          if not vim.tbl_contains({ "cs", "", "Avante", "AvanteInput" }, vim.bo.ft) then
             require("treesitter-context").setup()
           end
         end,
@@ -225,9 +281,30 @@ return {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
-    config = function()
-      require "configs.conform"
-    end,
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "isort", "black" },
+        -- javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        yaml = { "prettierd" },
+        json = { "prettierd" },
+        html = { "prettierd" },
+        typescriptreact = { "prettierd" },
+        javascriptreact = { "prettierd" },
+        jsonc = { "prettierd" },
+        rust = { "rustfmt" },
+        go = { "gofmt" },
+        c = { "clang_format" },
+        cpp = { "clang_format" },
+        cuda = { "clang_format" },
+        cs = { "clang_format" },
+      },
+      format_on_save = { timeout_ms = 500 },
+      formatters = {
+        clang_format = { prepend_args = { "-style=file:/home/jack/.config/nvim/.clang-format" } },
+      },
+    },
     init = function()
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
@@ -245,6 +322,7 @@ return {
   {
     "rcarriga/nvim-dap-ui",
     dependencies = {
+      { "nvim-neotest/nvim-nio" },
       {
         "mfussenegger/nvim-dap",
         config = function()
@@ -268,20 +346,8 @@ return {
           end
 
           -- Enabled:
-          -- require("configs.dap.settings.cpptools")
           require "configs.dap.codelldb"
           require "configs.dap.go"
-
-          -- Disabled:
-          -- require("configs.dap.settings.netcoredbg")
-          -- require("configs.dap.settings.godot")
-          -- require("configs.dap.settings.bash-debug-adapter")
-          -- require("configs.dap.settings.chrome-debug-adapter")
-          -- require("configs.dap.settings.firefox-debug-adapter")
-          -- require("configs.dap.settings.java-debug")
-          -- require("configs.dap.settings.node-debug2")
-          -- require("configs.dap.settings.debugpy")
-          -- require("configs.dap.settings.js-debug")
         end,
       },
     },
@@ -312,35 +378,12 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     config = function()
-      require("nvchad.configs.lspconfig").defaults()
+      dofile(vim.g.base46_cache .. "lsp")
+      require("nvchad.lsp").diagnostic_config()
       require "configs.lspconfig"
     end,
-  },
-
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "lua-language-server",
-        "stylua",
-        "css-lsp",
-        "html-lsp",
-        "isort",
-        "black",
-        "typescript-language-server",
-        "deno",
-        "prettierd",
-        "clangd",
-        "clang-format",
-        "rust-analyzer",
-        "omnisharp",
-        "gopls",
-        "intelephense",
-        "jedi-language-server",
-        "tailwindcss-language-server",
-      },
-    },
   },
 
   {
@@ -365,6 +408,7 @@ return {
         "godot_resource",
         "c_sharp",
         "prisma",
+        "pony",
       },
       indent = {
         enable = true,
@@ -380,12 +424,6 @@ return {
     opts = { view_options = { show_hidden = true } },
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-
-  {
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
-    opts = {},
   },
 
   {

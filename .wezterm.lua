@@ -11,7 +11,7 @@ end
 
 config.font = wezterm.font("JetBrainsMono Nerd Font")
 
-config.font_size = 15
+config.font_size = 16
 
 config.window_padding = {
 	left = 4,
@@ -20,13 +20,21 @@ config.window_padding = {
 	bottom = 4,
 }
 
+config.keys = {
+	{
+		key = "w",
+		mods = "CMD",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+}
+
 config.hide_tab_bar_if_only_one_tab = true
 
 config.check_for_updates = false
 
 config.color_scheme = "Gruvbox dark, medium (base16)"
 
-config.window_background_opacity = 0.65
+config.window_background_opacity = 1.0
 
 config.window_decorations = "RESIZE"
 

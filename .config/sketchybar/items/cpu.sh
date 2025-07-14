@@ -7,6 +7,7 @@ cpu_top=(
   width=0
   padding_right=15
   y_offset=6
+  click_script="open -a 'Activity Monitor'"
 )
 
 cpu_percent=(
@@ -16,8 +17,9 @@ cpu_percent=(
   padding_right=15
   width=55
   icon.drawing=off
-  update_freq=4
+  update_freq=5
   mach_helper="$HELPER"
+  click_script="open -a 'Activity Monitor'"
 )
 
 cpu_sys=(
@@ -29,6 +31,7 @@ cpu_sys=(
   background.height=30
   background.drawing=on
   background.color=$TRANSPARENT
+  click_script="open -a 'Activity Monitor'"
 )
 
 cpu_user=(
@@ -38,6 +41,7 @@ cpu_user=(
   background.height=30
   background.drawing=on
   background.color=$TRANSPARENT
+  click_script="open -a 'Activity Monitor'"
 )
 
 sketchybar --add item cpu.top right              \

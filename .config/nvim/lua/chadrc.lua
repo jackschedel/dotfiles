@@ -1,18 +1,22 @@
 -- This file  needs to have same structure as nvconfig.lua
--- https://github.com/NvChad/NvChad/blob/v2.5/lua/nvconfig.lua
+-- https://github.com/NvChad/ui/blob/v3.0/lua/nvconfig.lua
 
 ---@type ChadrcConfig
 local M = {}
 
-M.ui = {
+M.base46 = {
   theme = "gruvbox",
+  transparency = true,
+  hl_override = { IblChar = { fg = "#565b5d" }, IblScopeChar = { fg = "#7a8285" } },
+}
+
+M.ui = {
   lsp_semantic_tokens = true,
   extended_integrations = { "dap", "bufferline" },
   telescope = { style = "bordered" },
   tabufline = {
     enabled = false,
   },
-  transparency = true,
   statusline = {
     theme = "minimal",
     separator_style = "round",

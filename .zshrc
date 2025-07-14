@@ -1,3 +1,6 @@
+# Bar cursor
+echo -ne '\e[6 q'
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -10,25 +13,22 @@ export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:/snap/bin
 export PATH=$PATH:/usr/local/go/bin
-export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
-export PATH=/home/linuxbrew/.linuxbrew/sbin:$PATH
-export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/node@16/bin
+export PATH=/opt/homebrew/bin:$PATH
+export PATH=/opt/homebrew/sbin:$PATH
+export PATH=$PATH:/opt/homebrew/opt/node@16/bin
 export PATH=$PATH:$HOME/.local/lib/python3.11/site-packages
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.local/share/gem/ruby/3.2.0/bin
 export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
-export PATH=$PATH:$HOME/.dotnet
-export PATH=$PATH:$HOME/.dotnet/tools
-
-
+export PATH=$PATH:/opt/homebrew/anaconda3/bin
+export PATH=$PATH:/Applications/WezTerm.app/Contents/MacOS
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Misc env variables
 export HOMEBREW_NO_ENV_HINTS=1
-export DOTNET_ROOT=$HOME/.dotnet
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -126,55 +126,10 @@ export HISTORY_EXCLUDE_PATTERN="^cd*|$HISTORY_EXCLUDE_PATTERN"
 
 unzippable_types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
 
-unzip_most_recent_here() {
-  for type in "${unzippable_types[@]}"; do
-    file=$(\ls -t /Users/jack/Downloads/*.$type 2> /dev/null | head -n1)
-    if [[ -n "$file" ]]; then
-      echo "Unzipping $file"
-      case $type in
-        "zip")
-          unzip "$file" -d ./
-          ;;
-        "tar.gz")
-          tar -zxvf "$file" -C ./
-          ;;
-        "tar.bz2")
-          tar -jxvf "$file" -C ./
-          ;;
-        "tar.xz")
-          tar -Jxvf "$file" -C ./
-          ;;
-        "jar")
-          jar -xf "$file"
-          ;;
-      esac
-      return
-    fi
-  done
-  echo "No unzippable files found."
-}
-
-_dotnet_zsh_complete()
-{
-  local completions=("$(dotnet complete "$words")")
-
-  # If the completion list is empty, just continue with filename selection
-  if [ -z "$completions" ]
-  then
-    _arguments '*::arguments: _normal'
-    return
-  fi
-
-  # This is not a variable assignment, don't remove spaces!
-  _values = "${(ps:\n:)completions}"
-}
-
-compdef _dotnet_zsh_complete dotnet
-
 nvm_init() {
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 }
 
 unzip_most_recent_new_folder() {
@@ -216,8 +171,8 @@ unzip_most_recent_new_folder() {
 move_most_recent() {
   file=$(\ls -t /Users/jack/Downloads/* 2> /dev/null | head -n1)
   if [[ -n "$file" ]]; then
-    echo "Copying $file"
-    cp $file ./
+    echo "Moving $file"
+    mv $file ./
   else
     echo "No files found."
   fi
@@ -248,35 +203,35 @@ alias n='nvm_init'
 
 alias lg='lazygit'
 alias en='nvim .env'
-alias zh="unzip_most_recent_here"
 alias vd="edit_most_recent"
 alias la='colorls -Al --sd'
 alias ls='colorls -A --sd'
 alias ld='colorls -At --gs --sd'
 alias lf='colorls -t --tree --sd'
 alias nvr='nvr -s'
-alias ase='open /Users/jack/reps/aseprite/build/bin/aseprite.app'
+
+alias npm='pnpm'
 
 alias dev='pnpm run dev'
+alias start='pnpm start'
 alias lint='pnpm run lint'
-alias yarn='pnpm'
 alias pret='pnpm prettier --write .'
 alias studio='pnpm run db:studio'
-
-alias fuck='sudo $(fc -ln -1)'
 
 alias python='python3'
 alias pip='pip3'
 
 alias zshrc='nvim ~/.zshrc && source ~/.zshrc'
-alias nvconf='nvim ~/.config/nvim/lua/'
+alias nvconf='cd ~/.config/nvim/lua/ && nvim ./mappings.lua'
+alias n='nvconf'
 alias sketch='cd ~/.config/sketchybar/ && nvim ./sketchybarrc'
 alias ahk='nvim ~/.config/skhd/skhdrc && skhd --restart-service'
-alias wez='nvim /mnt/c/Users/t-jschedel/.wezterm.lua'
+alias wez='nvim ~/.wezterm.lua'
 alias tmuxrc='cd ~/.config/tmux/ && nvim ./tmux.conf'
-alias lcw='cd /mnt/c/Users/t-jschedel/reps/AD-LCM'
 alias yabairc='nvim ~/.config/yabai/yabairc && yabai --restart-service'
-alias open='explorer.exe'
+
+alias brew86=/usr/local/bin/brew
+alias wine='wine64'
 
 alias np='i=1; while [[ -e ~/.notepads/notepad$i.txt || -e ~/.local/state/nvim/swap//%tmp%notepad$i.txt.swp ]]; do ((i++)); if [ $i -gt 99999 ]; then echo "Cannot create new file. Cleanup ~/.notepads directory or nvim swap directory."; return 1; fi; done; nvim ~/.notepads/notepad$i.txt'
 
@@ -296,7 +251,5 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval "$(zoxide init zsh --cmd cd)"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

@@ -13,6 +13,15 @@ yabai -m signal --add event=space_created action="sleep 10 && sketchybar --trigg
 yabai -m signal --add event=space_destroyed action="sleep 30 && sketchybar --trigger space_change --trigger windows_on_spaces"
 yabai -m signal --add event=space_changed action="sleep 30 && sketchybar --trigger space_change --trigger windows_on_spaces"
 
+# Quickly switch to other space to prevent Brave vertical tabs glitch
+yabai -m signal --add event=window_created \
+    action="CURRENT_SPACE=\$(yabai -m query --spaces --space | jq '.index'); \
+            DISPLAY=\$(yabai -m query --displays --display | jq '.index'); \
+            TARGET_SPACE=\$((CURRENT_SPACE == 9+9*(\$DISPLAY-1) ? 8+9*(\$DISPLAY-1) : 9+9*(\$DISPLAY-1))); \
+            yabai -m space --focus \$TARGET_SPACE; \
+            yabai -m space --focus \$CURRENT_SPACE &> /dev/null" \
+    app="^Brave Browser$"
+
 $HOME/.config/yabai/create_spaces.sh
 
 yabai -m config external_bar               all:43:0     \
@@ -48,12 +57,13 @@ yabai -m config external_bar               all:43:0     \
                 window_gap                 5 
 
 # Exclude problematic apps from being managed:
-yabai -m rule --add app="^(Vimac|Calculator|Software Update|Dictionary|System Preferences|System Settings|Archive Utility|App Store|Activity Monitor|Preview|gui)$" manage=off
+yabai -m rule --add app="^(Vimac|Calculator|Software Update|Dictionary|System Preferences|System Settings|Archive Utility|App Store|Activity Monitor|Preview|gui|Civilization VI)$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
 yabai -m rule --add title="Settings" manage=off
+yabai -m rule --add title="Open" manage=off
 
 # Float popups, manage main window only (needs 2 rules since regex negate doesn't work)
 yabai -m rule --add app="^Godot$" manage=off
@@ -70,8 +80,7 @@ yabai -m rule --add app="^zoom.us$" title="^(Zoom Meeting)$" manage=on
 yabai -m rule --add app="^Steam Helper$" manage=off
 yabai -m rule --add app="^Steam Helper$" title="^(Steam)$" manage=on
 
-
-
+# yabai -m rule --add app="^wine64-preloader$" manage=off
 
 yabai -m config layout bsp
 

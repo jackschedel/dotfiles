@@ -5,7 +5,7 @@ battery=(
   icon.font="$FONT:Regular:19.0"
   padding_right=5
   padding_left=0
-  update_freq=120
+  update_freq=10
   updates=on
 )
 
