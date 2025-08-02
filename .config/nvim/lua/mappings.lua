@@ -267,6 +267,9 @@ map("n", "<leader>lE", function()
   require("telescope.builtin").diagnostics()
 end, { desc = "Diagnostics in file" })
 map("n", "<leader>ls", "<cmd> silent! LspStop <CR>", { desc = "Stop LSP" })
+map("n", "<leader>ld", function()
+  vim.lsp.enable "eslint"
+end, { desc = "Enable ESLint LSP" })
 map("n", "<leader>la", function()
   local current_ft = vim.bo.filetype
   if current_ft == "rust" then
