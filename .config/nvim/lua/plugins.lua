@@ -177,6 +177,7 @@ return {
         ["<S-Tab>"] = false,
         ["<Tab>"] = { "accept", "fallback" },
       },
+      fuzzy = { implementation = "lua" },
     },
     sources = {
       default = { "avante", "lsp", "path", "snippets", "buffer" },

@@ -9,6 +9,7 @@ local servers = {
   "lua_ls",
   "clangd",
   "omnisharp",
+  "tailwindcss",
 }
 
 vim.lsp.config("omnisharp", {
