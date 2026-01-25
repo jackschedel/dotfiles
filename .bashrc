@@ -119,3 +119,4 @@ alias lg='lazygit'
 # export TERM="xterm-256color"
 alias fuck='sudo "$BASH" -c "$(history -p !!)"'
 . "$HOME/.cargo/env"
+export PATH="$HOME/.diversion/bin:$PATH"

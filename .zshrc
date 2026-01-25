@@ -253,3 +253,4 @@ fi
 #source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval "$(zoxide init zsh --cmd cd)"
+export PATH="$HOME/.diversion/bin:$PATH"
