@@ -30,6 +30,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # Misc env variables
 export HOMEBREW_NO_ENV_HINTS=1
 
+export CLAUDE_CODE_MAX_OUTPUT_TOKENS=48000
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -126,11 +128,9 @@ export HISTORY_EXCLUDE_PATTERN="^cd*|$HISTORY_EXCLUDE_PATTERN"
 
 unzippable_types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
 
-nvm_init() {
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-}
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 unzip_most_recent_new_folder() {
   for type in "${unzippable_types[@]}"; do
@@ -199,7 +199,6 @@ alias q='exit'
 alias j='if [ -f package.json ]; then nvim package.json; else if [ -f ../package.json ]; then nvim ../package.json; else if [ -f ../../package.json ]; then nvim ../../package.json; else if [ -f ../../../package.json ]; then nvim ../../../package.json; else if [ -f ../../../../package.json ]; then nvim ../../../../package.json; else echo "No package.json found"; fi; fi; fi; fi; fi'
 alias z="unzip_most_recent_new_folder"
 alias m="move_most_recent"
-alias n='nvm_init'
 
 alias lg='lazygit'
 alias en='nvim .env'
@@ -213,7 +212,6 @@ alias nvr='nvr -s'
 alias npm='pnpm'
 
 alias dev='pnpm run dev'
-alias start='pnpm start'
 alias lint='pnpm run lint'
 alias pret='pnpm prettier --write .'
 alias studio='pnpm run db:studio'

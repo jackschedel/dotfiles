@@ -67,7 +67,7 @@ return {
     },
   },
 
-  { "lukas-reineke/indent-blankline.nvim", event = "VeryLazy" },
+  -- { "lukas-reineke/indent-blankline.nvim", event = "VeryLazy" },
 
   {
     "lewis6991/gitsigns.nvim",

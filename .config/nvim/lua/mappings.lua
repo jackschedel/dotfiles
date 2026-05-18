@@ -724,3 +724,5 @@ map(
   "<cmd>ToggleTerm direction=float<CR>",
   { desc = "Terminal Toggle Floating term", hide_bind = true }
 )
+
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
