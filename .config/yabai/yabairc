@@ -4,7 +4,18 @@ sudo yabai --load-sa
 # Unload the macOS WindowManager process
 launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist > /dev/null 2>&1 &
 
-yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+# Un-zoom any window that still has parent-zoom when focus moves away from it,
+# then trigger sketchybar. This makes the previously-zoomed window reflow back
+# into its tiled slot after you Cmd-Tab to another window.
+yabai -m signal --add event=window_focused action='
+  for wid in $(yabai -m query --windows --space | jq -r ".[] | select(.\"has-parent-zoom\" == true) | .id"); do
+    if [ "$wid" != "$YABAI_WINDOW_ID" ]; then
+      yabai -m window "$wid" --toggle zoom-parent
+    fi
+  done
+  sketchybar --trigger window_focus
+'
+
 yabai -m signal --add event=display_added action="sleep 2 && $HOME/.config/yabai/create_spaces.sh"
 yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yabai/create_spaces.sh"
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
