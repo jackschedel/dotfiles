@@ -9,6 +9,7 @@
 !.p10k.zsh
 !.wezterm.lua
 !.ideavimrc
+!vs-nvim.lua
 
 !.config/
 .config/*
