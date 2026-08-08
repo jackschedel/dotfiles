@@ -1,12 +1,14 @@
 #!/bin/bash
 
 cpu_top=(
-  label.font="$FONT:Semibold:7"
+  label.font="$FONT:Semibold:10"
   label=CPU
+  label.max_chars=24
   icon.drawing=off
+  scroll_texts=off
   width=0
   padding_right=15
-  y_offset=6
+  y_offset=8
   click_script="open -a 'Activity Monitor'"
 )
 

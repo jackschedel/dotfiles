@@ -126,11 +126,11 @@ export HISTORY_EXCLUDE_PATTERN="^cd*|$HISTORY_EXCLUDE_PATTERN"
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-unzippable_types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+unzippable_types=("zip" "tar.gz" "tar.bz2" "tar.xz" "jar")
 
 unzip_most_recent_new_folder() {
   for type in "${unzippable_types[@]}"; do
@@ -195,7 +195,6 @@ alias f='open .'
 alias t='tmux'
 alias c='clear'
 alias e='exit'
-alias q='exit'
 alias j='if [ -f package.json ]; then nvim package.json; else if [ -f ../package.json ]; then nvim ../package.json; else if [ -f ../../package.json ]; then nvim ../../package.json; else if [ -f ../../../package.json ]; then nvim ../../../package.json; else if [ -f ../../../../package.json ]; then nvim ../../../../package.json; else echo "No package.json found"; fi; fi; fi; fi; fi'
 alias z="unzip_most_recent_new_folder"
 alias m="move_most_recent"
