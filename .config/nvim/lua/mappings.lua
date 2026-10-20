@@ -137,11 +137,18 @@ local function exec_code_run(termargs)
     else
       local current_ft = vim.bo.filetype
       if current_ft == "rust" then
-        vim.cmd.RustLsp { "runnables", bang = true }
+        local manifest = vim.fs.find("Cargo.toml", { path = vim.fn.expand "%:p:h", upward = true, type = "file" })[1]
+        if not manifest then
+          vim.notify("No Cargo.toml found for the current Rust file.", vim.log.levels.ERROR)
+          return
+        end
+        local root = vim.fn.fnamemodify(manifest, ":p:h")
+        local direction = termargs:match "direction=([^%s]+)"
+        local size = tonumber(termargs:match "size=(%d+)")
+        require("toggleterm").exec("cd " .. vim.fn.shellescape(root) .. " && cargo run", nil, size, nil, direction)
       elseif current_ft == "go" then
-        local current_file = vim.fn.expand "%:p"
-        local relative_path = vim.fn.fnamemodify(current_file, ":.:.")
-        vim.cmd('TermExec cmd="go run ' .. relative_path .. '" ' .. termargs)
+        vim.cmd('TermExec cmd="go run ."' .. termargs)
+        -- vim.cmd('TermExec cmd="go run ' .. relative_path .. '" ' .. termargs)
       else
         vim.print "Saved. No run configs supported for the current directory or filetype."
       end
@@ -551,7 +558,7 @@ map("n", "<F5>", function()
 end, { desc = "Run Script" })
 
 map("n", "<S-F5>", function()
-  exec_code_run "direction=vertical size=80"
+  exec_code_run "direction=vertical size=60"
 end, { desc = "Run Script" })
 
 map("n", "<F6>", function()
@@ -718,10 +725,18 @@ map("t", "<Esc>", function()
     vim.cmd "stopinsert"
   end
 end, { desc = "Terminal Escape terminal mode" })
+
 map(
   { "n" },
   "<leader>t",
   "<cmd>ToggleTerm direction=float<CR>",
+  { desc = "Terminal Toggle Floating term", hide_bind = true }
+)
+
+map(
+  { "n" },
+  "<leader>T",
+  "<cmd>ToggleTerm direction=vertical size=60<CR>",
   { desc = "Terminal Toggle Floating term", hide_bind = true }
 )
 

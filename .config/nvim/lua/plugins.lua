@@ -11,28 +11,10 @@ return {
     event = "VeryLazy",
     version = false,
     opts = {
-      provider = "openai",
+      provider = "copilot",
       providers = {
-        claude = {
-          endpoint = "https://openrouter.ai/api/v1",
-          model = "anthropic/claude-opus-4",
-          timeout = 30000,
-          api_key_name = "OPENROUTER_API_KEY_AVANTE",
-          extra_request_body = {
-            temperature = 0.75,
-            max_tokens = 20480,
-          },
-        },
-        openai = {
-          endpoint = "https://api.openai.com/v1",
-          model = "gpt-4.1",
-          -- model = "o3",
-          timeout = 30000,
-          api_key_name = "OPENAI_API_KEY_AVANTE",
-          extra_request_body = {
-            temperature = 0.75,
-            max_tokens = 20480,
-          },
+        copilot = {
+          model = "gpt-6.1-sol",
         },
       },
       input = {
@@ -43,19 +25,27 @@ return {
           icon = " ",
         },
       },
-      hints = { enabled = false },
+      selection = { hint_display = "none" },
     },
     build = "make",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
+      { "ColinKennedy/mega.cmdparse", dependencies = { "ColinKennedy/mega.logging" } },
       --- The below dependencies are optional,
       "echasnovski/mini.pick", -- for file_selector provider mini.pick
       "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
       "ibhagwan/fzf-lua", -- for file_selector provider fzf
       "folke/snacks.nvim", -- for input provider snacks
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      {
+        "github/copilot.vim",
+        version = "v1.54.0", -- Avante requires legacy JSON credentials, not auth.db.
+        init = function()
+          vim.g.copilot_filetypes = { ["*"] = false }
+          vim.g.copilot_no_maps = true
+        end,
+      },
       {
         -- Make sure to set this up properly if you have lazy=true
         "MeanderingProgrammer/render-markdown.nvim",
@@ -150,8 +140,8 @@ return {
 
   {
     "mrcjkb/rustaceanvim",
-    version = "^4",
-    ft = { "rust" },
+    version = "^9",
+    lazy = false,
     config = function(_, opts)
       vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
@@ -303,7 +293,7 @@ return {
   },
 
   {
-    "ggandor/leap.nvim",
+    url = "https://codeberg.org/andyg/leap.nvim",
     event = "VeryLazy",
     dependencies = { { "tpope/vim-repeat" } },
     config = function()
