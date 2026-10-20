@@ -4,7 +4,20 @@ return {
     event = "VeryLazy",
   },
 
-  { "akinsho/toggleterm.nvim", opts = {}, cmd = { "ToggleTerm", "TermExec" } },
+  {
+    "akinsho/toggleterm.nvim",
+    opts = {
+      on_create = function(term)
+        -- Keep queued input without the PTY echoing it before zsh's line editor starts.
+        local pty = assert(vim.api.nvim_get_chan_info(term.job_id).pty, "ToggleTerm PTY unavailable")
+        local output = vim.fn.system { "stty", vim.fn.has "macunix" == 1 and "-f" or "-F", pty, "-echo" }
+        if vim.v.shell_error ~= 0 then
+          vim.notify("Failed to disable ToggleTerm startup echo: " .. output, vim.log.levels.ERROR)
+        end
+      end,
+    },
+    cmd = { "ToggleTerm", "TermExec" },
+  },
 
   {
     "yetone/avante.nvim",
