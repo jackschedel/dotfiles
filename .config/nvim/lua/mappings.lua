@@ -702,8 +702,12 @@ map("n", "<Esc>", function()
     or vim.bo.filetype == "oil" -- Oil
   then
     vim.cmd "q"
-  elseif vim.bo.buftype == "terminal" then -- NTERMINAL
-    -- Force close terminal on double-esc
+  elseif
+    vim.bo.buftype == "terminal"
+    and vim.bo.filetype == "toggleterm"
+    and vim.api.nvim_win_get_config(0).relative ~= ""
+  then
+    -- Force close floating ToggleTerm on double-esc
     -- First Esc to nterminal mode, second closes:
     vim.cmd "startinsert"
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-c><C-d>", true, true, true), "i", false)
