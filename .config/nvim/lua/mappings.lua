@@ -744,4 +744,7 @@ map(
   { desc = "Terminal Toggle Vertical term", hide_bind = true }
 )
 
+vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
+vim.keymap.set("n", "S", "<Plug>(leap-from-window)")
+
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
