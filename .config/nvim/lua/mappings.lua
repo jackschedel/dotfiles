@@ -733,15 +733,15 @@ end, { desc = "Terminal Escape terminal mode" })
 map(
   { "n" },
   "<leader>t",
-  "<cmd>ToggleTerm direction=float<CR>",
+  "<cmd>2ToggleTerm direction=float<CR>",
   { desc = "Terminal Toggle Floating term", hide_bind = true }
 )
 
 map(
   { "n" },
   "<leader>T",
-  "<cmd>ToggleTerm direction=vertical size=60<CR>",
-  { desc = "Terminal Toggle Floating term", hide_bind = true }
+  "<cmd>1ToggleTerm direction=vertical size=60<CR>",
+  { desc = "Terminal Toggle Vertical term", hide_bind = true }
 )
 
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
