@@ -370,12 +370,16 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     lazy = false,
+    build = ":TSUpdate",
     opts = {
       ensure_installed = {
         "vim",
         "vimdoc",
         "lua",
+        "luadoc",
+        "printf",
         "html",
         "css",
         "javascript",
@@ -392,13 +396,27 @@ return {
         "prisma",
         "pony",
       },
-      indent = {
-        enable = true,
-        disable = {
-          "python",
-        },
-      },
     },
+    config = function(_, opts)
+      local treesitter = require "nvim-treesitter"
+      treesitter.setup {}
+      treesitter.install(opts.ensure_installed)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("UserTreesitter", { clear = true }),
+        callback = function(args)
+          local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+          if not lang or #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0 then
+            return
+          end
+
+          vim.treesitter.start(args.buf, lang)
+          if vim.bo[args.buf].filetype ~= "python" and vim.treesitter.query.get(lang, "indents") then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
 
   {
